@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.biemme.smstomail"
+    namespace = "it.drhack.smstomail"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.biemme.smstomail"
+        applicationId = "it.drhack.smstomail"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

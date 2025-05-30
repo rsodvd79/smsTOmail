@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FilterActivity"
+            android:name="it.drhack.smstomail.FilterActivity"
             android:exported="true"
             android:label="Gestione Filtri"
             android:theme="@style/Theme.SmsTOmail" />
@@ -52,7 +52,7 @@
             </intent-filter>
         </receiver>
         <activity
-            android:name=".EmailConfigActivity"
+            android:name="it.drhack.smstomail.EmailConfigActivity"
             android:exported="false"
             android:label="Configurazione Email"
             android:theme="@style/Theme.SmsTOmail" />
