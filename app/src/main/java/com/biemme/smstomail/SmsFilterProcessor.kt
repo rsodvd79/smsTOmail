@@ -1,0 +1,33 @@
+package com.biemme.smstomail
+
+/**
+ * Classe che si occupa di verificare se un SMS corrisponde ai filtri configurati
+ */
+class SmsFilterProcessor(private val filters: List<Filter>) {
+
+    /**
+     * Verifica se un SMS deve essere elaborato in base ai filtri configurati.
+     * Se non ci sono filtri, tutti gli SMS vengono elaborati.
+     *
+     * @param sender Il numero del mittente dell'SMS
+     * @param message Il contenuto dell'SMS
+     * @return true se l'SMS deve essere elaborato, false altrimenti
+     */
+    fun shouldProcessSms(sender: String, message: String): Boolean {
+        if (filters.isEmpty()) {
+            // Se non ci sono filtri, elabora tutti gli SMS
+            return true
+        }
+
+        // Verifica se almeno un filtro corrisponde
+        return filters.any { filter ->
+            val senderMatch = filter.sender.isBlank() || sender.contains(filter.sender, ignoreCase = true)
+            val messageMatch = filter.keyword.isBlank() || message.contains(filter.keyword, ignoreCase = true)
+
+            when (filter.filterType) {
+                FilterType.INCLUDE -> senderMatch && messageMatch
+                FilterType.EXCLUDE -> !(senderMatch && messageMatch)
+            }
+        }
+    }
+}
