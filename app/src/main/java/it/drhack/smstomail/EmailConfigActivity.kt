@@ -15,6 +15,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
@@ -122,7 +123,7 @@ fun EmailConfigScreenContent(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Configurazione Email") },
+                title = { Text(stringResource(R.string.email_config_title)) },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -133,7 +134,7 @@ fun EmailConfigScreenContent(
                     }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Torna indietro"
+                            contentDescription = stringResource(R.string.back_button_description)
                         )
                     }
                 }
@@ -150,14 +151,14 @@ fun EmailConfigScreenContent(
             OutlinedTextField(
                 value = email,
                 onValueChange = onEmailChange,
-                label = { Text("Email mittente") },
+                label = { Text(stringResource(R.string.email_sender_label)) },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(Modifier.height(8.dp))
             OutlinedTextField(
                 value = password,
                 onValueChange = onPasswordChange,
-                label = { Text("Password") },
+                label = { Text(stringResource(R.string.password_label)) },
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(
@@ -174,18 +175,18 @@ fun EmailConfigScreenContent(
             ) {
                 Column(modifier = Modifier.padding(12.dp)) {
                     Text(
-                        "IMPORTANTE per account Gmail:",
+                        stringResource(R.string.gmail_warning_title),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Text(
-                        "Google richiede una 'Password specifica per app' e non la password standard del tuo account.",
+                        stringResource(R.string.gmail_warning_message),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        "Clicca qui per creare una password specifica per app",
+                        stringResource(R.string.gmail_create_app_password),
                         style = MaterialTheme.typography.bodySmall.copy(textDecoration = TextDecoration.Underline),
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier.clickable(onClick = onGoogleHelpClick)
@@ -197,7 +198,7 @@ fun EmailConfigScreenContent(
             OutlinedTextField(
                 value = destination,
                 onValueChange = onDestinationChange,
-                label = { Text("Email destinatario") },
+                label = { Text(stringResource(R.string.email_destination_label)) },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(Modifier.height(16.dp))
@@ -205,10 +206,10 @@ fun EmailConfigScreenContent(
                 onClick = onSaveClick,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Salva")
+                Text(stringResource(R.string.save_button))
             }
             if (saved) {
-                Text("Configurazione salvata!", color = MaterialTheme.colorScheme.primary)
+                Text(stringResource(R.string.config_saved_message), color = MaterialTheme.colorScheme.primary)
             }
         }
     }
