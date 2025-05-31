@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">smsTOmail</string>
+    <string name="permission_dialog_title">Permessi necessari</string>
+    <string name="permission_dialog_message">Questa app richiede alcuni permessi per funzionare correttamente. Per favore concedi i permessi richiesti dalle impostazioni.</string>
+    <string name="permission_dialog_settings_button">Impostazioni</string>
+    <string name="permission_dialog_exit_button">Esci</string>
+
+    <!-- Filter Activity -->
+    <string name="filter_screen_title">Gestione Filtri SMS</string>
+    <string name="back_button_description">Torna indietro</string>
+    <string name="sender_label">Mittente (opzionale):</string>
+    <string name="sender_placeholder">Inserisci il mittente da filtrare</string>
+    <string name="keyword_label">Parola chiave:</string>
+    <string name="keyword_placeholder">Inserisci la parola chiave da cercare</string>
+    <string name="include_filter">Includi</string>
+    <string name="exclude_filter">Escludi</string>
+    <string name="add_filter_button">Aggiungi Filtro</string>
+    <string name="active_filters_title">Filtri attivi:</string>
+    <string name="include_filter_indicator">👁️ Includi</string>
+    <string name="exclude_filter_indicator">❌ Escludi</string>
+    <string name="from_label">Da: %s</string>
+    <string name="contains_label">Contiene: %s</string>
+    <string name="delete_button_description">Elimina</string>
+
+    <!-- Email Config Activity -->
+    <string name="email_config_title">Configurazione Email</string>
+    <string name="email_sender_label">Email mittente</string>
+    <string name="password_label">Password</string>
+    <string name="gmail_warning_title">IMPORTANTE per account Gmail:</string>
+    <string name="gmail_warning_message">Google richiede una \'Password specifica per app\' e non la password standard del tuo account.</string>
+    <string name="gmail_create_app_password">Clicca qui per creare una password specifica per app</string>
+    <string name="email_destination_label">Email destinatario</string>
+    <string name="save_button">Salva</string>
+    <string name="config_saved_message">Configurazione salvata!</string>
 </resources>
+

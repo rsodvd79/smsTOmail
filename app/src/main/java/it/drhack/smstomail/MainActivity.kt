@@ -125,16 +125,16 @@ class MainActivity : FragmentActivity() {
     private fun showPermissionDialog() {
         val builder = AlertDialog.Builder(this)
         builder.apply {
-            setTitle("Permessi necessari")
-            setMessage("Questa app richiede alcuni permessi per funzionare correttamente. Per favore concedi i permessi richiesti dalle impostazioni.")
-            setPositiveButton("Impostazioni") { _, _ ->
+            setTitle(getString(R.string.permission_dialog_title))
+            setMessage(getString(R.string.permission_dialog_message))
+            setPositiveButton(getString(R.string.permission_dialog_settings_button)) { _, _ ->
                 // Apri le impostazioni dell'app
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 val uri = Uri.fromParts("package", packageName, null)
                 intent.data = uri
                 startActivity(intent)
             }
-            setNegativeButton("Esci") { _, _ ->
+            setNegativeButton(getString(R.string.permission_dialog_exit_button)) { _, _ ->
                 // Chiudi l'app
                 finish()
             }
