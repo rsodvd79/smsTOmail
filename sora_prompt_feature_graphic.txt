@@ -1,9 +1,9 @@
-Crea un'immagine in stile fotorealistico con risoluzione 1024 x 500 px che rappresenta l'app "SMS TO mail". L'immagine dovrebbe mostrare un telefono smartphone moderno a sinistra che visualizza un messaggio SMS in arrivo, e a destra un laptop o computer che mostra una casella email che riceve lo stesso messaggio.
+Crea un'immagine in stile fotorealistico con risoluzione 1024 x 500 px che rappresenta l'app "SMS to MAIL". L'immagine dovrebbe mostrare un telefono smartphone moderno a sinistra che visualizza un messaggio SMS in arrivo, e a destra un laptop o computer che mostra una casella email che riceve lo stesso messaggio.
 
 Tra i due dispositivi, visualizza una freccia o un'animazione fluida che rappresenti la trasmissione del messaggio dal telefono all'email, simboleggiando il concetto di inoltro automatico.
 
 Usa colori blu e verde in tonalità moderne e professionali. Aggiungi icone minimaliste che rappresentano le funzionalità principali: un simbolo di filtro, un'icona di sicurezza/privacy e un'icona di notifica.
 
-Lo sfondo dovrebbe essere pulito e minimalista, con un design leggero e professionale. Il testo "SMS TO mail" dovrebbe apparire in modo chiaro ma non dominante. Lo stile generale dovrebbe essere moderno, tecnologico e professionale, adatto a un'app di produttività.
+Lo sfondo dovrebbe essere pulito e minimalista, con un design leggero e professionale. Il testo "SMS to MAIL" dovrebbe apparire in modo chiaro ma non dominante. Lo stile generale dovrebbe essere moderno, tecnologico e professionale, adatto a un'app di produttività.
 
 L'immagine deve essere perfetta per una copertina di Google Play Store, quindi assicurati che sia ben bilanciata visivamente e leggibile anche a dimensioni ridotte.
