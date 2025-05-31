@@ -1,0 +1,9 @@
+Primo rilascio di SMS to Mail!
+
+• Inoltro automatico SMS a email
+• Sistema di filtri avanzato
+• Facile configurazione provider email
+• Avvio automatico al riavvio dispositivo
+• Ottimizzato per consumo batteria
+
+Grazie per aver scelto SMS to Mail!

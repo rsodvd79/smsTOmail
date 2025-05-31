@@ -13,8 +13,8 @@ android {
         applicationId = "it.drhack.smstomail"
         minSdk = 24
         targetSdk = 35
-        versionCode = 20250530
-        versionName = "2025.05.30"
+        versionCode = 20250531
+        versionName = "2025.05.31"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

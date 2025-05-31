@@ -28,6 +28,23 @@ class SmsBackgroundService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // Verifichiamo se il servizio è stato avviato dopo il riavvio del dispositivo
+        val isFromBootReceiver = intent?.getBooleanExtra("bootCompleted", false) ?: false
+
+        // Per Android 15 e superiori, gestire diversamente l'avvio dal boot
+        if (isFromBootReceiver && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            // Invece di avviare un servizio in primo piano dopo il boot,
+            // registriamo solo la capacità di ricevere SMS e terminiamo il servizio
+            // L'app risponderà ai nuovi SMS quando arriveranno attraverso SmsReceiver
+
+            // Qui potremmo anche schedulare un WorkManager per operazioni periodiche
+            // se necessario, ma non avviamo un servizio in primo piano
+
+            stopSelf()
+            return START_NOT_STICKY
+        }
+
+        // Procedura normale per l'elaborazione degli SMS
         val sender = intent?.getStringExtra("sender") ?: "Sconosciuto"
         val message = intent?.getStringExtra("message") ?: ""
 
