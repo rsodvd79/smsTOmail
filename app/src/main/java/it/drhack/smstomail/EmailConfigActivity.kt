@@ -39,6 +39,7 @@ class EmailConfigActivity : ComponentActivity() {
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var destination by remember { mutableStateOf("") }
+        var maxSmsToKeep by remember { mutableStateOf("100") } // Nuovo campo per il numero massimo di messaggi
         val scope = rememberCoroutineScope()
         var saved by remember { mutableStateOf(false) }
 
@@ -48,6 +49,7 @@ class EmailConfigActivity : ComponentActivity() {
                 email = it.email
                 password = it.password
                 destination = it.destination
+                maxSmsToKeep = it.maxSmsToKeep.toString()
             }
         }
 
@@ -55,13 +57,21 @@ class EmailConfigActivity : ComponentActivity() {
             email = email,
             password = password,
             destination = destination,
+            maxSmsToKeep = maxSmsToKeep,
             saved = saved,
             onEmailChange = { email = it },
             onPasswordChange = { password = it },
             onDestinationChange = { destination = it },
+            onMaxSmsToKeepChange = { newValue ->
+                // Accetta solo valori numerici positivi
+                if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                    maxSmsToKeep = newValue
+                }
+            },
             onSaveClick = {
                 scope.launch {
-                    val config = EmailConfig(0, email, password, destination)
+                    val maxSms = maxSmsToKeep.toIntOrNull() ?: 100
+                    val config = EmailConfig(0, email, password, destination, maxSms)
                     if (db.emailConfigDao().getConfig() == null) {
                         db.emailConfigDao().insertConfig(config)
                     } else {
@@ -93,10 +103,12 @@ fun EmailConfigScreenPreview() {
                 email = "esempio@gmail.com",
                 password = "password123",
                 destination = "destinatario@email.com",
+                maxSmsToKeep = "100",
                 saved = false,
                 onEmailChange = {},
                 onPasswordChange = {},
                 onDestinationChange = {},
+                onMaxSmsToKeepChange = {},
                 onSaveClick = {},
                 onGoogleHelpClick = {}
             )
@@ -110,10 +122,12 @@ fun EmailConfigScreenContent(
     email: String,
     password: String,
     destination: String,
+    maxSmsToKeep: String,
     saved: Boolean,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onDestinationChange: (String) -> Unit,
+    onMaxSmsToKeepChange: (String) -> Unit,
     onSaveClick: () -> Unit,
     onGoogleHelpClick: () -> Unit
 ) {
@@ -200,6 +214,16 @@ fun EmailConfigScreenContent(
                 onValueChange = onDestinationChange,
                 label = { Text(stringResource(R.string.email_destination_label)) },
                 modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(Modifier.height(8.dp))
+            OutlinedTextField(
+                value = maxSmsToKeep,
+                onValueChange = onMaxSmsToKeepChange,
+                label = { Text(stringResource(R.string.max_sms_to_keep_label)) },
+                modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number
+                )
             )
             Spacer(Modifier.height(16.dp))
             Button(

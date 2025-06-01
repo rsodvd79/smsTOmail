@@ -30,6 +30,7 @@
     <string name="gmail_warning_message">Google richiede una \'Password specifica per app\' e non la password standard del tuo account.</string>
     <string name="gmail_create_app_password">Clicca qui per creare una password specifica per app</string>
     <string name="email_destination_label">Email destinatario</string>
+    <string name="max_sms_to_keep_label">Numero massimo di messaggi da conservare</string>
     <string name="save_button">Salva</string>
     <string name="config_saved_message">Configurazione salvata!</string>
 </resources>

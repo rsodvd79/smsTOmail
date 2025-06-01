@@ -8,5 +8,7 @@ data class EmailConfig(
     @PrimaryKey val id: Int = 0,
     val email: String,
     val password: String,
-    val destination: String
+    val destination: String,
+    val maxSmsToKeep: Int = 100  // Valore predefinito: 100 messaggi
 )
+

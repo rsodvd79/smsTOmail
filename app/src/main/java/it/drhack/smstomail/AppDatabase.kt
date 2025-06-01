@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Filter::class, EmailConfig::class, SmsLogEntry::class], version = 4)
+@Database(entities = [Filter::class, EmailConfig::class, SmsLogEntry::class], version = 5)
 @TypeConverters(FilterTypeConverter::class, DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun filterDao(): FilterDao
@@ -62,6 +62,16 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        // Migrazione dalla versione 4 alla 5
+        private val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // Aggiungi il campo maxSmsToKeep alla tabella email_config
+                database.execSQL(
+                    "ALTER TABLE email_config ADD COLUMN maxSmsToKeep INTEGER NOT NULL DEFAULT 100"
+                )
+            }
+        }
+
         fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -69,7 +79,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "filters_db"
                 )
-                .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
+                .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                 .build()
                 INSTANCE = instance
                 instance
