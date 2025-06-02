@@ -63,6 +63,15 @@ class MainActivity : FragmentActivity() {
         arrayOf(android.Manifest.permission.FOREGROUND_SERVICE)
     }
 
+    // ActivityResultLauncher per gestire il ritorno da EmailConfigActivity
+    private val emailConfigLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        // Aggiornare la UI dopo il ritorno da EmailConfigActivity
+        //initializeApp(skipEmailConfigCheck = true)
+        recreate()
+    }
+
     // Registrazione per la richiesta dei permessi
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -157,16 +166,21 @@ class MainActivity : FragmentActivity() {
                 if (config == null) {
                     Log.d("MainActivity", "Nessuna configurazione trovata, avvio EmailConfigActivity")
                     val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    emailConfigLauncher.launch(intent)
                 } else {
                     // La configurazione esiste, mostra la schermata principale
-                    Log.d("MainActivity", "Configurazione trovata, mostra la schermata principale")
+                    Log.d("MainActivity", "Configurazione trovata o appena impostata, mostra la schermata principale")
+
                     emailConfig = config
 
                     // Carica i log degli SMS
-                    db.smsLogDao().getAllLogs().collectLatest { logs ->
-                        smsLogEntries = logs
+                    try {
+                        db.smsLogDao().getAllLogs().collectLatest { logs ->
+                            smsLogEntries = logs
+                        }
+                    } catch (e: Exception) {
+                        Log.e("MainActivity", "Errore nel caricamento dei log SMS", e)
+                        smsLogEntries = emptyList()
                     }
 
                     // Assicuriamoci di essere nel thread principale per aggiornare l'UI
@@ -180,7 +194,7 @@ class MainActivity : FragmentActivity() {
                                     smsLogEntries = smsLogEntries,
                                     onEditConfig = {
                                         val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
-                                        startActivity(intent)
+                                        emailConfigLauncher.launch(intent)
                                     },
                                     onManageFilters = {
                                         val intent = Intent(this@MainActivity, FilterActivity::class.java)
@@ -227,7 +241,7 @@ class MainActivity : FragmentActivity() {
                                 smsLogEntries = smsLogEntries,
                                 onEditConfig = {
                                     val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
-                                    startActivity(intent)
+                                    emailConfigLauncher.launch(intent)
                                 },
                                 onManageFilters = {
                                     val intent = Intent(this@MainActivity, FilterActivity::class.java)
