@@ -34,5 +34,11 @@
     <string name="save_button">Salva</string>
     <string name="config_saved_message">Configurazione salvata!</string>
     <string name="test_email_button">Test invio e-mail</string>
+
+    <!-- Email test strings -->
+    <string name="test_email_empty_fields">Per favore, compila tutti i campi necessari</string>
+    <string name="test_email_subject">Test invio email da Sms to Mail</string>
+    <string name="test_email_body">Questo è un messaggio di test dall\'app Sms to Mail. Se lo stai leggendo, la configurazione dell\'email è corretta!</string>
+    <string name="test_email_error">Errore: %1$s</string>
 </resources>
 
