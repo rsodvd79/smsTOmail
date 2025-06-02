@@ -40,5 +40,10 @@
     <string name="test_email_subject">Test invio email da Sms to Mail</string>
     <string name="test_email_body">Questo è un messaggio di test dall\'app Sms to Mail. Se lo stai leggendo, la configurazione dell\'email è corretta!</string>
     <string name="test_email_error">Errore: %1$s</string>
+
+    <!-- MainActivity strings -->
+    <string name="gmail_auth_problem_title">Problema di autenticazione Gmail</string>
+    <string name="gmail_auth_problem_message">Gmail richiede una password specifica per app. La password normale del tuo account Google non funzionerà.</string>
+    <string name="update_email_config_button">Aggiorna configurazione email</string>
 </resources>
 

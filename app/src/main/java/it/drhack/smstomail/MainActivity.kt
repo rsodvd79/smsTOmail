@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import it.drhack.smstomail.ui.theme.SmsTOmailTheme
 import kotlinx.coroutines.launch
@@ -324,13 +325,13 @@ fun MainScreen(
                         modifier = Modifier.padding(16.dp)
                     ) {
                         Text(
-                            text = "Problema di autenticazione Gmail",
+                            text = stringResource(R.string.gmail_auth_problem_title),
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onErrorContainer
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Gmail richiede una password specifica per app. La password normale del tuo account Google non funzionerà.",
+                            text = stringResource(R.string.gmail_auth_problem_message),
                             color = MaterialTheme.colorScheme.onErrorContainer
                         )
                         Spacer(modifier = Modifier.height(8.dp))
@@ -341,7 +342,7 @@ fun MainScreen(
                                 contentColor = MaterialTheme.colorScheme.onError
                             )
                         ) {
-                            Text("Aggiorna configurazione email")
+                            Text(stringResource(R.string.update_email_config_button))
                         }
                     }
                 }
