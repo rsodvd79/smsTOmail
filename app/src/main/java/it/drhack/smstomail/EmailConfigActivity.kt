@@ -97,17 +97,17 @@ class EmailConfigActivity : ComponentActivity() {
 
                     try {
                         if (email.isBlank() || password.isBlank() || destination.isBlank()) {
-                            testResult = "Per favore, compila tutti i campi necessari"
+                            testResult = context.getString(R.string.test_email_empty_fields)
                         } else {
                             val emailSender = EmailSender(email, password)
                             testResult = emailSender.sendEmail(
                                 destination,
-                                "Test invio email da Sms to Mail",
-                                "Questo è un messaggio di test dall'app Sms to Mail. Se lo stai leggendo, la configurazione dell'email è corretta!"
+                                context.getString(R.string.test_email_subject),
+                                context.getString(R.string.test_email_body)
                             )
                         }
                     } catch (e: Exception) {
-                        testResult = "Errore: ${e.message}"
+                        testResult = context.getString(R.string.test_email_error, e.message)
                     } finally {
                         isTestingEmail = false
                     }
