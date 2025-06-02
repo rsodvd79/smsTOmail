@@ -33,5 +33,6 @@
     <string name="max_sms_to_keep_label">Numero massimo di messaggi da conservare</string>
     <string name="save_button">Salva</string>
     <string name="config_saved_message">Configurazione salvata!</string>
+    <string name="test_email_button">Test invio e-mail</string>
 </resources>
 

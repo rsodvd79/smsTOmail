@@ -39,9 +39,11 @@ class EmailConfigActivity : ComponentActivity() {
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var destination by remember { mutableStateOf("") }
-        var maxSmsToKeep by remember { mutableStateOf("100") } // Nuovo campo per il numero massimo di messaggi
+        var maxSmsToKeep by remember { mutableStateOf("100") }
         val scope = rememberCoroutineScope()
         var saved by remember { mutableStateOf(false) }
+        var testResult by remember { mutableStateOf<String?>(null) }
+        var isTestingEmail by remember { mutableStateOf(false) }
 
         LaunchedEffect(Unit) {
             val config = db.emailConfigDao().getConfig()
@@ -59,6 +61,8 @@ class EmailConfigActivity : ComponentActivity() {
             destination = destination,
             maxSmsToKeep = maxSmsToKeep,
             saved = saved,
+            testResult = testResult,
+            isTestingEmail = isTestingEmail,
             onEmailChange = { email = it },
             onPasswordChange = { password = it },
             onDestinationChange = { destination = it },
@@ -85,6 +89,29 @@ class EmailConfigActivity : ComponentActivity() {
             onGoogleHelpClick = {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://myaccount.google.com/apppasswords"))
                 context.startActivity(intent)
+            },
+            onTestEmailClick = {
+                scope.launch {
+                    isTestingEmail = true
+                    testResult = null
+
+                    try {
+                        if (email.isBlank() || password.isBlank() || destination.isBlank()) {
+                            testResult = "Per favore, compila tutti i campi necessari"
+                        } else {
+                            val emailSender = EmailSender(email, password)
+                            testResult = emailSender.sendEmail(
+                                destination,
+                                "Test invio email da SmsTOmail",
+                                "Questo è un messaggio di test dall'app SmsTOmail. Se lo stai leggendo, la configurazione dell'email è corretta!"
+                            )
+                        }
+                    } catch (e: Exception) {
+                        testResult = "Errore: ${e.message}"
+                    } finally {
+                        isTestingEmail = false
+                    }
+                }
             }
         )
     }
@@ -105,12 +132,15 @@ fun EmailConfigScreenPreview() {
                 destination = "destinatario@email.com",
                 maxSmsToKeep = "100",
                 saved = false,
+                testResult = null,
+                isTestingEmail = false,
                 onEmailChange = {},
                 onPasswordChange = {},
                 onDestinationChange = {},
                 onMaxSmsToKeepChange = {},
                 onSaveClick = {},
-                onGoogleHelpClick = {}
+                onGoogleHelpClick = {},
+                onTestEmailClick = {}
             )
         }
     }
@@ -124,12 +154,15 @@ fun EmailConfigScreenContent(
     destination: String,
     maxSmsToKeep: String,
     saved: Boolean,
+    testResult: String?,
+    isTestingEmail: Boolean,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onDestinationChange: (String) -> Unit,
     onMaxSmsToKeepChange: (String) -> Unit,
     onSaveClick: () -> Unit,
-    onGoogleHelpClick: () -> Unit
+    onGoogleHelpClick: () -> Unit,
+    onTestEmailClick: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -234,6 +267,17 @@ fun EmailConfigScreenContent(
             }
             if (saved) {
                 Text(stringResource(R.string.config_saved_message), color = MaterialTheme.colorScheme.primary)
+            }
+            Spacer(Modifier.height(16.dp))
+            Button(
+                onClick = onTestEmailClick,
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !isTestingEmail
+            ) {
+                Text(stringResource(R.string.test_email_button))
+            }
+            testResult?.let {
+                Text(it, color = MaterialTheme.colorScheme.error)
             }
         }
     }
