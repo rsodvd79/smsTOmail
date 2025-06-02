@@ -40,5 +40,10 @@
     <string name="test_email_subject">Email test from Sms to Mail</string>
     <string name="test_email_body">This is a test message from the Sms to Mail app. If you\'re reading this, your email configuration is correct!</string>
     <string name="test_email_error">Error: %1$s</string>
+
+    <!-- MainActivity strings -->
+    <string name="gmail_auth_problem_title">Gmail Authentication Problem</string>
+    <string name="gmail_auth_problem_message">Gmail requires an app-specific password. Your regular Google account password won\'t work.</string>
+    <string name="update_email_config_button">Update email configuration</string>
 </resources>
 
