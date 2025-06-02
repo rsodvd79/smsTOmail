@@ -102,8 +102,8 @@ class EmailConfigActivity : ComponentActivity() {
                             val emailSender = EmailSender(email, password)
                             testResult = emailSender.sendEmail(
                                 destination,
-                                "Test invio email da SmsTOmail",
-                                "Questo è un messaggio di test dall'app SmsTOmail. Se lo stai leggendo, la configurazione dell'email è corretta!"
+                                "Test invio email da Sms to Mail",
+                                "Questo è un messaggio di test dall'app Sms to Mail. Se lo stai leggendo, la configurazione dell'email è corretta!"
                             )
                         }
                     } catch (e: Exception) {
