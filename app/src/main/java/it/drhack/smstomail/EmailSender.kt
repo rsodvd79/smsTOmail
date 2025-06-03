@@ -62,9 +62,12 @@ class EmailSender(private val email: String, private val password: String) {
                 Log.e(TAG, "Errore nell'invio dell'email", e)
 
                 // Verifica se l'errore è relativo alla necessità di una password specifica per app
-                if (e.message?.contains("534-5.7.9") == true || e.message?.contains("InvalidSecondFactor") == true) {
+                if (e.message?.contains("534-5.7.9") == true ||
+                    e.message?.contains("535-5.7.8") == true ||
+                    e.message?.contains("BadCredentials") == true ||
+                    e.message?.contains("InvalidSecondFactor") == true) {
                     "Errore di autenticazione: Per Gmail è necessario utilizzare una password specifica per app. " +
-                    "Visita https://support.google.com/mail/?p=InvalidSecondFactor per maggiori informazioni."
+                    "Visita https://myaccount.google.com/security e crea una password specifica per questa app."
                 } else {
                     "Errore: ${e.message}"
                 }
