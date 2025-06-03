@@ -22,6 +22,14 @@
     <string name="contains_label">Contains: %s</string>
     <string name="delete_button_description">Delete</string>
 
+    <!-- Asterisk wildcard strings -->
+    <string name="wildcard_explanation_sender">Asterisk matches any sender</string>
+    <string name="wildcard_explanation_keyword">Asterisk matches any content</string>
+    <string name="wildcard_info_title">Tip: Using asterisk character (*)</string>
+    <string name="wildcard_info_description">Enter * in the sender or keyword field to indicate "any value". For example, use * as sender to filter all SMS regardless of sender.</string>
+    <string name="any_sender">Any sender</string>
+    <string name="any_content">Any content</string>
+
     <!-- Email Config Activity -->
     <string name="email_config_title">Email Configuration</string>
     <string name="email_sender_label">Sender email</string>
@@ -52,7 +60,7 @@
     <string name="general_settings_title">General Settings</string>
     <string name="smtp_host_label">SMTP Server</string>
     <string name="smtp_port_label">SMTP Port</string>
-    <string name="smtp_use_tls_label">Use TLS</string>
+    <string name="smtp_use_tls_label">Use SSL/TLS</string>
 
     <!-- Signature -->
     <string name="signature_label">Signature</string>

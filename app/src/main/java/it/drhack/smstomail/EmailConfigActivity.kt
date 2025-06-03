@@ -134,9 +134,6 @@ class EmailConfigActivity : ComponentActivity() {
                             val emailSender = EmailSender(email, password, smtpHost, smtpPort, smtpUseTls)
                             // Utilizziamo la firma anche nel messaggio di test
                             var testBody = context.getString(R.string.test_email_body)
-                            if (signature.isNotBlank()) {
-                                testBody += "\n\n$signature"
-                            }
                             testResult = emailSender.sendEmail(
                                 destination,
                                 context.getString(R.string.test_email_subject),

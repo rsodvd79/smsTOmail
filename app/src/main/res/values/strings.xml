@@ -22,6 +22,14 @@
     <string name="contains_label">Contiene: %s</string>
     <string name="delete_button_description">Elimina</string>
 
+    <!-- Asterisk wildcard strings -->
+    <string name="wildcard_explanation_sender">L\'asterisco corrisponde a qualsiasi mittente</string>
+    <string name="wildcard_explanation_keyword">L\'asterisco corrisponde a qualsiasi contenuto</string>
+    <string name="wildcard_info_title">Suggerimento: Utilizzo carattere asterisco (*)</string>
+    <string name="wildcard_info_description">Inserisci * nel campo mittente o parola chiave per indicare \"qualsiasi valore\". Ad esempio, usa * come mittente per filtrare tutti gli SMS indipendentemente dal mittente.</string>
+    <string name="any_sender">Qualsiasi mittente</string>
+    <string name="any_content">Qualsiasi contenuto</string>
+
     <!-- Email Config Activity -->
     <string name="email_config_title">Configurazione Email</string>
     <string name="email_sender_label">Email mittente</string>
@@ -52,7 +60,7 @@
     <string name="general_settings_title">Impostazioni Generali</string>
     <string name="smtp_host_label">Server SMTP</string>
     <string name="smtp_port_label">Porta SMTP</string>
-    <string name="smtp_use_tls_label">Usa TLS</string>
+    <string name="smtp_use_tls_label">Usa SSL/TLS</string>
 
     <!-- Signature -->
     <string name="signature_label">Firma</string>
