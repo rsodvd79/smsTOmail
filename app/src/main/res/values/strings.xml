@@ -8,6 +8,7 @@
     <!-- Filter Activity -->
     <string name="filter_screen_title">Gestione Filtri SMS</string>
     <string name="back_button_description">Torna indietro</string>
+    <string name="no_filters_warning">Attenzione: senza filtri attivi, tutti i messaggi SMS verranno inoltrati via email</string>
     <string name="sender_label">Mittente (opzionale):</string>
     <string name="sender_placeholder">Inserisci il mittente da filtrare</string>
     <string name="keyword_label">Parola chiave:</string>
@@ -21,14 +22,6 @@
     <string name="from_label">Da: %s</string>
     <string name="contains_label">Contiene: %s</string>
     <string name="delete_button_description">Elimina</string>
-
-    <!-- Asterisk wildcard strings -->
-    <string name="wildcard_explanation_sender">L\'asterisco corrisponde a qualsiasi mittente</string>
-    <string name="wildcard_explanation_keyword">L\'asterisco corrisponde a qualsiasi contenuto</string>
-    <string name="wildcard_info_title">Suggerimento: Utilizzo carattere asterisco (*)</string>
-    <string name="wildcard_info_description">Inserisci * nel campo mittente o parola chiave per indicare \"qualsiasi valore\". Ad esempio, usa * come mittente per filtrare tutti gli SMS indipendentemente dal mittente.</string>
-    <string name="any_sender">Qualsiasi mittente</string>
-    <string name="any_content">Qualsiasi contenuto</string>
 
     <!-- Email Config Activity -->
     <string name="email_config_title">Configurazione Email</string>

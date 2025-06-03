@@ -126,11 +126,7 @@ fun FilterScreenContent(
                 onValueChange = onNewSenderChange,
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text(stringResource(R.string.sender_placeholder)) },
-                supportingText = {
-                    if (newSender == "*") {
-                        Text(stringResource(R.string.wildcard_explanation_sender))
-                    }
-                }
+                supportingText = { }
             )
 
             Spacer(Modifier.height(8.dp))
@@ -142,34 +138,8 @@ fun FilterScreenContent(
                 onValueChange = onNewKeywordChange,
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text(stringResource(R.string.keyword_placeholder)) },
-                supportingText = {
-                    if (newKeyword == "*") {
-                        Text(stringResource(R.string.wildcard_explanation_keyword))
-                    }
-                }
+                supportingText = { }
             )
-
-            Spacer(Modifier.height(8.dp))
-
-            // Informazioni sull'uso dell'asterisco
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-                )
-            ) {
-                Column(Modifier.padding(8.dp)) {
-                    Text(
-                        stringResource(R.string.wildcard_info_title),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Text(
-                        stringResource(R.string.wildcard_info_description),
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-            }
 
             Spacer(Modifier.height(8.dp))
 
@@ -204,6 +174,25 @@ fun FilterScreenContent(
             Text(stringResource(R.string.active_filters_title), style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(8.dp))
 
+            // Avviso quando non ci sono filtri
+            if (filters.isEmpty()) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer
+                    )
+                ) {
+                    Text(
+                        text = stringResource(R.string.no_filters_warning),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+            }
+
             LazyColumn {
                 items(filters.size) { idx ->
                     val filter = filters[idx]
@@ -228,19 +217,11 @@ fun FilterScreenContent(
                                     style = MaterialTheme.typography.labelMedium
                                 )
                                 if (filter.sender.isNotEmpty()) {
-                                    val senderText = if (filter.sender == "*") {
-                                        stringResource(R.string.any_sender)
-                                    } else {
-                                        stringResource(R.string.from_label, filter.sender)
-                                    }
+                                    val senderText =  stringResource(R.string.from_label, filter.sender)
                                     Text(senderText)
                                 }
                                 if (filter.keyword.isNotEmpty()) {
-                                    val keywordText = if (filter.keyword == "*") {
-                                        stringResource(R.string.any_content)
-                                    } else {
-                                        stringResource(R.string.contains_label, filter.keyword)
-                                    }
+                                    val keywordText = stringResource(R.string.contains_label, filter.keyword)
                                     Text(keywordText)
                                 }
                             }
