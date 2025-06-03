@@ -27,6 +27,7 @@ class EmailSender(
 
     companion object {
         private const val TAG = "EmailSender"
+        private const val DEBUG = false // Imposta su true per attivare il debug JavaMail
     }
 
     /**
@@ -44,7 +45,22 @@ class EmailSender(
                     put("mail.smtp.host", smtpHost)
                     put("mail.smtp.port", smtpPort)
                     put("mail.smtp.auth", "true")
-                    put("mail.smtp.starttls.enable", useTls.toString())
+
+                    // Configura in base alla porta e al tipo di connessione
+                    if (smtpPort == "465") {
+                        // Configurazione SSL diretta (es. Aruba)
+                        put("mail.smtp.socketFactory.port", smtpPort)
+                        put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory")
+                        put("mail.smtp.ssl.enable", useTls.toString())
+                        put("mail.smtp.ssl.trust", smtpHost)
+                    } else {
+                        // Configurazione STARTTLS (es. Gmail porta 587)
+                        put("mail.smtp.starttls.enable", useTls.toString())
+                    }
+
+                    // Impostazioni timeout per evitare blocchi
+                    put("mail.smtp.connectiontimeout", "10000")
+                    put("mail.smtp.timeout", "10000")
                 }
 
                 val session = Session.getInstance(props, object : Authenticator() {
@@ -52,6 +68,9 @@ class EmailSender(
                         return PasswordAuthentication(email, password)
                     }
                 })
+
+                // Per debug
+                session.debug = DEBUG
 
                 // Aggiungi la firma al corpo del messaggio se presente
                 val finalBody = if (signature.isNotBlank()) {
@@ -80,6 +99,9 @@ class EmailSender(
                     e.message?.contains("InvalidSecondFactor") == true) {
                     "Errore di autenticazione: Per Gmail è necessario utilizzare una password specifica per app. " +
                     "Visita https://myaccount.google.com/security e crea una password specifica per questa app."
+                } else if (e.message?.contains("[EOF]") == true) {
+                    "Errore di connessione al server SMTP: Il server ha chiuso la connessione prematuramente. " +
+                    "Verifica che host, porta e impostazioni SSL/TLS siano corrette."
                 } else {
                     "Errore: ${e.message}"
                 }
