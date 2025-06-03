@@ -362,6 +362,8 @@ fun EmailConfigScreenContent(
                 )
             )
 
+            Spacer(Modifier.height(16.dp))
+
             OutlinedTextField(
                 value = destination,
                 onValueChange = onDestinationChange,
