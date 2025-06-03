@@ -44,17 +44,28 @@ class SmsBackgroundService : Service() {
             return START_NOT_STICKY
         }
 
+        // Recuperiamo i dati dell'SMS, se presenti
+        val sender = intent?.getStringExtra("sender")
+        val message = intent?.getStringExtra("message")
+
+        // Se non ci sono informazioni sull'SMS non eseguiamo alcuna elaborazione
+        if (sender.isNullOrEmpty() || message.isNullOrEmpty()) {
+            stopSelf()
+            return START_NOT_STICKY
+        }
+
+        val safeSender = sender
+        val safeMessage = message
+
         // Procedura normale per l'elaborazione degli SMS
-        val sender = intent?.getStringExtra("sender") ?: "Sconosciuto"
-        val message = intent?.getStringExtra("message") ?: ""
 
         // Crea e mostra una notifica per il foreground service
-        val notification = createNotification("SMS ricevuto", "Elaborazione SMS da $sender...")
+        val notification = createNotification("SMS ricevuto", "Elaborazione SMS da $safeSender...")
         startForeground(NOTIFICATION_ID, notification)
 
         // Elabora l'SMS in un coroutine scope
         CoroutineScope(Dispatchers.IO).launch {
-            processSms(sender, message)
+            processSms(safeSender, safeMessage)
             // Ferma il servizio dopo l'elaborazione
             stopSelf()
         }
