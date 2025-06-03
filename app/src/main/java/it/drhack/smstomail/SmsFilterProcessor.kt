@@ -22,8 +22,6 @@ class SmsFilterProcessor(private val filters: List<Filter>) {
         // Verifica se almeno un filtro corrisponde
         return filters.any { filter ->
             val senderMatch = when {
-                // Se il filtro ha un asterisco come mittente, corrisponde a qualsiasi mittente
-                filter.sender == "*" -> true
                 // Se il filtro non ha un mittente specificato, è considerato corrispondente
                 filter.sender.isBlank() -> true
                 // Altrimenti, verifica se il mittente contiene il testo del filtro
@@ -31,8 +29,6 @@ class SmsFilterProcessor(private val filters: List<Filter>) {
             }
 
             val messageMatch = when {
-                // Se il filtro ha un asterisco come parola chiave, corrisponde a qualsiasi messaggio
-                filter.keyword == "*" -> true
                 // Se il filtro non ha una parola chiave specificata, è considerato corrispondente
                 filter.keyword.isBlank() -> true
                 // Altrimenti, verifica se il messaggio contiene la parola chiave del filtro
