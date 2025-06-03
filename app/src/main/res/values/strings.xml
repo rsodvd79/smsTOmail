@@ -45,5 +45,17 @@
     <string name="gmail_auth_problem_title">Problema di autenticazione Gmail</string>
     <string name="gmail_auth_problem_message">Gmail richiede una password specifica per app. La password normale del tuo account Google non funzionerà.</string>
     <string name="update_email_config_button">Aggiorna configurazione email</string>
+
+    <!-- SMTP Configuration strings -->
+    <string name="account_settings_title">Impostazioni Account</string>
+    <string name="smtp_settings_title">Impostazioni Server SMTP</string>
+    <string name="general_settings_title">Impostazioni Generali</string>
+    <string name="smtp_host_label">Server SMTP</string>
+    <string name="smtp_port_label">Porta SMTP</string>
+    <string name="smtp_use_tls_label">Usa TLS</string>
+
+    <!-- Signature -->
+    <string name="signature_label">Firma</string>
+    <string name="signature_hint">Testo da aggiungere alla fine di ogni email</string>
 </resources>
 
