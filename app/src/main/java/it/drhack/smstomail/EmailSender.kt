@@ -16,12 +16,17 @@ import javax.mail.internet.MimeMessage
 /**
  * Classe che si occupa di inviare email attraverso un server SMTP
  */
-class EmailSender(private val email: String, private val password: String) {
+class EmailSender(
+    private val email: String,
+    private val password: String,
+    private val smtpHost: String = "smtp.gmail.com",
+    private val smtpPort: String = "587",
+    private val useTls: Boolean = true,
+    private val signature: String = "by SMS to Mail"
+) {
 
     companion object {
         private const val TAG = "EmailSender"
-        private const val SMTP_HOST = "smtp.gmail.com"
-        private const val SMTP_PORT = "587"
     }
 
     /**
@@ -36,10 +41,10 @@ class EmailSender(private val email: String, private val password: String) {
         return withContext(Dispatchers.IO) {
             try {
                 val props = Properties().apply {
-                    put("mail.smtp.host", SMTP_HOST)
-                    put("mail.smtp.port", SMTP_PORT)
+                    put("mail.smtp.host", smtpHost)
+                    put("mail.smtp.port", smtpPort)
                     put("mail.smtp.auth", "true")
-                    put("mail.smtp.starttls.enable", "true")
+                    put("mail.smtp.starttls.enable", useTls.toString())
                 }
 
                 val session = Session.getInstance(props, object : Authenticator() {
@@ -48,11 +53,18 @@ class EmailSender(private val email: String, private val password: String) {
                     }
                 })
 
+                // Aggiungi la firma al corpo del messaggio se presente
+                val finalBody = if (signature.isNotBlank()) {
+                    "$body\n\n$signature"
+                } else {
+                    body
+                }
+
                 val message = MimeMessage(session).apply {
                     setFrom(InternetAddress(email))
                     setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient))
                     setSubject(subject)
-                    setText(body)
+                    setText(finalBody)
                 }
 
                 Transport.send(message)

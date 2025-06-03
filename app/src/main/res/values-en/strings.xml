@@ -45,5 +45,17 @@
     <string name="gmail_auth_problem_title">Gmail Authentication Problem</string>
     <string name="gmail_auth_problem_message">Gmail requires an app-specific password. Your regular Google account password won\'t work.</string>
     <string name="update_email_config_button">Update email configuration</string>
+
+    <!-- SMTP Configuration strings -->
+    <string name="account_settings_title">Account Settings</string>
+    <string name="smtp_settings_title">SMTP Server Settings</string>
+    <string name="general_settings_title">General Settings</string>
+    <string name="smtp_host_label">SMTP Server</string>
+    <string name="smtp_port_label">SMTP Port</string>
+    <string name="smtp_use_tls_label">Use TLS</string>
+
+    <!-- Signature -->
+    <string name="signature_label">Signature</string>
+    <string name="signature_hint">Text to append at the end of every email</string>
 </resources>
 
