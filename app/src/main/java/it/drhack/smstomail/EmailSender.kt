@@ -19,10 +19,10 @@ import javax.mail.internet.MimeMessage
 class EmailSender(
     private val email: String,
     private val password: String,
-    private val smtpHost: String = "smtp.gmail.com",
-    private val smtpPort: String = "587",
-    private val useTls: Boolean = true,
-    private val signature: String = "by SMS to Mail"
+    private val smtpHost: String,
+    private val smtpPort: String,
+    private val useTls: Boolean,
+    private val signature: String,
 ) {
 
     companion object {
@@ -41,31 +41,52 @@ class EmailSender(
     suspend fun sendEmail(recipient: String, subject: String, body: String): String {
         return withContext(Dispatchers.IO) {
             try {
+                // Log delle credenziali utilizzate e delle impostazioni SMTP
+                Log.d(TAG, "Tentativo di invio email da: $email a: $recipient")
+                Log.d(TAG, "Server SMTP: $smtpHost:$smtpPort, TLS: $useTls")
+
                 val props = Properties().apply {
                     put("mail.smtp.host", smtpHost)
                     put("mail.smtp.port", smtpPort)
                     put("mail.smtp.auth", "true")
 
+                    // Debug più dettagliato
+                    if (DEBUG) {
+                        put("mail.debug", "true")
+                        put("mail.debug.auth", "true")
+                    }
+
                     // Configura in base alla porta e al tipo di connessione
                     if (smtpPort == "465") {
-                        // Configurazione SSL diretta (es. Aruba)
+                        // Configurazione SSL diretta per Aruba (porta 465)
                         put("mail.smtp.socketFactory.port", smtpPort)
                         put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory")
-                        put("mail.smtp.ssl.enable", useTls.toString())
-                        put("mail.smtp.ssl.trust", smtpHost)
+                        put("mail.smtp.ssl.enable", "true") // Forza SSL a true per porta 465
+                        put("mail.smtp.ssl.trust", "*") // Fiducia più ampia per certificati
+                        put("mail.smtp.ssl.protocols", "TLSv1.2") // Specifica il protocollo SSL
+
+                        // Disattiva STARTTLS per connessioni SSL dirette
+                        put("mail.smtp.starttls.enable", "false")
+                        put("mail.smtp.starttls.required", "false")
                     } else {
                         // Configurazione STARTTLS (es. Gmail porta 587)
                         put("mail.smtp.starttls.enable", useTls.toString())
+                        put("mail.smtp.ssl.trust", smtpHost)
                     }
 
                     // Impostazioni timeout per evitare blocchi
-                    put("mail.smtp.connectiontimeout", "10000")
-                    put("mail.smtp.timeout", "10000")
+                    put("mail.smtp.connectiontimeout", "15000")
+                    put("mail.smtp.timeout", "15000")
+                    put("mail.smtp.writetimeout", "15000")
                 }
 
                 val session = Session.getInstance(props, object : Authenticator() {
                     override fun getPasswordAuthentication(): PasswordAuthentication {
-                        return PasswordAuthentication(email, password)
+                        // Assicurati che non ci siano spazi nelle credenziali
+                        val trimmedEmail = email.trim()
+                        val trimmedPassword = password.trim()
+                        Log.d(TAG, "Autenticazione con utente: $trimmedEmail")
+                        return PasswordAuthentication(trimmedEmail, trimmedPassword)
                     }
                 })
 

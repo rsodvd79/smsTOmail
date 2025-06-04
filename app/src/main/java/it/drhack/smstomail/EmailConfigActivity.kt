@@ -131,8 +131,7 @@ class EmailConfigActivity : ComponentActivity() {
                         if (email.isBlank() || password.isBlank() || destination.isBlank()) {
                             testResult = context.getString(R.string.test_email_empty_fields)
                         } else {
-                            val emailSender = EmailSender(email, password, smtpHost, smtpPort, smtpUseTls)
-                            // Utilizziamo la firma anche nel messaggio di test
+                            val emailSender = EmailSender(email, password, smtpHost, smtpPort, smtpUseTls, signature)
                             var testBody = context.getString(R.string.test_email_body)
                             testResult = emailSender.sendEmail(
                                 destination,

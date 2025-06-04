@@ -55,6 +55,11 @@
     <string name="smtp_port_label">Porta SMTP</string>
     <string name="smtp_use_tls_label">Usa SSL/TLS</string>
 
+    <!-- Notification permission strings -->
+    <string name="notification_permission_info_title">Permesso notifiche</string>
+    <string name="notification_permission_info_message">Senza il permesso delle notifiche, l\'app potrebbe non mostrare correttamente le notifiche nel centro notifiche quando è in esecuzione in background. Puoi attivare questo permesso dalle impostazioni in qualsiasi momento.</string>
+    <string name="notification_permission_info_ok_button">Ho capito</string>
+
     <!-- Signature -->
     <string name="signature_label">Firma</string>
     <string name="signature_hint">Testo da aggiungere alla fine di ogni email</string>

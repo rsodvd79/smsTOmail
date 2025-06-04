@@ -35,7 +35,14 @@ class SmsReceiver : BroadcastReceiver() {
                         val config = db.emailConfigDao().getConfig()
                         config?.let {
                             try {
-                                val emailSender = EmailSender(it.email, it.password)
+                                val emailSender = EmailSender(
+                                    it.email,
+                                    it.password,
+                                    it.smtpHost,
+                                    it.smtpPort,
+                                    it.smtpUseTls,
+                                    "SMS Forward - SMS to Mail"
+                                )
                                 val result = emailSender.sendEmail(
                                     it.destination,
                                     "Nuovo SMS da $sender",
@@ -76,3 +83,4 @@ class SmsReceiver : BroadcastReceiver() {
         }
     }
 }
+
