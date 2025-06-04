@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import it.drhack.smstomail.ui.theme.SmsTOmailTheme
 
 class FilterActivity : ComponentActivity() {
@@ -92,7 +93,7 @@ fun FilterScreenContent(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Gestione Filtri SMS") },
+                title = { Text(stringResource(R.string.filter_screen_title)) },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -103,7 +104,7 @@ fun FilterScreenContent(
                     }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Torna indietro"
+                            contentDescription = stringResource(R.string.back_button_description)
                         )
                     }
                 }
@@ -119,23 +120,25 @@ fun FilterScreenContent(
             Spacer(Modifier.height(8.dp))
 
             // Campi per il mittente
-            Text("Mittente (opzionale):", style = MaterialTheme.typography.bodyMedium)
+            Text(stringResource(R.string.sender_label), style = MaterialTheme.typography.bodyMedium)
             OutlinedTextField(
                 value = newSender,
                 onValueChange = onNewSenderChange,
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text("Inserisci il mittente da filtrare") }
+                placeholder = { Text(stringResource(R.string.sender_placeholder)) },
+                supportingText = { }
             )
 
             Spacer(Modifier.height(8.dp))
 
             // Campi per la parola chiave
-            Text("Parola chiave:", style = MaterialTheme.typography.bodyMedium)
+            Text(stringResource(R.string.keyword_label), style = MaterialTheme.typography.bodyMedium)
             OutlinedTextField(
                 value = newKeyword,
                 onValueChange = onNewKeywordChange,
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text("Inserisci la parola chiave da cercare") }
+                placeholder = { Text(stringResource(R.string.keyword_placeholder)) },
+                supportingText = { }
             )
 
             Spacer(Modifier.height(8.dp))
@@ -146,7 +149,7 @@ fun FilterScreenContent(
                     selected = filterType == FilterType.INCLUDE,
                     onClick = { onFilterTypeChange(FilterType.INCLUDE) }
                 )
-                Text("Includi", Modifier.padding(start = 4.dp))
+                Text(stringResource(R.string.include_filter), Modifier.padding(start = 4.dp))
 
                 Spacer(Modifier.width(16.dp))
 
@@ -154,7 +157,7 @@ fun FilterScreenContent(
                     selected = filterType == FilterType.EXCLUDE,
                     onClick = { onFilterTypeChange(FilterType.EXCLUDE) }
                 )
-                Text("Escludi", Modifier.padding(start = 4.dp))
+                Text(stringResource(R.string.exclude_filter), Modifier.padding(start = 4.dp))
             }
 
             Spacer(Modifier.height(16.dp))
@@ -164,12 +167,31 @@ fun FilterScreenContent(
                 modifier = Modifier.align(Alignment.End),
                 enabled = newKeyword.isNotBlank() || newSender.isNotBlank()
             ) {
-                Text("Aggiungi Filtro")
+                Text(stringResource(R.string.add_filter_button))
             }
 
             Spacer(Modifier.height(16.dp))
-            Text("Filtri attivi:", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.active_filters_title), style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(8.dp))
+
+            // Avviso quando non ci sono filtri
+            if (filters.isEmpty()) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer
+                    )
+                ) {
+                    Text(
+                        text = stringResource(R.string.no_filters_warning),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+            }
 
             LazyColumn {
                 items(filters.size) { idx ->
@@ -189,20 +211,25 @@ fun FilterScreenContent(
                             Column {
                                 Text(
                                     text = when(filter.filterType) {
-                                        FilterType.INCLUDE -> "👁️ Includi"
-                                        FilterType.EXCLUDE -> "❌ Escludi"
+                                        FilterType.INCLUDE -> stringResource(R.string.include_filter_indicator)
+                                        FilterType.EXCLUDE -> stringResource(R.string.exclude_filter_indicator)
                                     },
                                     style = MaterialTheme.typography.labelMedium
                                 )
                                 if (filter.sender.isNotEmpty()) {
-                                    Text("Da: ${filter.sender}")
+                                    val senderText =  stringResource(R.string.from_label, filter.sender)
+                                    Text(senderText)
                                 }
                                 if (filter.keyword.isNotEmpty()) {
-                                    Text("Contiene: ${filter.keyword}")
+                                    val keywordText = stringResource(R.string.contains_label, filter.keyword)
+                                    Text(keywordText)
                                 }
                             }
                             IconButton(onClick = { onDeleteFilter(filter) }) {
-                                Icon(imageVector = Icons.Filled.Delete, contentDescription = "Elimina")
+                                Icon(
+                                    imageVector = Icons.Filled.Delete,
+                                    contentDescription = stringResource(R.string.delete_button_description)
+                                )
                             }
                         }
                     }

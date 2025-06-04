@@ -1,3 +1,62 @@
 <resources>
     <string name="app_name">smsTOmail</string>
+    <string name="permission_dialog_title">Permessi necessari</string>
+    <string name="permission_dialog_message">Questa app richiede alcuni permessi per funzionare correttamente. Per favore concedi i permessi richiesti dalle impostazioni.</string>
+    <string name="permission_dialog_settings_button">Impostazioni</string>
+    <string name="permission_dialog_exit_button">Esci</string>
+
+    <!-- Filter Activity -->
+    <string name="filter_screen_title">Gestione Filtri SMS</string>
+    <string name="back_button_description">Torna indietro</string>
+    <string name="no_filters_warning">Attenzione: senza filtri attivi, tutti i messaggi SMS verranno inoltrati via email</string>
+    <string name="sender_label">Mittente (opzionale):</string>
+    <string name="sender_placeholder">Inserisci il mittente da filtrare</string>
+    <string name="keyword_label">Parola chiave:</string>
+    <string name="keyword_placeholder">Inserisci la parola chiave da cercare</string>
+    <string name="include_filter">Includi</string>
+    <string name="exclude_filter">Escludi</string>
+    <string name="add_filter_button">Aggiungi Filtro</string>
+    <string name="active_filters_title">Filtri attivi:</string>
+    <string name="include_filter_indicator">👁️ Includi</string>
+    <string name="exclude_filter_indicator">❌ Escludi</string>
+    <string name="from_label">Da: %s</string>
+    <string name="contains_label">Contiene: %s</string>
+    <string name="delete_button_description">Elimina</string>
+
+    <!-- Email Config Activity -->
+    <string name="email_config_title">Configurazione Email</string>
+    <string name="email_sender_label">Email mittente</string>
+    <string name="password_label">Password</string>
+    <string name="gmail_warning_title">IMPORTANTE per account Gmail:</string>
+    <string name="gmail_warning_message">Google richiede una \'Password specifica per app\' e non la password standard del tuo account.</string>
+    <string name="gmail_create_app_password">Clicca qui per creare una password specifica per app</string>
+    <string name="email_destination_label">Email destinatario</string>
+    <string name="max_sms_to_keep_label">Numero massimo di messaggi da conservare</string>
+    <string name="save_button">Salva</string>
+    <string name="config_saved_message">Configurazione salvata!</string>
+    <string name="test_email_button">Test invio e-mail</string>
+
+    <!-- Email test strings -->
+    <string name="test_email_empty_fields">Per favore, compila tutti i campi necessari</string>
+    <string name="test_email_subject">Test invio email da Sms to Mail</string>
+    <string name="test_email_body">Questo è un messaggio di test dall\'app Sms to Mail. Se lo stai leggendo, la configurazione dell\'email è corretta!</string>
+    <string name="test_email_error">Errore: %1$s</string>
+
+    <!-- MainActivity strings -->
+    <string name="gmail_auth_problem_title">Problema di autenticazione Gmail</string>
+    <string name="gmail_auth_problem_message">Gmail richiede una password specifica per app. La password normale del tuo account Google non funzionerà.</string>
+    <string name="update_email_config_button">Aggiorna configurazione email</string>
+
+    <!-- SMTP Configuration strings -->
+    <string name="account_settings_title">Impostazioni Account</string>
+    <string name="smtp_settings_title">Impostazioni Server SMTP</string>
+    <string name="general_settings_title">Impostazioni Generali</string>
+    <string name="smtp_host_label">Server SMTP</string>
+    <string name="smtp_port_label">Porta SMTP</string>
+    <string name="smtp_use_tls_label">Usa SSL/TLS</string>
+
+    <!-- Signature -->
+    <string name="signature_label">Firma</string>
+    <string name="signature_hint">Testo da aggiungere alla fine di ogni email</string>
 </resources>
+

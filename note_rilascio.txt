@@ -1,5 +1,13 @@
-Primo rilascio di SMS to Mail!
+Aggiornamento SMS to Mail - 2 giugno 2025
 
+Novità:
+• Migliorata stabilità generale dell'applicazione
+• Supporto per nuovi formati SMS
+• Interfaccia utente rinnovata
+• Ottimizzazione delle prestazioni
+• Ridotto consumo della batteria
+
+Funzionalità esistenti:
 • Inoltro automatico SMS a email
 • Sistema di filtri avanzato
 • Facile configurazione provider email

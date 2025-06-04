@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Filter::class, EmailConfig::class, SmsLogEntry::class], version = 4)
+@Database(entities = [Filter::class, EmailConfig::class, SmsLogEntry::class], version = 6)
 @TypeConverters(FilterTypeConverter::class, DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun filterDao(): FilterDao
@@ -62,6 +62,35 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        // Migrazione dalla versione 4 alla 5
+        private val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // Aggiungi il campo maxSmsToKeep alla tabella email_config
+                database.execSQL(
+                    "ALTER TABLE email_config ADD COLUMN maxSmsToKeep INTEGER NOT NULL DEFAULT 100"
+                )
+            }
+        }
+
+        // Migrazione dalla versione 5 alla 6
+        private val MIGRATION_5_6 = object : Migration(5, 6) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // Aggiungiamo i nuovi campi per la configurazione SMTP ed altre impostazioni
+                database.execSQL(
+                    "ALTER TABLE email_config ADD COLUMN smtpHost TEXT NOT NULL DEFAULT 'smtp.gmail.com'"
+                )
+                database.execSQL(
+                    "ALTER TABLE email_config ADD COLUMN smtpPort TEXT NOT NULL DEFAULT '587'"
+                )
+                database.execSQL(
+                    "ALTER TABLE email_config ADD COLUMN smtpUseTls INTEGER NOT NULL DEFAULT 1"
+                )
+                database.execSQL(
+                    "ALTER TABLE email_config ADD COLUMN signature TEXT NOT NULL DEFAULT 'by SMS to Mail'"
+                )
+            }
+        }
+
         fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -69,7 +98,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "filters_db"
                 )
-                .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
+                .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
                 .build()
                 INSTANCE = instance
                 instance
