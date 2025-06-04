@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import it.drhack.smstomail.ui.theme.SmsTOmailTheme
 import kotlinx.coroutines.launch
@@ -61,6 +62,15 @@ class MainActivity : FragmentActivity() {
         )
     } else {
         arrayOf(android.Manifest.permission.FOREGROUND_SERVICE)
+    }
+
+    // ActivityResultLauncher per gestire il ritorno da EmailConfigActivity
+    private val emailConfigLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        // Aggiornare la UI dopo il ritorno da EmailConfigActivity
+        //initializeApp(skipEmailConfigCheck = true)
+        recreate()
     }
 
     // Registrazione per la richiesta dei permessi
@@ -125,16 +135,16 @@ class MainActivity : FragmentActivity() {
     private fun showPermissionDialog() {
         val builder = AlertDialog.Builder(this)
         builder.apply {
-            setTitle("Permessi necessari")
-            setMessage("Questa app richiede alcuni permessi per funzionare correttamente. Per favore concedi i permessi richiesti dalle impostazioni.")
-            setPositiveButton("Impostazioni") { _, _ ->
+            setTitle(getString(R.string.permission_dialog_title))
+            setMessage(getString(R.string.permission_dialog_message))
+            setPositiveButton(getString(R.string.permission_dialog_settings_button)) { _, _ ->
                 // Apri le impostazioni dell'app
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 val uri = Uri.fromParts("package", packageName, null)
                 intent.data = uri
                 startActivity(intent)
             }
-            setNegativeButton("Esci") { _, _ ->
+            setNegativeButton(getString(R.string.permission_dialog_exit_button)) { _, _ ->
                 // Chiudi l'app
                 finish()
             }
@@ -157,16 +167,21 @@ class MainActivity : FragmentActivity() {
                 if (config == null) {
                     Log.d("MainActivity", "Nessuna configurazione trovata, avvio EmailConfigActivity")
                     val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    emailConfigLauncher.launch(intent)
                 } else {
                     // La configurazione esiste, mostra la schermata principale
-                    Log.d("MainActivity", "Configurazione trovata, mostra la schermata principale")
+                    Log.d("MainActivity", "Configurazione trovata o appena impostata, mostra la schermata principale")
+
                     emailConfig = config
 
                     // Carica i log degli SMS
-                    db.smsLogDao().getAllLogs().collectLatest { logs ->
-                        smsLogEntries = logs
+                    try {
+                        db.smsLogDao().getAllLogs().collectLatest { logs ->
+                            smsLogEntries = logs
+                        }
+                    } catch (e: Exception) {
+                        Log.e("MainActivity", "Errore nel caricamento dei log SMS", e)
+                        smsLogEntries = emptyList()
                     }
 
                     // Assicuriamoci di essere nel thread principale per aggiornare l'UI
@@ -180,7 +195,7 @@ class MainActivity : FragmentActivity() {
                                     smsLogEntries = smsLogEntries,
                                     onEditConfig = {
                                         val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
-                                        startActivity(intent)
+                                        emailConfigLauncher.launch(intent)
                                     },
                                     onManageFilters = {
                                         val intent = Intent(this@MainActivity, FilterActivity::class.java)
@@ -227,7 +242,7 @@ class MainActivity : FragmentActivity() {
                                 smsLogEntries = smsLogEntries,
                                 onEditConfig = {
                                     val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
-                                    startActivity(intent)
+                                    emailConfigLauncher.launch(intent)
                                 },
                                 onManageFilters = {
                                     val intent = Intent(this@MainActivity, FilterActivity::class.java)
@@ -282,7 +297,7 @@ fun MainScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("SMS to Email") },
+                title = { Text("SMS to Mail") },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -310,13 +325,13 @@ fun MainScreen(
                         modifier = Modifier.padding(16.dp)
                     ) {
                         Text(
-                            text = "Problema di autenticazione Gmail",
+                            text = stringResource(R.string.gmail_auth_problem_title),
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onErrorContainer
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Gmail richiede una password specifica per app. La password normale del tuo account Google non funzionerà.",
+                            text = stringResource(R.string.gmail_auth_problem_message),
                             color = MaterialTheme.colorScheme.onErrorContainer
                         )
                         Spacer(modifier = Modifier.height(8.dp))
@@ -327,7 +342,7 @@ fun MainScreen(
                                 contentColor = MaterialTheme.colorScheme.onError
                             )
                         ) {
-                            Text("Aggiorna configurazione email")
+                            Text(stringResource(R.string.update_email_config_button))
                         }
                     }
                 }
