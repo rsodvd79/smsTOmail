@@ -22,7 +22,7 @@ Personalizza completamente quali SMS desideri inoltrare:
 ### 🔒 Privacy e sicurezza
 • Tutti i dati vengono elaborati localmente sul tuo dispositivo
 • Nessun server esterno memorizza i tuoi messaggi
-• Le credenziali email sono archiviate in modo sicuro
+• Le credenziali email sono archiviate in modo sicuro tramite cifratura con il Keystore Android
 • Non raccogliamo dati personali degli utenti
 
 ### 🚀 Alte prestazioni

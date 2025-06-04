@@ -1,1 +1,1 @@
-Inoltra automaticamente i tuoi SMS a email. Sistema di filtri personalizzabile.
+Inoltra automaticamente i tuoi SMS a email. Sistema di filtri personalizzabile e credenziali cifrate.
