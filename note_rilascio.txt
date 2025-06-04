@@ -12,6 +12,6 @@ Funzionalità esistenti:
 • Sistema di filtri avanzato
 • Facile configurazione provider email
 • Avvio automatico al riavvio dispositivo
-• Ottimizzato per consumo batteria
+• Ottimizzato per il consumo della batteria
 
 Grazie per aver scelto SMS to Mail!
