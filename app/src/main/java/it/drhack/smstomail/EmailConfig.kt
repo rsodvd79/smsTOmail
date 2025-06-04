@@ -2,11 +2,16 @@ package it.drhack.smstomail
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+
+// Converter per la cifratura della password
+import it.drhack.smstomail.EncryptedStringConverter
 
 @Entity(tableName = "email_config")
 data class EmailConfig(
     @PrimaryKey val id: Int = 0,
     val email: String,
+    @field:TypeConverters(EncryptedStringConverter::class)
     val password: String,
     val destination: String,
     val maxSmsToKeep: Int = 100,  // Valore predefinito: 100 messaggi
