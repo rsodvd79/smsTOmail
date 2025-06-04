@@ -40,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.CancellationException
 
 class MainActivity : FragmentActivity() {
     private var emailConfig: EmailConfig? = null
@@ -53,6 +54,13 @@ class MainActivity : FragmentActivity() {
         android.Manifest.permission.INTERNET,
         android.Manifest.permission.ACCESS_NETWORK_STATE
     )
+
+    // Permesso per le notifiche (necessario per Android 13+)
+    private val notificationPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        arrayOf(android.Manifest.permission.POST_NOTIFICATIONS)
+    } else {
+        emptyArray()
+    }
 
     // Permessi per servizi in foreground (necessari solo per Android 14+)
     private val foregroundServicePermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -92,8 +100,21 @@ class MainActivity : FragmentActivity() {
         if (!allGranted) {
             showPermissionDialog()
         } else {
-            initializeApp()
+            checkNotificationPermission()
         }
+    }
+
+    // Registrazione per la richiesta del permesso notifiche
+    private val requestNotificationPermission = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val allGranted = permissions.entries.all { it.value }
+        if (!allGranted) {
+            // Possiamo procedere anche senza permesso notifiche, ma informiamo l'utente
+            showNotificationPermissionInfo()
+        }
+        // Inizializziamo comunque l'app, anche se il permesso di notifica è stato negato
+        initializeApp()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,6 +146,22 @@ class MainActivity : FragmentActivity() {
             if (permissionsNotGranted.isNotEmpty()) {
                 requestForegroundServicePermissions.launch(permissionsNotGranted)
             } else {
+                checkNotificationPermission()
+            }
+        } else {
+            initializeApp()
+        }
+    }
+
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permissionsNotGranted = notificationPermission.filter {
+                ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+            }.toTypedArray()
+
+            if (permissionsNotGranted.isNotEmpty()) {
+                requestNotificationPermission.launch(permissionsNotGranted)
+            } else {
                 initializeApp()
             }
         } else {
@@ -152,6 +189,16 @@ class MainActivity : FragmentActivity() {
         builder.create().show()
     }
 
+    private fun showNotificationPermissionInfo() {
+        val builder = AlertDialog.Builder(this)
+        builder.apply {
+            setTitle(getString(R.string.notification_permission_info_title))
+            setMessage(getString(R.string.notification_permission_info_message))
+            setPositiveButton(getString(R.string.notification_permission_info_ok_button)) { _, _ -> }
+        }
+        builder.create().show()
+    }
+
     private fun initializeApp() {
         // Aggiungo log per tracciare l'esecuzione
         Log.d("MainActivity", "Inizializzazione dell'app in corso...")
@@ -174,14 +221,22 @@ class MainActivity : FragmentActivity() {
 
                     emailConfig = config
 
-                    // Carica i log degli SMS
-                    try {
-                        db.smsLogDao().getAllLogs().collectLatest { logs ->
-                            smsLogEntries = logs
+                    // Carica i log degli SMS in una coroutine separata legata al lifecycle
+                    lifecycleScope.launchWhenStarted {
+                        try {
+                            db.smsLogDao().getAllLogs().collectLatest { logs ->
+                                smsLogEntries = logs
+                            }
+                        } catch (e: Exception) {
+                            if (e is CancellationException) {
+                                Log.d("MainActivity", "Caricamento log SMS cancellato a causa del cambio di stato dell'attività")
+                            } else {
+                                Log.e("MainActivity", "Errore nel caricamento dei log SMS", e)
+                            }
+                            if (smsLogEntries.isEmpty()) {
+                                smsLogEntries = emptyList()
+                            }
                         }
-                    } catch (e: Exception) {
-                        Log.e("MainActivity", "Errore nel caricamento dei log SMS", e)
-                        smsLogEntries = emptyList()
                     }
 
                     // Assicuriamoci di essere nel thread principale per aggiornare l'UI

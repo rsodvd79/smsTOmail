@@ -28,6 +28,10 @@ class SmsBackgroundService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // Crea e mostra una notifica per il foreground service immediatamente
+        val notification = createNotification("SMS to Mail", "Servizio di inoltro SMS attivo")
+        startForeground(NOTIFICATION_ID, notification)
+
         // Verifichiamo se il servizio è stato avviato dopo il riavvio del dispositivo
         val isFromBootReceiver = intent?.getBooleanExtra("bootCompleted", false) ?: false
 
@@ -59,9 +63,10 @@ class SmsBackgroundService : Service() {
 
         // Procedura normale per l'elaborazione degli SMS
 
-        // Crea e mostra una notifica per il foreground service
-        val notification = createNotification("SMS ricevuto", "Elaborazione SMS da $safeSender...")
-        startForeground(NOTIFICATION_ID, notification)
+        // Aggiorna la notifica con info sull'SMS ricevuto
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val updatedNotification = createNotification("SMS ricevuto", "Elaborazione SMS da $safeSender...")
+        notificationManager.notify(NOTIFICATION_ID, updatedNotification)
 
         // Elabora l'SMS in un coroutine scope
         CoroutineScope(Dispatchers.IO).launch {
@@ -112,7 +117,14 @@ class SmsBackgroundService : Service() {
             val config = db.emailConfigDao().getConfig() ?: return
 
             try {
-                val emailSender = EmailSender(config.email, config.password)
+                val emailSender = EmailSender(
+                    config.email,
+                    config.password,
+                    config.smtpHost,
+                    config.smtpPort,
+                    config.smtpUseTls,
+                    "SMS Forward - SMS to Mail"
+                )
                 val result = emailSender.sendEmail(
                     config.destination,
                     "Nuovo SMS da $sender",
