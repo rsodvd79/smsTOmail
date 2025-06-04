@@ -46,23 +46,6 @@ La schermata "Configurazione Email" permette di inserire:
 
 Dal menu è possibile accedere alla "Gestione Filtri SMS" per specificare mittente e/o parole chiave da includere o escludere. Se non viene impostato alcun filtro, tutti gli SMS saranno inoltrati.
 
-## Keystore esterno
-
-Per firmare le versioni di rilascio è necessario utilizzare un keystore esterno non incluso nel repository.
-
-1. Creare un file `keystore.properties` (non tracciato su Git) con il seguente contenuto:
-   ```properties
-   STORE_FILE=/percorso/del/tuo/keystore.jks
-   STORE_PASSWORD=laPasswordDelKeystore
-   KEY_ALIAS=alias
-   KEY_PASSWORD=laPasswordDellaChiave
-   ```
-2. Configurare il file `build.gradle.kts` (modulo app) per caricare queste proprietà e impostare la `signingConfig`.
-3. Generare il pacchetto di rilascio con:
-   ```bash
-   ./gradlew assembleRelease
-   ```
-
 ## Note aggiuntive
 
 - Nella cartella `screen_shot` sono presenti alcune immagini di esempio dell'app.
