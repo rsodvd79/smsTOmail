@@ -5,11 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+
+// Converter per criptare le stringhe sensibili
+import it.drhack.smstomail.EncryptedStringConverter
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(entities = [Filter::class, EmailConfig::class, SmsLogEntry::class], version = 6)
-@TypeConverters(FilterTypeConverter::class, DateConverter::class)
+@TypeConverters(FilterTypeConverter::class, DateConverter::class, EncryptedStringConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun filterDao(): FilterDao
     abstract fun emailConfigDao(): EmailConfigDao
