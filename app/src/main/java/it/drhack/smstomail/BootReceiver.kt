@@ -11,7 +11,7 @@ class BootReceiver : BroadcastReceiver() {
             val serviceIntent = Intent(context, SmsBackgroundService::class.java)
             serviceIntent.putExtra("bootCompleted", true)
 
-            // Per Android 15 (SDK 35) e superiori, non avviare direttamente un servizio in primo piano
+            // Per Android 14 (SDK 34) e superiori, non avviare direttamente un servizio in primo piano
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) { // Android 14 o superiore
                 // Invece di avviare direttamente il servizio in primo piano, avviamo un servizio normale
                 // che poi può programmare un lavoro o utilizzare WorkManager
