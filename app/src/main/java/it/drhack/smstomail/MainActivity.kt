@@ -283,33 +283,30 @@ class MainActivity : FragmentActivity() {
         // Aggiorna la configurazione quando l'attività riprende
         val db = AppDatabase.getInstance(this)
         lifecycleScope.launch {
-            val config = db.emailConfigDao().getConfig()
-            if (config != null) {
-                emailConfig = config
-                // Ricrea il content solo se necessario
-                if (emailConfig != null) {
-                    setContent {
-                        SmsTOmailTheme {
-                            MainScreen(
-                                config = emailConfig,
-                                lastSmsMessage = lastSmsMessage,
-                                lastEmailResult = lastEmailResult,
-                                smsLogEntries = smsLogEntries,
-                                onEditConfig = {
-                                    val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
-                                    emailConfigLauncher.launch(intent)
-                                },
-                                onManageFilters = {
-                                    val intent = Intent(this@MainActivity, FilterActivity::class.java)
-                                    startActivity(intent)
-                                },
-                                onClearLogs = {
-                                    lifecycleScope.launch {
-                                        db.smsLogDao().deleteAll()
-                                    }
+            emailConfig = db.emailConfigDao().getConfig()
+            if (emailConfig != null) {
+                setContent {
+                    SmsTOmailTheme {
+                        MainScreen(
+                            config = emailConfig,
+                            lastSmsMessage = lastSmsMessage,
+                            lastEmailResult = lastEmailResult,
+                            smsLogEntries = smsLogEntries,
+                            onEditConfig = {
+                                val intent =
+                                    Intent(this@MainActivity, EmailConfigActivity::class.java)
+                                emailConfigLauncher.launch(intent)
+                            },
+                            onManageFilters = {
+                                val intent = Intent(this@MainActivity, FilterActivity::class.java)
+                                startActivity(intent)
+                            },
+                            onClearLogs = {
+                                lifecycleScope.launch {
+                                    db.smsLogDao().deleteAll()
                                 }
-                            )
-                        }
+                            }
+                        )
                     }
                 }
             }
