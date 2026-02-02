@@ -47,6 +47,8 @@ class MainActivity : FragmentActivity() {
     private var lastSmsMessage: String? = null
     private var lastEmailResult: String? = null
     private var smsLogEntries by mutableStateOf<List<SmsLogEntry>>(emptyList())
+    private var permissionsGranted by mutableStateOf(false)
+    private var blockedReason by mutableStateOf<String?>(null)
 
     // Lista dei permessi necessari per l'app
     private val requiredPermissions = arrayOf(
@@ -87,6 +89,9 @@ class MainActivity : FragmentActivity() {
     ) { permissions ->
         val allGranted = permissions.entries.all { it.value }
         if (!allGranted) {
+            blockedReason = getString(R.string.permission_dialog_message)
+            permissionsGranted = false
+            initializeApp(blockedMessage = blockedReason)
             showPermissionDialog()
         } else {
             checkForegroundServicePermissions()
@@ -98,6 +103,9 @@ class MainActivity : FragmentActivity() {
     ) { permissions ->
         val allGranted = permissions.entries.all { it.value }
         if (!allGranted) {
+            blockedReason = getString(R.string.permission_dialog_message)
+            permissionsGranted = false
+            initializeApp(blockedMessage = blockedReason)
             showPermissionDialog()
         } else {
             checkNotificationPermission()
@@ -110,11 +118,15 @@ class MainActivity : FragmentActivity() {
     ) { permissions ->
         val allGranted = permissions.entries.all { it.value }
         if (!allGranted) {
-            // Possiamo procedere anche senza permesso notifiche, ma informiamo l'utente
+            blockedReason = getString(R.string.notification_permission_info_message)
+            permissionsGranted = false
+            initializeApp(blockedMessage = blockedReason)
             showNotificationPermissionInfo()
+        } else {
+            blockedReason = null
+            permissionsGranted = true
+            initializeApp()
         }
-        // Inizializziamo comunque l'app, anche se il permesso di notifica è stato negato
-        initializeApp()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,6 +143,9 @@ class MainActivity : FragmentActivity() {
         }.toTypedArray()
 
         if (permissionsNotGranted.isNotEmpty()) {
+            blockedReason = getString(R.string.permission_dialog_message)
+            permissionsGranted = false
+            initializeApp(blockedMessage = blockedReason)
             requestPermissionLauncher.launch(permissionsNotGranted)
         } else {
             checkForegroundServicePermissions()
@@ -144,11 +159,16 @@ class MainActivity : FragmentActivity() {
             }.toTypedArray()
 
             if (permissionsNotGranted.isNotEmpty()) {
+                blockedReason = getString(R.string.permission_dialog_message)
+                permissionsGranted = false
+                initializeApp(blockedMessage = blockedReason)
                 requestForegroundServicePermissions.launch(permissionsNotGranted)
             } else {
                 checkNotificationPermission()
             }
         } else {
+            blockedReason = null
+            permissionsGranted = true
             initializeApp()
         }
     }
@@ -160,11 +180,18 @@ class MainActivity : FragmentActivity() {
             }.toTypedArray()
 
             if (permissionsNotGranted.isNotEmpty()) {
+                blockedReason = getString(R.string.notification_permission_info_message)
+                permissionsGranted = false
+                initializeApp(blockedMessage = blockedReason)
                 requestNotificationPermission.launch(permissionsNotGranted)
             } else {
+                blockedReason = null
+                permissionsGranted = true
                 initializeApp()
             }
         } else {
+            blockedReason = null
+            permissionsGranted = true
             initializeApp()
         }
     }
@@ -199,7 +226,7 @@ class MainActivity : FragmentActivity() {
         builder.create().show()
     }
 
-    private fun initializeApp() {
+    private fun initializeApp(blockedMessage: String? = null) {
         // Aggiungo log per tracciare l'esecuzione
         Log.d("MainActivity", "Inizializzazione dell'app in corso...")
 
@@ -248,6 +275,8 @@ class MainActivity : FragmentActivity() {
                                     lastSmsMessage = lastSmsMessage,
                                     lastEmailResult = lastEmailResult,
                                     smsLogEntries = smsLogEntries,
+                                    blockedMessage = blockedMessage,
+                                    onRequestPermissions = { checkAndRequestPermissions() },
                                     onEditConfig = {
                                         val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
                                         emailConfigLauncher.launch(intent)
@@ -265,8 +294,11 @@ class MainActivity : FragmentActivity() {
                             }
                         }
 
-                        // Avvia anche il servizio di ascolto SMS se necessario
-                        startSmsListenerService()
+                        if (blockedMessage == null && permissionsGranted) {
+                            startSmsListenerService()
+                        } else {
+                            Log.d("MainActivity", "Permessi mancanti: servizio non avviato")
+                        }
                     } else {
                         Log.e("MainActivity", "Activity distrutta o in chiusura, impossibile aggiornare l'UI")
                     }
@@ -292,9 +324,10 @@ class MainActivity : FragmentActivity() {
                             lastSmsMessage = lastSmsMessage,
                             lastEmailResult = lastEmailResult,
                             smsLogEntries = smsLogEntries,
+                            blockedMessage = blockedReason,
+                            onRequestPermissions = { checkAndRequestPermissions() },
                             onEditConfig = {
-                                val intent =
-                                    Intent(this@MainActivity, EmailConfigActivity::class.java)
+                                val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
                                 emailConfigLauncher.launch(intent)
                             },
                             onManageFilters = {
@@ -337,6 +370,8 @@ fun MainScreen(
     lastSmsMessage: String?,
     lastEmailResult: String?,
     smsLogEntries: List<SmsLogEntry>,
+    blockedMessage: String? = null,
+    onRequestPermissions: () -> Unit = {},
     onEditConfig: () -> Unit,
     onManageFilters: () -> Unit,
     onClearLogs: () -> Unit
@@ -344,6 +379,7 @@ fun MainScreen(
     // Verifichiamo se c'è un errore di autenticazione Gmail
     val hasAuthError = lastEmailResult?.contains("password specifica per app") == true ||
                       lastEmailResult?.contains("InvalidSecondFactor") == true
+    val isBlocked = blockedMessage != null
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -365,6 +401,32 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            if (isBlocked) {
+                ElevatedCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.elevatedCardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = stringResource(R.string.permission_dialog_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = blockedMessage ?: "",
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Button(onClick = onRequestPermissions) {
+                            Text(stringResource(R.string.permission_dialog_settings_button))
+                        }
+                    }
+                }
+            }
+
             // Mostra un banner di errore per problemi di autenticazione Gmail
             if (hasAuthError) {
                 ElevatedCard(
@@ -402,7 +464,7 @@ fun MainScreen(
 
             // Info sulla configurazione email
             ElevatedCard(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp)
@@ -419,6 +481,7 @@ fun MainScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     Button(
                         onClick = onEditConfig,
+                        enabled = !isBlocked,
                         modifier = Modifier.align(Alignment.End)
                     ) {
                         Icon(Icons.Default.Edit, contentDescription = "Modifica")
@@ -431,6 +494,7 @@ fun MainScreen(
             // Pulsante per gestire i filtri
             Button(
                 onClick = onManageFilters,
+                enabled = !isBlocked,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(Icons.Default.Settings, contentDescription = "Filtri")
@@ -456,7 +520,8 @@ fun MainScreen(
                         )
 
                         IconButton(
-                            onClick = onClearLogs
+                            onClick = onClearLogs,
+                            enabled = !isBlocked
                         ) {
                             Icon(
                                 Icons.Default.Delete,
@@ -502,6 +567,14 @@ fun MainScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     Text("L'app è in esecuzione e pronta a ricevere SMS.")
                     Text("Gli SMS che corrispondono ai filtri impostati verranno inoltrati via email.")
+                    if (isBlocked) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.notification_permission_info_message),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             }
         }
