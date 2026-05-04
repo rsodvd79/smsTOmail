@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
-    id("androidx.room") version "2.7.0-beta01"
+    id("androidx.room") version "2.7.2"
 }
 
 android {
@@ -16,8 +16,8 @@ android {
         applicationId = "it.drhack.smstomail"
         minSdk = 24
         targetSdk = 35
-        versionCode = 20250604
-        versionName = "2025.06.04"
+        versionCode = 20260504
+        versionName = "2026.05.04"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
