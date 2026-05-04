@@ -13,7 +13,7 @@ import androidx.core.app.NotificationCompat
  */
 object NotificationHelper {
     private const val NOTIFICATION_CHANNEL_ID = "email_error_channel"
-    private const val AUTH_ERROR_NOTIFICATION_ID = 1001
+    private const val AUTH_ERROR_NOTIFICATION_ID = 1002
 
     /**
      * Crea un canale di notifica per Android 8.0 e versioni successive

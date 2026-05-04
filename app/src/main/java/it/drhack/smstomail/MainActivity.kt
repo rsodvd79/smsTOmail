@@ -153,24 +153,10 @@ class MainActivity : FragmentActivity() {
     }
 
     private fun checkForegroundServicePermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val permissionsNotGranted = foregroundServicePermissions.filter {
-                ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
-            }.toTypedArray()
-
-            if (permissionsNotGranted.isNotEmpty()) {
-                blockedReason = getString(R.string.permission_dialog_message)
-                permissionsGranted = false
-                initializeApp(blockedMessage = blockedReason)
-                requestForegroundServicePermissions.launch(permissionsNotGranted)
-            } else {
-                checkNotificationPermission()
-            }
-        } else {
-            blockedReason = null
-            permissionsGranted = true
-            initializeApp()
-        }
+        // FOREGROUND_SERVICE e FOREGROUND_SERVICE_DATA_SYNC sono "normal" permissions
+        // (non runtime): sono automaticamente garantite se dichiarate nel manifest.
+        // Non richiedono mai una richiesta a runtime e il check sarebbe sempre GRANTED.
+        checkNotificationPermission()
     }
 
     private fun checkNotificationPermission() {

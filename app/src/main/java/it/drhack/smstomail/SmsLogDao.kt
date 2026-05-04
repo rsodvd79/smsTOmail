@@ -39,7 +39,7 @@ interface SmsLogDao {
         }
     }
 
-    @Query("SELECT * FROM email_config LIMIT 1")
+    @Query("SELECT * FROM email_config WHERE id = 0 LIMIT 1")
     suspend fun getEmailConfig(): EmailConfig?
 
     @Query("SELECT * FROM sms_log ORDER BY timestamp DESC")

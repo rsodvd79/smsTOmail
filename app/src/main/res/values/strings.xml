@@ -27,6 +27,8 @@
     <string name="email_config_title">Configurazione Email</string>
     <string name="email_sender_label">Email mittente</string>
     <string name="password_label">Password</string>
+    <string name="password_show">Mostra password</string>
+    <string name="password_hide">Nascondi password</string>
     <string name="gmail_warning_title">IMPORTANTE per account Gmail:</string>
     <string name="gmail_warning_message">Google richiede una \'Password specifica per app\' e non la password standard del tuo account.</string>
     <string name="gmail_create_app_password">Clicca qui per creare una password specifica per app</string>

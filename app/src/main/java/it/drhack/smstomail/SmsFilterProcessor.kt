@@ -15,30 +15,26 @@ class SmsFilterProcessor(private val filters: List<Filter>) {
      */
     fun shouldProcessSms(sender: String, message: String): Boolean {
         if (filters.isEmpty()) {
-            // Se non ci sono filtri, elabora tutti gli SMS
             return true
         }
 
-        // Verifica se almeno un filtro corrisponde
-        return filters.any { filter ->
-            val senderMatch = when {
-                // Se il filtro non ha un mittente specificato, è considerato corrispondente
-                filter.sender.isBlank() -> true
-                // Altrimenti, verifica se il mittente contiene il testo del filtro
-                else -> sender.contains(filter.sender, ignoreCase = true)
-            }
+        val includeFilters = filters.filter { it.filterType == FilterType.INCLUDE }
+        val excludeFilters = filters.filter { it.filterType == FilterType.EXCLUDE }
 
-            val messageMatch = when {
-                // Se il filtro non ha una parola chiave specificata, è considerato corrispondente
-                filter.keyword.isBlank() -> true
-                // Altrimenti, verifica se il messaggio contiene la parola chiave del filtro
-                else -> message.contains(filter.keyword, ignoreCase = true)
-            }
-
-            when (filter.filterType) {
-                FilterType.INCLUDE -> senderMatch && messageMatch
-                FilterType.EXCLUDE -> !(senderMatch && messageMatch)
-            }
+        // Un filtro matcha se mittente E keyword corrispondono (blank = qualsiasi valore)
+        fun matches(filter: Filter): Boolean {
+            val senderMatch = filter.sender.isBlank() || sender.contains(filter.sender, ignoreCase = true)
+            val messageMatch = filter.keyword.isBlank() || message.contains(filter.keyword, ignoreCase = true)
+            return senderMatch && messageMatch
         }
+
+        // Se l'SMS matcha un filtro EXCLUDE, non va inoltrato (ha precedenza)
+        if (excludeFilters.any { matches(it) }) return false
+
+        // Se esistono filtri INCLUDE, almeno uno deve corrispondere
+        if (includeFilters.isNotEmpty()) return includeFilters.any { matches(it) }
+
+        // Solo filtri EXCLUDE presenti e nessuno ha fatto match: inoltra
+        return true
     }
 }
