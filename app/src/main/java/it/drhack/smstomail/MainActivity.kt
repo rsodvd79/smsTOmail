@@ -633,9 +633,9 @@ fun SmsLogItem(entry: SmsLogEntry) {
 @Composable
 fun MainScreenPreview() {
     val mockConfig = EmailConfig(
-        id = 1,
+        id = 0,
         email = "esempio@gmail.com",
-        password = "password",
+        password = EncryptedValue("password"),
         destination = "destinatario@email.com"
     )
 
@@ -675,9 +675,9 @@ fun MainScreenPreview() {
 @Composable
 fun MainScreenErrorPreview() {
     val mockConfig = EmailConfig(
-        id = 1,
+        id = 0,
         email = "esempio@gmail.com",
-        password = "password",
+        password = EncryptedValue("password"),
         destination = "destinatario@email.com"
     )
 
@@ -698,9 +698,9 @@ fun MainScreenErrorPreview() {
 @Composable
 fun MainScreenEmptyPreview() {
     val mockConfig = EmailConfig(
-        id = 1,
+        id = 0,
         email = "esempio@gmail.com",
-        password = "password",
+        password = EncryptedValue("password"),
         destination = "destinatario@email.com"
     )
 

@@ -113,59 +113,91 @@ class SmsBackgroundService : Service() {
         val filters = db.filterDao().getAllFilters()
         val processor = SmsFilterProcessor(filters)
 
-        if (processor.shouldProcessSms(sender, message)) {
-            val config = db.emailConfigDao().getConfig() ?: return
-
-            try {
-                val emailSender = EmailSender(
-                    config.email,
-                    config.password,
-                    config.smtpHost,
-                    config.smtpPort,
-                    config.smtpUseTls,
-                    "SMS Forward - SMS to Mail"
+        if (!processor.shouldProcessSms(sender, message)) {
+            db.smsLogDao().insert(
+                SmsLogEntry(
+                    timestamp = java.util.Date(),
+                    sender = sender,
+                    message = message,
+                    emailSent = false,
+                    emailResult = "SMS filtrato: non corrisponde ai filtri configurati"
                 )
-                val result = emailSender.sendEmail(
-                    config.destination,
-                    "Nuovo SMS da $sender",
-                    message
-                )
+            )
+            return
+        }
 
-                // Aggiorna la notifica
-                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                val updatedNotification = createNotification(
-                    "SMS inoltrato",
-                    "SMS da $sender inoltrato con successo"
-                )
-                notificationManager.notify(NOTIFICATION_ID, updatedNotification)
+        val config = db.emailConfigDao().getConfig() ?: return
 
-                // Notifica il risultato all'app
-                withContext(Dispatchers.Main) {
-                    val resultIntent = Intent("it.drhack.smstomail.SMS_RESULT").apply {
-                        putExtra("sms_message", "Da: $sender\n$message")
-                        putExtra("mail_result", "Email inviata: $result")
-                    }
-                    LocalBroadcastManager.getInstance(this@SmsBackgroundService)
-                        .sendBroadcast(resultIntent)
+        try {
+            val emailSender = EmailSender(
+                config.email,
+                config.password.value,
+                config.smtpHost,
+                config.smtpPort,
+                config.smtpUseTls,
+                "SMS Forward - SMS to Mail"
+            )
+            val result = emailSender.sendEmail(
+                config.destination,
+                "Nuovo SMS da $sender",
+                message
+            )
+            val emailSuccess = result.startsWith("Email inviata con successo")
+
+            db.smsLogDao().insert(
+                SmsLogEntry(
+                    timestamp = java.util.Date(),
+                    sender = sender,
+                    message = message,
+                    emailSent = emailSuccess,
+                    emailResult = result
+                )
+            )
+
+            // Aggiorna la notifica
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val updatedNotification = createNotification(
+                "SMS inoltrato",
+                "SMS da $sender inoltrato con successo"
+            )
+            notificationManager.notify(NOTIFICATION_ID, updatedNotification)
+
+            // Notifica il risultato all'app
+            withContext(Dispatchers.Main) {
+                val resultIntent = Intent("it.drhack.smstomail.SMS_RESULT").apply {
+                    putExtra("sms_message", "Da: $sender\n$message")
+                    putExtra("mail_result", "Email inviata: $result")
                 }
-            } catch (e: Exception) {
-                // Notifica l'errore
-                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                val errorNotification = createNotification(
-                    "Errore inoltro SMS",
-                    "Errore nell'invio dell'email: ${e.message}"
+                LocalBroadcastManager.getInstance(this@SmsBackgroundService)
+                    .sendBroadcast(resultIntent)
+            }
+        } catch (e: Exception) {
+            db.smsLogDao().insert(
+                SmsLogEntry(
+                    timestamp = java.util.Date(),
+                    sender = sender,
+                    message = message,
+                    emailSent = false,
+                    emailResult = "Errore invio email: ${e.message}"
                 )
-                notificationManager.notify(NOTIFICATION_ID, errorNotification)
+            )
 
-                // Notifica il risultato all'app
-                withContext(Dispatchers.Main) {
-                    val resultIntent = Intent("it.drhack.smstomail.SMS_RESULT").apply {
-                        putExtra("sms_message", "Da: $sender\n$message")
-                        putExtra("mail_result", "Errore invio email: ${e.message}")
-                    }
-                    LocalBroadcastManager.getInstance(this@SmsBackgroundService)
-                        .sendBroadcast(resultIntent)
+            // Notifica l'errore
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val errorNotification = createNotification(
+                "Errore inoltro SMS",
+                "Errore nell'invio dell'email: ${e.message}"
+            )
+            notificationManager.notify(NOTIFICATION_ID, errorNotification)
+
+            // Notifica il risultato all'app
+            withContext(Dispatchers.Main) {
+                val resultIntent = Intent("it.drhack.smstomail.SMS_RESULT").apply {
+                    putExtra("sms_message", "Da: $sender\n$message")
+                    putExtra("mail_result", "Errore invio email: ${e.message}")
                 }
+                LocalBroadcastManager.getInstance(this@SmsBackgroundService)
+                    .sendBroadcast(resultIntent)
             }
         }
     }

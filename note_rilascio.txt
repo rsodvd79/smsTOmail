@@ -1,17 +1,19 @@
-Aggiornamento SMS to Mail - 2 giugno 2025
+Aggiornamento SMS to Mail - 5 maggio 2026
 
-Novità:
-• Migliorata stabilità generale dell'applicazione
-• Supporto per nuovi formati SMS
-• Interfaccia utente rinnovata
-• Ottimizzazione delle prestazioni
-• Ridotto consumo della batteria
+--- it-IT ---
+🔒 Correzioni di sicurezza e stabilità
 
-Funzionalità esistenti:
-• Inoltro automatico SMS a email
-• Sistema di filtri avanzato
-• Facile configurazione provider email
-• Avvio automatico al riavvio dispositivo
-• Ottimizzato per il consumo della batteria
+• Risolto un problema critico: la password SMTP ora viene correttamente cifrata con AES-256-GCM tramite Android Keystore prima di essere salvata nel database.
+• Aggiunta la cronologia SMS anche per i messaggi elaborati dopo il riavvio del dispositivo.
+• Migliorata la gestione del log SMS in caso di accessi simultanei.
 
 Grazie per aver scelto SMS to Mail!
+
+--- en-US / en-GB ---
+🔒 Security fixes and stability improvements
+
+• Fixed a critical issue: SMTP password is now correctly encrypted with AES-256-GCM via Android Keystore before being stored in the database.
+• SMS history is now recorded even for messages processed after device reboot.
+• Improved SMS log handling under concurrent access.
+
+Thank you for using SMS to Mail!

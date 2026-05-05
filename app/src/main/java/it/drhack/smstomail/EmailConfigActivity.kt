@@ -58,7 +58,7 @@ class EmailConfigActivity : ComponentActivity() {
             val config = db.emailConfigDao().getConfig()
             config?.let {
                 email = it.email
-                password = it.password
+                password = it.password.value
                 destination = it.destination
                 maxSmsToKeep = it.maxSmsToKeep.toString()
                 smtpHost = it.smtpHost
@@ -103,7 +103,7 @@ class EmailConfigActivity : ComponentActivity() {
                     val config = EmailConfig(
                         0,
                         email,
-                        password,
+                        EncryptedValue(password),
                         destination,
                         maxSms,
                         smtpHost,
