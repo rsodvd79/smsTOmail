@@ -37,7 +37,7 @@ class SmsReceiver : BroadcastReceiver() {
                             if (config != null) {
                                 val emailSender = EmailSender(
                                     config.email,
-                                    config.password,
+                                    config.password.value,
                                     config.smtpHost,
                                     config.smtpPort,
                                     config.smtpUseTls,

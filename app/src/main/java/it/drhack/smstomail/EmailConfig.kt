@@ -12,7 +12,7 @@ data class EmailConfig(
     @PrimaryKey val id: Int = 0,
     val email: String,
     @field:TypeConverters(EncryptedStringConverter::class)
-    val password: String,
+    val password: EncryptedValue,
     val destination: String,
     val maxSmsToKeep: Int = 100,  // Valore predefinito: 100 messaggi
     val smtpHost: String = "smtp.gmail.com",  // Valore predefinito per Gmail
