@@ -1,19 +1,19 @@
-Aggiornamento SMS to Mail - 5 maggio 2026
+Aggiornamento SMS to Mail - 7 maggio 2026
 
 --- it-IT ---
-🔒 Correzioni di sicurezza e stabilità
+🛠️ Miglioramenti di compatibilità e stabilità
 
-• Risolto un problema critico: la password SMTP ora viene correttamente cifrata con AES-256-GCM tramite Android Keystore prima di essere salvata nel database.
-• Aggiunta la cronologia SMS anche per i messaggi elaborati dopo il riavvio del dispositivo.
-• Migliorata la gestione del log SMS in caso di accessi simultanei.
+• Migliorata la compatibilità con Android 15 e Android 16 (API 35/37): risolti problemi di avvio e crash su dispositivi con le versioni più recenti di Android.
+• Corretto un bug che poteva causare l'arresto anomalo del servizio di inoltro SMS su Android 14 e superiori.
+• Migliorata la gestione del ciclo di vita dell'app: la schermata principale ora si aggiorna in modo più affidabile.
 
 Grazie per aver scelto SMS to Mail!
 
 --- en-US / en-GB ---
-🔒 Security fixes and stability improvements
+🛠️ Compatibility and stability improvements
 
-• Fixed a critical issue: SMTP password is now correctly encrypted with AES-256-GCM via Android Keystore before being stored in the database.
-• SMS history is now recorded even for messages processed after device reboot.
-• Improved SMS log handling under concurrent access.
+• Improved compatibility with Android 15 and Android 16 (API 35/37): fixed startup crashes on the latest Android versions.
+• Fixed a bug that could cause the SMS forwarding service to crash on Android 14 and above.
+• Improved app lifecycle handling: the main screen now refreshes more reliably.
 
 Thank you for using SMS to Mail!
