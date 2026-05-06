@@ -5,7 +5,7 @@
 ![Android](https://img.shields.io/badge/Android-7.0%2B-brightgreen?logo=android)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple?logo=kotlin)
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Version](https://img.shields.io/badge/Version-2025.06.06-orange)
+![Version](https://img.shields.io/badge/Version-2026.05.07-orange)
 
 ---
 
@@ -36,7 +36,7 @@
 | Android | 7.0 (API 24) |
 | Android Studio | 2024.1 (Koala) o superiore |
 | JDK | 11 o superiore |
-| Gradle | fornito dal wrapper (9.3.1) |
+| Gradle | fornito dal wrapper (9.4.1) |
 
 ---
 
@@ -63,8 +63,20 @@ gradlew.bat app:assembleDebug        # Windows
 
 > **Nota Windows:** se `JAVA_HOME` punta a un JDK non valido, impostarlo esplicitamente prima del comando:
 > ```powershell
-> $env:JAVA_HOME = 'C:\Program Files\Java\jdk-21.0.11'
+> $env:JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr'
 > ```
+
+---
+
+## Compatibilità
+
+| API | Note |
+|---|---|
+| API 24–28 | Supporto completo |
+| API 29+ (Android 10+) | Foreground service avviato con tipo `DATA_SYNC` esplicito |
+| API 33+ (Android 13+) | Richiesta runtime del permesso `POST_NOTIFICATIONS` |
+| API 35+ (Android 15+) | Edge-to-edge obbligatorio — tutte le Activity chiamano `enableEdgeToEdge()` |
+| API 37 (Android 16+) | Testato su emulatore; stabile su dispositivo fisico |
 
 ---
 
@@ -139,6 +151,18 @@ UI: Jetpack Compose
 ```
 
 **Sicurezza:** la password SMTP è cifrata con AES-256-GCM tramite Android Keystore prima di essere salvata in SQLite.
+
+---
+
+## Changelog
+
+### 2026.05.07
+- Versione aggiornata a 2026.05.07
+
+### 2026.05.06
+- Fix: aggiunto `enableEdgeToEdge()` in `EmailConfigActivity` e `FilterActivity` (necessario per Android 15+ / API 35+)
+- Fix: `startForeground()` in `SmsBackgroundService` ora specifica `FOREGROUND_SERVICE_TYPE_DATA_SYNC` su API 29+ (obbligatorio con `foregroundServiceType` dichiarato nel manifest)
+- Fix: sostituito `launchWhenStarted` (deprecato) con `repeatOnLifecycle(Lifecycle.State.STARTED)` in `MainActivity`
 
 ---
 
