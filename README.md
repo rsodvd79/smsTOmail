@@ -19,7 +19,7 @@
 
 ## Funzionalità
 
-- 📨 **Inoltro automatico SMS** — ogni SMS ricevuto viene inviato via email in tempo reale
+- 📨 **Inoltro automatico SMS** — ogni SMS tradizionale (GSM) ricevuto viene inviato via email in tempo reale
 - 🔍 **Filtri avanzati** — includi o escludi SMS per mittente e/o parola chiave
 - 🔒 **Password cifrata** — la password SMTP è protetta con AES-256/GCM tramite Android Keystore
 - 📋 **Cronologia SMS** — log degli SMS ricevuti con stato dell'invio email
@@ -88,7 +88,7 @@ Al primo avvio l'app chiede i permessi necessari:
 
 | Permesso | Motivo |
 |---|---|
-| `RECEIVE_SMS` | Intercettare gli SMS in arrivo |
+| `RECEIVE_SMS` | Intercettare gli SMS tradizionali (GSM) in arrivo |
 | `INTERNET` | Inviare email via SMTP |
 | `POST_NOTIFICATIONS` | Mostrare notifiche di errore (Android 13+) |
 
@@ -127,6 +127,8 @@ Dalla schermata **Gestione Filtri** puoi creare regole per decidere quali SMS in
 I campi **Mittente** e **Parola chiave** sono entrambi opzionali: lasciare un campo vuoto significa "qualsiasi valore". I filtri ESCLUDI hanno sempre **precedenza** sugli INCLUDI.
 
 > Se non viene configurato alcun filtro, **tutti gli SMS vengono inoltrati**.
+
+> ⚠️ **Limitazione:** l'app intercetta solo gli **SMS tradizionali (GSM/SS7)** tramite il broadcast `SMS_RECEIVED`. I messaggi **RCS** (Rich Communication Services), **MMS** e i messaggi in-app (WhatsApp, Telegram, ecc.) **non vengono intercettati**.
 
 ---
 
