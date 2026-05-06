@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
@@ -30,7 +31,11 @@ class SmsBackgroundService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         // Crea e mostra una notifica per il foreground service immediatamente
         val notification = createNotification("SMS to Mail", "Servizio di inoltro SMS attivo")
-        startForeground(NOTIFICATION_ID, notification)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        } else {
+            startForeground(NOTIFICATION_ID, notification)
+        }
 
         // Verifichiamo se il servizio è stato avviato dopo il riavvio del dispositivo
         val isFromBootReceiver = intent?.getBooleanExtra("bootCompleted", false) ?: false

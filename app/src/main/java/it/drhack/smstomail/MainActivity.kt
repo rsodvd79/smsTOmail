@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import it.drhack.smstomail.ui.theme.SmsTOmailTheme
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.Lifecycle
 import android.content.IntentFilter
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -235,19 +237,21 @@ class MainActivity : FragmentActivity() {
                     emailConfig = config
 
                     // Carica i log degli SMS in una coroutine separata legata al lifecycle
-                    lifecycleScope.launchWhenStarted {
-                        try {
-                            db.smsLogDao().getAllLogs().collectLatest { logs ->
-                                smsLogEntries = logs
-                            }
-                        } catch (e: Exception) {
-                            if (e is CancellationException) {
-                                Log.d("MainActivity", "Caricamento log SMS cancellato a causa del cambio di stato dell'attività")
-                            } else {
-                                Log.e("MainActivity", "Errore nel caricamento dei log SMS", e)
-                            }
-                            if (smsLogEntries.isEmpty()) {
-                                smsLogEntries = emptyList()
+                    lifecycleScope.launch {
+                        repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            try {
+                                db.smsLogDao().getAllLogs().collectLatest { logs ->
+                                    smsLogEntries = logs
+                                }
+                            } catch (e: Exception) {
+                                if (e is CancellationException) {
+                                    Log.d("MainActivity", "Caricamento log SMS cancellato a causa del cambio di stato dell'attività")
+                                } else {
+                                    Log.e("MainActivity", "Errore nel caricamento dei log SMS", e)
+                                }
+                                if (smsLogEntries.isEmpty()) {
+                                    smsLogEntries = emptyList()
+                                }
                             }
                         }
                     }
