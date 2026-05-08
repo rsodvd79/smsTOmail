@@ -1,19 +1,21 @@
-Aggiornamento SMS to Mail - 7 maggio 2026
+Aggiornamento SMS to Mail - 8 maggio 2026
 
 --- it-IT ---
-🛠️ Miglioramenti di compatibilità e stabilità
+✨ Nuova modalità Gmail API con OAuth 2.0
 
-• Migliorata la compatibilità con Android 15 e Android 16 (API 35/37): risolti problemi di avvio e crash su dispositivi con le versioni più recenti di Android.
-• Corretto un bug che poteva causare l'arresto anomalo del servizio di inoltro SMS su Android 14 e superiori.
-• Migliorata la gestione del ciclo di vita dell'app: la schermata principale ora si aggiorna in modo più affidabile.
+• Nuova opzione nella configurazione email: puoi scegliere tra la modalità SMTP tradizionale e la nuova modalità Gmail API.
+• Con la modalità Gmail API non è più necessario inserire password SMTP: accedi semplicemente con il tuo account Google e autorizza l'app con un tap.
+• Correzione: dopo il login Google, l'account connesso viene ora visualizzato correttamente.
+• Miglioramento stabilità: corretta la gestione delle coroutine in background che generava messaggi di errore superflui nel log.
 
 Grazie per aver scelto SMS to Mail!
 
 --- en-US / en-GB ---
-🛠️ Compatibility and stability improvements
+✨ New Gmail API mode with OAuth 2.0
 
-• Improved compatibility with Android 15 and Android 16 (API 35/37): fixed startup crashes on the latest Android versions.
-• Fixed a bug that could cause the SMS forwarding service to crash on Android 14 and above.
-• Improved app lifecycle handling: the main screen now refreshes more reliably.
+• New option in email configuration: choose between traditional SMTP mode and the new Gmail API mode.
+• With Gmail API mode there is no need to enter an SMTP password: just sign in with your Google account and authorize the app with a tap.
+• Fix: after Google login, the connected account is now displayed correctly.
+• Stability improvement: fixed background coroutine handling that was generating spurious error messages in the log.
 
 Thank you for using SMS to Mail!

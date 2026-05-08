@@ -5,7 +5,7 @@
 ![Android](https://img.shields.io/badge/Android-7.0%2B-brightgreen?logo=android)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple?logo=kotlin)
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Version](https://img.shields.io/badge/Version-2026.05.07-orange)
+![Version](https://img.shields.io/badge/Version-2026.05.08-orange)
 
 ---
 
@@ -187,6 +187,8 @@ UI: Jetpack Compose
 - Nuovo file `GmailApiSender.kt`: invia email via Gmail REST API usando un token OAuth ottenuto da `GoogleAuthUtil`
 - Aggiornato `SmsReceiver` per instradare l'invio a `GmailApiSender` o `EmailSender` in base alla modalità configurata
 - Schema Room aggiornato a versione 7 (nuovi campi `authMode` e `oauthAccount` in `email_config`)
+- Fix: dopo il login Google la UI aggiornava correttamente l'account connesso (rimosso controllo errato su `resultCode`)
+- Fix: `CancellationException` nelle coroutine di `MainActivity` non viene più loggata come errore
 
 ### 2026.05.07
 - Versione aggiornata a 2026.05.07
