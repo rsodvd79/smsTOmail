@@ -94,20 +94,41 @@ Al primo avvio l'app chiede i permessi necessari:
 
 ### 2. Configurazione email
 
-Dalla schermata **Configurazione Email** inserisci:
+Dalla schermata **Configurazione Email** puoi scegliere tra due modalità di invio:
+
+#### 🔵 Modalità SMTP (Senza Cloud Console)
+
+Configurazione manuale del server di posta in uscita:
 
 | Campo | Descrizione |
 |---|---|
 | Email mittente | Account da cui partono le email di inoltro |
 | Password | Password SMTP (vedi sotto per Gmail) |
-| Email destinatario | Indirizzo a cui ricevere gli SMS inoltrati |
 | Host SMTP | Es. `smtp.gmail.com` |
 | Porta SMTP | `587` (STARTTLS) oppure `465` (SSL diretto) |
 | Usa TLS | Attivo per porta 587; disattivare per porta 465 |
+
+#### 🟢 Modalità Gmail API (Con Cloud Console)
+
+Autenticazione OAuth 2.0: l'utente accede con il proprio account Google. Non è necessario inserire password SMTP.
+
+**Prerequisiti (operazione una-tantum per lo sviluppatore):**
+1. Crea un progetto su [console.cloud.google.com](https://console.cloud.google.com)
+2. Abilita la **Gmail API**
+3. Crea credenziali **OAuth 2.0** di tipo *Android* (con l'SHA-1 del certificato di firma)
+
+**Per l'utente finale:**  
+Tocca **Accedi con Google**, scegli l'account Gmail, autorizza l'accesso. Fine.
+
+#### Campi comuni (entrambe le modalità)
+
+| Campo | Descrizione |
+|---|---|
+| Email destinatario | Indirizzo a cui ricevere gli SMS inoltrati |
 | Firma | Testo aggiunto in fondo a ogni email |
 | Max SMS in cronologia | Numero massimo di voci nel log locale |
 
-#### Gmail — Password specifica per app
+#### Gmail — Password specifica per app (solo modalità SMTP)
 
 Gmail richiede una **password specifica per app** al posto della password dell'account:
 
@@ -137,10 +158,11 @@ I campi **Mittente** e **Parola chiave** sono entrambi opzionali: lasciare un ca
 ```
 SmsReceiver (BroadcastReceiver)
     └─► SmsFilterProcessor     — valuta i filtri INCLUDE/EXCLUDE
-    └─► EmailSender            — invia via JavaMail SMTP
+    └─► EmailSender            — invia via JavaMail SMTP (modalità SMTP)
+    └─► GmailApiSender         — invia via Gmail REST API + OAuth 2.0 (modalità Gmail API)
     └─► Room (AppDatabase)
             ├─ FilterDao       — regole di filtraggio
-            ├─ EmailConfigDao  — configurazione SMTP (riga unica, id=0)
+            ├─ EmailConfigDao  — configurazione email (riga unica, id=0)
             └─ SmsLogDao       — cronologia SMS + stato invio
 
 SmsBackgroundService (ForegroundService)
@@ -157,6 +179,14 @@ UI: Jetpack Compose
 ---
 
 ## Changelog
+
+### 2026.05.08
+- Aggiunta scelta della modalità di invio email nella schermata **Configurazione Email**:
+  - **SMTP (Senza Cloud Console)** — configurazione manuale del server SMTP (comportamento precedente)
+  - **Gmail API (Con Cloud Console)** — autenticazione OAuth 2.0 tramite account Google; nessuna password SMTP richiesta
+- Nuovo file `GmailApiSender.kt`: invia email via Gmail REST API usando un token OAuth ottenuto da `GoogleAuthUtil`
+- Aggiornato `SmsReceiver` per instradare l'invio a `GmailApiSender` o `EmailSender` in base alla modalità configurata
+- Schema Room aggiornato a versione 7 (nuovi campi `authMode` e `oauthAccount` in `email_config`)
 
 ### 2026.05.07
 - Versione aggiornata a 2026.05.07

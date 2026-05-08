@@ -65,5 +65,16 @@
     <!-- Signature -->
     <string name="signature_label">Firma</string>
     <string name="signature_hint">Testo da aggiungere alla fine di ogni email</string>
+
+    <!-- Auth mode selector -->
+    <string name="auth_mode_title">Modalità di invio</string>
+    <string name="auth_mode_smtp">SMTP</string>
+    <string name="auth_mode_gmail_oauth">Gmail API</string>
+    <string name="oauth_sign_in_button">Accedi con Google</string>
+    <string name="oauth_sign_out_button">Disconnetti account</string>
+    <string name="oauth_connected_account">Account connesso: %s</string>
+    <string name="oauth_not_connected">Nessun account Google connesso</string>
+    <string name="oauth_sign_in_error">Errore accesso Google: %s</string>
+    <string name="oauth_required_sign_in">Devi accedere con un account Google per utilizzare questa modalità</string>
 </resources>
 

@@ -35,19 +35,26 @@ class SmsReceiver : BroadcastReceiver() {
                         if (processor.shouldProcessSms(sender, messageBody)) {
                             val config = db.emailConfigDao().getConfig()
                             if (config != null) {
-                                val emailSender = EmailSender(
-                                    config.email,
-                                    config.password.value,
-                                    config.smtpHost,
-                                    config.smtpPort,
-                                    config.smtpUseTls,
-                                    "SMS Forward - SMS to Mail"
-                                )
-                                val result = emailSender.sendEmail(
-                                    config.destination,
-                                    "Nuovo SMS da $sender",
-                                    messageBody
-                                )
+                                val result = if (config.authMode == EmailConfig.AUTH_MODE_GMAIL_OAUTH) {
+                                    GmailApiSender(context, config.signature).sendEmail(
+                                        config.destination,
+                                        "Nuovo SMS da $sender",
+                                        messageBody
+                                    )
+                                } else {
+                                    EmailSender(
+                                        config.email,
+                                        config.password.value,
+                                        config.smtpHost,
+                                        config.smtpPort,
+                                        config.smtpUseTls,
+                                        config.signature
+                                    ).sendEmail(
+                                        config.destination,
+                                        "Nuovo SMS da $sender",
+                                        messageBody
+                                    )
+                                }
                                 val emailSuccess = result.startsWith("Email inviata con successo")
                                 db.smsLogDao().insert(
                                     SmsLogEntry(

@@ -294,7 +294,7 @@ class MainActivity : FragmentActivity() {
                     }
                 }
             } catch (e: Exception) {
-                // Gestione degli errori
+                if (e is CancellationException) throw e
                 Log.e("MainActivity", "Errore durante l'inizializzazione dell'app", e)
             }
         }
@@ -348,6 +348,7 @@ class MainActivity : FragmentActivity() {
             }
             Log.d("MainActivity", "Servizio di ascolto SMS avviato con successo")
         } catch (e: Exception) {
+            if (e is CancellationException) throw e
             Log.e("MainActivity", "Errore nell'avvio del servizio di ascolto SMS", e)
         }
     }
