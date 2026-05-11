@@ -14,10 +14,17 @@ data class EmailConfig(
     @field:TypeConverters(EncryptedStringConverter::class)
     val password: EncryptedValue,
     val destination: String,
-    val maxSmsToKeep: Int = 100,  // Valore predefinito: 100 messaggi
-    val smtpHost: String = "smtp.gmail.com",  // Valore predefinito per Gmail
-    val smtpPort: String = "587",  // Porta predefinita per TLS
-    val smtpUseTls: Boolean = true,  // Usa TLS per default
-    val signature: String = "by SMS to Mail"  // Firma predefinita
-)
+    val maxSmsToKeep: Int = 100,
+    val smtpHost: String = "smtp.gmail.com",
+    val smtpPort: String = "587",
+    val smtpUseTls: Boolean = true,
+    val signature: String = "by SMS to Mail",
+    val authMode: String = AUTH_MODE_SMTP,
+    val oauthAccount: String = ""
+) {
+    companion object {
+        const val AUTH_MODE_SMTP = "SMTP"
+        const val AUTH_MODE_GMAIL_OAUTH = "GMAIL_OAUTH"
+    }
+}
 
