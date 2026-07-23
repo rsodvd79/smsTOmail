@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace = "it.drhack.smstomail"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "it.drhack.smstomail"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 20260508
         versionName = "2026.05.08"
 
