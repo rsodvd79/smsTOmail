@@ -1,6 +1,7 @@
 package it.drhack.smstomail
 
 import android.os.Bundle
+import android.util.Patterns
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -149,7 +150,31 @@ class EmailConfigActivity : ComponentActivity() {
                         return@launch
                     }
                     val finalEmail = if (authMode == EmailConfig.AUTH_MODE_GMAIL_OAUTH) oauthAccount else email
-                    val maxSms = maxSmsToKeep.toIntOrNull() ?: 100
+
+                    // Validazione formato email (mittente e destinatario)
+                    if (!Patterns.EMAIL_ADDRESS.matcher(finalEmail).matches()) {
+                        testResult = context.getString(R.string.error_invalid_email)
+                        return@launch
+                    }
+                    if (!Patterns.EMAIL_ADDRESS.matcher(destination).matches()) {
+                        testResult = context.getString(R.string.error_invalid_destination)
+                        return@launch
+                    }
+                    // Validazione porta SMTP (1-65535), rilevante solo in modalità SMTP
+                    val port = smtpPort.toIntOrNull()
+                    if (authMode == EmailConfig.AUTH_MODE_SMTP &&
+                        (port == null || port !in 1..65535)
+                    ) {
+                        testResult = context.getString(R.string.error_invalid_port)
+                        return@launch
+                    }
+                    // Validazione limite SMS da conservare (almeno 1)
+                    val maxSms = maxSmsToKeep.toIntOrNull()
+                    if (maxSms == null || maxSms < 1) {
+                        testResult = context.getString(R.string.error_invalid_max_sms)
+                        return@launch
+                    }
+                    testResult = null
                     val config = EmailConfig(
                         id = 0,
                         email = finalEmail,

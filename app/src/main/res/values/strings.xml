@@ -76,5 +76,10 @@
     <string name="oauth_not_connected">Nessun account Google connesso</string>
     <string name="oauth_sign_in_error">Errore accesso Google: %s</string>
     <string name="oauth_required_sign_in">Devi accedere con un account Google per utilizzare questa modalità</string>
+    <string name="error_invalid_email">Indirizzo email mittente non valido</string>
+    <string name="error_invalid_destination">Indirizzo email destinatario non valido</string>
+    <string name="error_invalid_port">Porta SMTP non valida: inserisci un valore tra 1 e 65535</string>
+    <string name="error_invalid_max_sms">Il numero di SMS da conservare deve essere almeno 1</string>
+    <string name="filter_duplicate_error">Filtro già esistente: stesso mittente, parola chiave e tipo</string>
 </resources>
 

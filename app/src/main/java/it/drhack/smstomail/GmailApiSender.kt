@@ -92,11 +92,26 @@ class GmailApiSender(
     }
 
     private fun buildRfc2822Message(from: String, to: String, subject: String, body: String): String {
-        return "From: $from\r\n" +
-               "To: $to\r\n" +
-               "Subject: $subject\r\n" +
+        return "From: ${sanitizeHeader(from)}\r\n" +
+               "To: ${sanitizeHeader(to)}\r\n" +
+               "Subject: ${encodeSubject(subject)}\r\n" +
                "Content-Type: text/plain; charset=UTF-8\r\n" +
+               "Content-Transfer-Encoding: base64\r\n" +
                "\r\n" +
-               body
+               Base64.encodeToString(body.toByteArray(Charsets.UTF_8), Base64.NO_WRAP)
+    }
+
+    /** Rimuove CR/LF per prevenire header injection (RFC 2822). */
+    private fun sanitizeHeader(value: String): String =
+        value.replace("\r", "").replace("\n", " ").trim()
+
+    /** Codifica il subject come MIME encoded-word (RFC 2047) se contiene caratteri non ASCII. */
+    private fun encodeSubject(subject: String): String {
+        val clean = sanitizeHeader(subject)
+        return if (clean.all { it.code in 32..126 }) {
+            clean
+        } else {
+            "=?UTF-8?B?" + Base64.encodeToString(clean.toByteArray(Charsets.UTF_8), Base64.NO_WRAP) + "?="
+        }
     }
 }

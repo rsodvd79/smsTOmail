@@ -76,5 +76,10 @@
     <string name="oauth_not_connected">No Google account connected</string>
     <string name="oauth_sign_in_error">Google sign-in error: %s</string>
     <string name="oauth_required_sign_in">You must sign in with a Google account to use this mode</string>
+    <string name="error_invalid_email">Invalid sender email address</string>
+    <string name="error_invalid_destination">Invalid recipient email address</string>
+    <string name="error_invalid_port">Invalid SMTP port: enter a value between 1 and 65535</string>
+    <string name="error_invalid_max_sms">The number of SMS to keep must be at least 1</string>
+    <string name="filter_duplicate_error">Filter already exists: same sender, keyword and type</string>
 </resources>
 

@@ -6,10 +6,12 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +42,7 @@ class SmsBackgroundService : Service() {
         // Verifichiamo se il servizio è stato avviato dopo il riavvio del dispositivo
         val isFromBootReceiver = intent?.getBooleanExtra("bootCompleted", false) ?: false
 
-        // Per Android 15 e superiori, gestire diversamente l'avvio dal boot
+        // Per Android 14 (UPSIDE_DOWN_CAKE, API 34) e superiori, gestire diversamente l'avvio dal boot
         if (isFromBootReceiver && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             // Invece di avviare un servizio in primo piano dopo il boot,
             // registriamo solo la capacità di ricevere SMS e terminiamo il servizio
@@ -69,9 +71,7 @@ class SmsBackgroundService : Service() {
         // Procedura normale per l'elaborazione degli SMS
 
         // Aggiorna la notifica con info sull'SMS ricevuto
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val updatedNotification = createNotification("SMS ricevuto", "Elaborazione SMS da $safeSender...")
-        notificationManager.notify(NOTIFICATION_ID, updatedNotification)
+        notifySafely("SMS ricevuto", "Elaborazione SMS da $safeSender...")
 
         // Elabora l'SMS in un coroutine scope
         CoroutineScope(Dispatchers.IO).launch {
@@ -81,6 +81,19 @@ class SmsBackgroundService : Service() {
         }
 
         return START_NOT_STICKY
+    }
+
+    private fun canPostNotifications(): Boolean =
+        Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+
+    private fun notifySafely(title: String, content: String) {
+        if (!canPostNotifications()) return
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(NOTIFICATION_ID, createNotification(title, content))
     }
 
     private fun createNotificationChannel() {
@@ -114,96 +127,25 @@ class SmsBackgroundService : Service() {
         .build()
 
     private suspend fun processSms(sender: String, message: String) {
-        val db = AppDatabase.getInstance(this)
-        val filters = db.filterDao().getAllFilters()
-        val processor = SmsFilterProcessor(filters)
+        // Elaborazione condivisa: filtri, invio email e logging in SmsForwarder
+        val outcome = SmsForwarder.handleIncomingSms(this, sender, message)
 
-        if (!processor.shouldProcessSms(sender, message)) {
-            db.smsLogDao().insert(
-                SmsLogEntry(
-                    timestamp = java.util.Date(),
-                    sender = sender,
-                    message = message,
-                    emailSent = false,
-                    emailResult = "SMS filtrato: non corrisponde ai filtri configurati"
-                )
-            )
-            return
+        if (!outcome.forwarded) return
+
+        if (outcome.emailSent) {
+            notifySafely("SMS inoltrato", "SMS da $sender inoltrato con successo")
+        } else {
+            notifySafely("Errore inoltro SMS", outcome.result)
         }
 
-        val config = db.emailConfigDao().getConfig() ?: return
-
-        try {
-            val emailSender = EmailSender(
-                config.email,
-                config.password.value,
-                config.smtpHost,
-                config.smtpPort,
-                config.smtpUseTls,
-                "SMS Forward - SMS to Mail"
-            )
-            val result = emailSender.sendEmail(
-                config.destination,
-                "Nuovo SMS da $sender",
-                message
-            )
-            val emailSuccess = result.startsWith("Email inviata con successo")
-
-            db.smsLogDao().insert(
-                SmsLogEntry(
-                    timestamp = java.util.Date(),
-                    sender = sender,
-                    message = message,
-                    emailSent = emailSuccess,
-                    emailResult = result
-                )
-            )
-
-            // Aggiorna la notifica
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            val updatedNotification = createNotification(
-                "SMS inoltrato",
-                "SMS da $sender inoltrato con successo"
-            )
-            notificationManager.notify(NOTIFICATION_ID, updatedNotification)
-
-            // Notifica il risultato all'app
-            withContext(Dispatchers.Main) {
-                val resultIntent = Intent("it.drhack.smstomail.SMS_RESULT").apply {
-                    putExtra("sms_message", "Da: $sender\n$message")
-                    putExtra("mail_result", "Email inviata: $result")
-                }
-                LocalBroadcastManager.getInstance(this@SmsBackgroundService)
-                    .sendBroadcast(resultIntent)
+        // Notifica il risultato all'app
+        withContext(Dispatchers.Main) {
+            val resultIntent = Intent("it.drhack.smstomail.SMS_RESULT").apply {
+                putExtra("sms_message", "Da: $sender\n$message")
+                putExtra("mail_result", outcome.result)
             }
-        } catch (e: Exception) {
-            db.smsLogDao().insert(
-                SmsLogEntry(
-                    timestamp = java.util.Date(),
-                    sender = sender,
-                    message = message,
-                    emailSent = false,
-                    emailResult = "Errore invio email: ${e.message}"
-                )
-            )
-
-            // Notifica l'errore
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            val errorNotification = createNotification(
-                "Errore inoltro SMS",
-                "Errore nell'invio dell'email: ${e.message}"
-            )
-            notificationManager.notify(NOTIFICATION_ID, errorNotification)
-
-            // Notifica il risultato all'app
-            withContext(Dispatchers.Main) {
-                val resultIntent = Intent("it.drhack.smstomail.SMS_RESULT").apply {
-                    putExtra("sms_message", "Da: $sender\n$message")
-                    putExtra("mail_result", "Errore invio email: ${e.message}")
-                }
-                LocalBroadcastManager.getInstance(this@SmsBackgroundService)
-                    .sendBroadcast(resultIntent)
-            }
+            LocalBroadcastManager.getInstance(this@SmsBackgroundService)
+                .sendBroadcast(resultIntent)
         }
     }
 

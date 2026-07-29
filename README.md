@@ -5,7 +5,7 @@
 ![Android](https://img.shields.io/badge/Android-7.0%2B-brightgreen?logo=android)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple?logo=kotlin)
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Version](https://img.shields.io/badge/Version-2026.05.08-orange)
+![Version](https://img.shields.io/badge/Version-2026.07.29-orange)
 
 ---
 
@@ -24,6 +24,7 @@
 - 🔒 **Password cifrata** — la password SMTP è protetta con AES-256/GCM tramite Android Keystore
 - 📋 **Cronologia SMS** — log degli SMS ricevuti con stato dell'invio email
 - ⚙️ **SMTP configurabile** — compatibile con Gmail (porta 587 STARTTLS) e provider con SSL diretto (porta 465, es. Aruba)
+- 🔄 **Retry SMTP** — fino a tre tentativi con backoff esponenziale per errori temporanei di rete
 - 🔔 **Notifiche di errore** — avvisi immediati in caso di problemi di autenticazione email
 - 🌍 **Multilingua** — interfaccia in italiano e inglese
 
@@ -36,7 +37,7 @@
 | Android | 7.0 (API 24) |
 | Android Studio | 2024.1 (Koala) o superiore |
 | JDK | 11 o superiore |
-| Gradle | fornito dal wrapper (9.4.1) |
+| Gradle | fornito dal wrapper (9.3.1) |
 
 ---
 
@@ -108,6 +109,8 @@ Configurazione manuale del server di posta in uscita:
 | Porta SMTP | `587` (STARTTLS) oppure `465` (SSL diretto) |
 | Usa TLS | Attivo per porta 587; disattivare per porta 465 |
 
+L'app verifica che mittente e destinatario abbiano un formato email valido e che la porta SMTP sia compresa tra `1` e `65535`.
+
 #### 🟢 Modalità Gmail API (Con Cloud Console)
 
 Autenticazione OAuth 2.0: l'utente accede con il proprio account Google. Non è necessario inserire password SMTP.
@@ -126,7 +129,7 @@ Tocca **Accedi con Google**, scegli l'account Gmail, autorizza l'accesso. Fine.
 |---|---|
 | Email destinatario | Indirizzo a cui ricevere gli SMS inoltrati |
 | Firma | Testo aggiunto in fondo a ogni email |
-| Max SMS in cronologia | Numero massimo di voci nel log locale |
+| Max SMS in cronologia | Numero massimo di voci nel log locale (minimo `1`) |
 
 #### Gmail — Password specifica per app (solo modalità SMTP)
 
@@ -145,7 +148,7 @@ Dalla schermata **Gestione Filtri** puoi creare regole per decidere quali SMS in
 | **INCLUDI** | Solo gli SMS che corrispondono a questo filtro vengono inoltrati |
 | **ESCLUDI** | Gli SMS che corrispondono a questo filtro vengono bloccati |
 
-I campi **Mittente** e **Parola chiave** sono entrambi opzionali: lasciare un campo vuoto significa "qualsiasi valore". I filtri ESCLUDI hanno sempre **precedenza** sugli INCLUDI.
+I campi **Mittente** e **Parola chiave** sono entrambi opzionali: lasciare un campo vuoto significa "qualsiasi valore". Il mittente usa un match parziale case-insensitive; la parola chiave usa un match case-insensitive nel testo dell'SMS. I filtri ESCLUDI hanno sempre **precedenza** sugli INCLUDI. Non è possibile inserire due filtri con lo stesso mittente, parola chiave e tipo.
 
 > Se non viene configurato alcun filtro, **tutti gli SMS vengono inoltrati**.
 
@@ -157,16 +160,20 @@ I campi **Mittente** e **Parola chiave** sono entrambi opzionali: lasciare un ca
 
 ```
 SmsReceiver (BroadcastReceiver)
-    └─► SmsFilterProcessor     — valuta i filtri INCLUDE/EXCLUDE
-    └─► EmailSender            — invia via JavaMail SMTP (modalità SMTP)
-    └─► GmailApiSender         — invia via Gmail REST API + OAuth 2.0 (modalità Gmail API)
-    └─► Room (AppDatabase)
+    └─► SmsForwarder           — flusso condiviso: filtri, invio e log
+            └─► SmsFilterProcessor — valuta i filtri INCLUDE/EXCLUDE
+            └─► EmailSender        — JavaMail SMTP, retry transienti
+            └─► GmailApiSender     — Gmail REST API + OAuth 2.0
+            └─► Room (AppDatabase)
             ├─ FilterDao       — regole di filtraggio
             ├─ EmailConfigDao  — configurazione email (riga unica, id=0)
             └─ SmsLogDao       — cronologia SMS + stato invio
 
 SmsBackgroundService (ForegroundService)
-    └─► path alternativo (avviato da BootReceiver al riavvio)
+    └─► SmsForwarder           — percorso alternativo per SMS passati esplicitamente al servizio
+
+BootReceiver
+    └─► su Android 14+ non avvia servizi dal boot; SmsReceiver riceve comunque gli SMS dal manifest
 
 UI: Jetpack Compose
     ├─ MainActivity            — cronologia SMS + navigazione
@@ -174,11 +181,19 @@ UI: Jetpack Compose
     └─ FilterActivity          — gestione filtri
 ```
 
-**Sicurezza:** la password SMTP è cifrata con AES-256-GCM tramite Android Keystore prima di essere salvata in SQLite.
+**Sicurezza:** la password SMTP è cifrata con AES-256-GCM tramite Android Keystore prima di essere salvata in SQLite. Le connessioni SMTP SSL si fidano esclusivamente dell'host configurato; gli indirizzi email e le credenziali non vengono loggati in produzione. I messaggi Gmail API sono costruiti con header sanificati e body codificato MIME.
 
 ---
 
 ## Changelog
+
+### 2026.07.29
+- Aggiunta validazione di mittente/destinatario email, porta SMTP (`1`–`65535`) e limite della cronologia SMS (minimo `1`).
+- Impedito l'inserimento di filtri duplicati; documentato il match parziale case-insensitive del mittente.
+- Introdotto `SmsForwarder`, che centralizza filtri, invio SMTP/Gmail API e salvataggio nel log per `SmsReceiver` e `SmsBackgroundService`.
+- Aggiunto retry SMTP per errori transienti: massimo tre tentativi con backoff esponenziale.
+- Rafforzata la sicurezza SMTP e Gmail API: trust SSL limitato all'host configurato, log sensibili disabilitati in produzione e messaggi RFC 2822 sanificati/codificati.
+- Corretto l'avvio da boot su Android 14+: nessun servizio viene avviato senza lavoro da eseguire.
 
 ### 2026.05.08
 - Aggiunta scelta della modalità di invio email nella schermata **Configurazione Email**:
@@ -209,4 +224,3 @@ La app non invia dati a server di terze parti. Gli SMS vengono inoltrati diretta
 ## Licenza
 
 Distribuito sotto licenza **MIT**. Vedi [LICENSE](LICENSE) per i dettagli.
-

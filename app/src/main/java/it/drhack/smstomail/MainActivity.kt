@@ -45,9 +45,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.CancellationException
 
 class MainActivity : FragmentActivity() {
-    private var emailConfig: EmailConfig? = null
-    private var lastSmsMessage: String? = null
-    private var lastEmailResult: String? = null
+    private var emailConfig by mutableStateOf<EmailConfig?>(null)
+    private var lastSmsMessage by mutableStateOf<String?>(null)
+    private var lastEmailResult by mutableStateOf<String?>(null)
     private var smsLogEntries by mutableStateOf<List<SmsLogEntry>>(emptyList())
     private var permissionsGranted by mutableStateOf(false)
     private var blockedReason by mutableStateOf<String?>(null)
@@ -242,6 +242,11 @@ class MainActivity : FragmentActivity() {
                             try {
                                 db.smsLogDao().getAllLogs().collectLatest { logs ->
                                     smsLogEntries = logs
+                                    // Aggiorna le info sull'ultimo SMS ricevuto (log ordinati per timestamp DESC)
+                                    logs.firstOrNull()?.let { latest ->
+                                        lastSmsMessage = "Da: ${latest.sender}\n${latest.message}"
+                                        lastEmailResult = latest.emailResult
+                                    }
                                 }
                             } catch (e: Exception) {
                                 if (e is CancellationException) {
@@ -302,37 +307,11 @@ class MainActivity : FragmentActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Aggiorna la configurazione quando l'attività riprende
+        // Aggiorna solo lo stato: emailConfig è uno snapshot state,
+        // la UI impostata in initializeApp() si ricompone automaticamente.
         val db = AppDatabase.getInstance(this)
         lifecycleScope.launch {
             emailConfig = db.emailConfigDao().getConfig()
-            if (emailConfig != null) {
-                setContent {
-                    SmsTOmailTheme {
-                        MainScreen(
-                            config = emailConfig,
-                            lastSmsMessage = lastSmsMessage,
-                            lastEmailResult = lastEmailResult,
-                            smsLogEntries = smsLogEntries,
-                            blockedMessage = blockedReason,
-                            onRequestPermissions = { checkAndRequestPermissions() },
-                            onEditConfig = {
-                                val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
-                                emailConfigLauncher.launch(intent)
-                            },
-                            onManageFilters = {
-                                val intent = Intent(this@MainActivity, FilterActivity::class.java)
-                                startActivity(intent)
-                            },
-                            onClearLogs = {
-                                lifecycleScope.launch {
-                                    db.smsLogDao().deleteAll()
-                                }
-                            }
-                        )
-                    }
-                }
-            }
         }
     }
 

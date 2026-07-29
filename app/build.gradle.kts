@@ -16,8 +16,8 @@ android {
         applicationId = "it.drhack.smstomail"
         minSdk = 24
         targetSdk = 36
-        versionCode = 20260723
-        versionName = "2026.07.23"
+        versionCode = 20260729
+        versionName = "2026.07.29"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -70,9 +70,9 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation("com.sun.mail:android-mail:1.6.7")
     implementation("com.sun.mail:android-activation:1.6.7")
-    implementation("androidx.room:room-runtime:2.7.0-beta01")
-    kapt("androidx.room:room-compiler:2.7.0-beta01")
-    implementation("androidx.room:room-ktx:2.7.0-beta01")
+    implementation("androidx.room:room-runtime:2.7.2")
+    kapt("androidx.room:room-compiler:2.7.2")
+    implementation("androidx.room:room-ktx:2.7.2")
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
