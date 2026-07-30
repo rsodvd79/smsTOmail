@@ -14,3 +14,10 @@
 .cxx
 local.properties
 /note.txt
+# Chiavi e keystore — non committare mai
+*.key
+*.jks
+*.keystore
+*.p12
+*.pfx
+keystore.properties

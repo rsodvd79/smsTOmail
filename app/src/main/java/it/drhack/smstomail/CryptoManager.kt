@@ -14,6 +14,10 @@ object CryptoManager {
     private const val ALIAS = "SmsToMailKey"
     private const val TRANSFORMATION = "AES/GCM/NoPadding"
 
+    // Dimensione IV standard per AES/GCM (Android Keystore genera sempre IV di 12 byte)
+    private const val GCM_IV_SIZE = 12
+    private const val GCM_TAG_BITS = 128
+
     private fun getSecretKey(): SecretKey {
         val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
         val existing = keyStore.getKey(ALIAS, null) as? SecretKey
@@ -36,6 +40,7 @@ object CryptoManager {
         val cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, getSecretKey())
         val iv = cipher.iv
+        check(iv.size == GCM_IV_SIZE) { "IV inatteso di ${iv.size} byte (attesi $GCM_IV_SIZE)" }
         val cipherText = cipher.doFinal(input.toByteArray(Charsets.UTF_8))
         val combined = ByteArray(iv.size + cipherText.size)
         System.arraycopy(iv, 0, combined, 0, iv.size)
@@ -45,10 +50,11 @@ object CryptoManager {
 
     fun decrypt(input: String): String {
         val decoded = Base64.decode(input, Base64.NO_WRAP)
-        val iv = decoded.copyOfRange(0, 12)
-        val cipherText = decoded.copyOfRange(12, decoded.size)
+        require(decoded.size > GCM_IV_SIZE) { "Dati cifrati malformati: ${decoded.size} byte" }
+        val iv = decoded.copyOfRange(0, GCM_IV_SIZE)
+        val cipherText = decoded.copyOfRange(GCM_IV_SIZE, decoded.size)
         val cipher = Cipher.getInstance(TRANSFORMATION)
-        val spec = GCMParameterSpec(128, iv)
+        val spec = GCMParameterSpec(GCM_TAG_BITS, iv)
         cipher.init(Cipher.DECRYPT_MODE, getSecretKey(), spec)
         val plain = cipher.doFinal(cipherText)
         return String(plain, Charsets.UTF_8)

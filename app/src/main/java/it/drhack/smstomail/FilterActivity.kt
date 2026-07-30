@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.app.Activity
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -23,6 +24,7 @@ import it.drhack.smstomail.ui.theme.SmsTOmailTheme
 class FilterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             FilterScreen()
         }
@@ -81,6 +83,7 @@ fun FilterScreenContent(
     newKeyword: String,
     newSender: String,
     filterType: FilterType,
+    duplicateError: Boolean = false,
     onNewKeywordChange: (String) -> Unit,
     onNewSenderChange: (String) -> Unit,
     onFilterTypeChange: (FilterType) -> Unit,
@@ -161,6 +164,16 @@ fun FilterScreenContent(
             }
 
             Spacer(Modifier.height(16.dp))
+
+            if (duplicateError) {
+                Text(
+                    text = stringResource(R.string.filter_duplicate_error),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.align(Alignment.End)
+                )
+                Spacer(Modifier.height(4.dp))
+            }
 
             Button(
                 onClick = onAddFilter,
@@ -247,6 +260,7 @@ fun FilterScreen() {
     var newKeyword by remember { mutableStateOf("") }
     var newSender by remember { mutableStateOf("") }
     var filterType by remember { mutableStateOf(FilterType.INCLUDE) }
+    var duplicateError by remember { mutableStateOf(false) }
     val db = remember { AppDatabase.getInstance(context) }
     val scope = rememberCoroutineScope()
 
@@ -259,16 +273,28 @@ fun FilterScreen() {
         newKeyword = newKeyword,
         newSender = newSender,
         filterType = filterType,
+        duplicateError = duplicateError,
         onNewKeywordChange = { newKeyword = it },
         onNewSenderChange = { newSender = it },
         onFilterTypeChange = { filterType = it },
         onAddFilter = {
             if (newKeyword.isNotBlank() || newSender.isNotBlank()) {
+                // Impedisce l'inserimento di filtri duplicati (stesso mittente, keyword e tipo)
+                val isDuplicate = filters.any {
+                    it.sender.equals(newSender.trim(), ignoreCase = true) &&
+                        it.keyword.equals(newKeyword.trim(), ignoreCase = true) &&
+                        it.filterType == filterType
+                }
+                if (isDuplicate) {
+                    duplicateError = true
+                    return@FilterScreenContent
+                }
+                duplicateError = false
                 scope.launch {
                     db.filterDao().insertFilter(
                         Filter(
-                            sender = newSender,
-                            keyword = newKeyword,
+                            sender = newSender.trim(),
+                            keyword = newKeyword.trim(),
                             filterType = filterType
                         )
                     )

@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import it.drhack.smstomail.ui.theme.SmsTOmailTheme
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.Lifecycle
 import android.content.IntentFilter
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -43,10 +45,12 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.CancellationException
 
 class MainActivity : FragmentActivity() {
-    private var emailConfig: EmailConfig? = null
-    private var lastSmsMessage: String? = null
-    private var lastEmailResult: String? = null
+    private var emailConfig by mutableStateOf<EmailConfig?>(null)
+    private var lastSmsMessage by mutableStateOf<String?>(null)
+    private var lastEmailResult by mutableStateOf<String?>(null)
     private var smsLogEntries by mutableStateOf<List<SmsLogEntry>>(emptyList())
+    private var permissionsGranted by mutableStateOf(false)
+    private var blockedReason by mutableStateOf<String?>(null)
 
     // Lista dei permessi necessari per l'app
     private val requiredPermissions = arrayOf(
@@ -87,6 +91,9 @@ class MainActivity : FragmentActivity() {
     ) { permissions ->
         val allGranted = permissions.entries.all { it.value }
         if (!allGranted) {
+            blockedReason = getString(R.string.permission_dialog_message)
+            permissionsGranted = false
+            initializeApp(blockedMessage = blockedReason)
             showPermissionDialog()
         } else {
             checkForegroundServicePermissions()
@@ -98,6 +105,9 @@ class MainActivity : FragmentActivity() {
     ) { permissions ->
         val allGranted = permissions.entries.all { it.value }
         if (!allGranted) {
+            blockedReason = getString(R.string.permission_dialog_message)
+            permissionsGranted = false
+            initializeApp(blockedMessage = blockedReason)
             showPermissionDialog()
         } else {
             checkNotificationPermission()
@@ -110,11 +120,15 @@ class MainActivity : FragmentActivity() {
     ) { permissions ->
         val allGranted = permissions.entries.all { it.value }
         if (!allGranted) {
-            // Possiamo procedere anche senza permesso notifiche, ma informiamo l'utente
+            blockedReason = getString(R.string.notification_permission_info_message)
+            permissionsGranted = false
+            initializeApp(blockedMessage = blockedReason)
             showNotificationPermissionInfo()
+        } else {
+            blockedReason = null
+            permissionsGranted = true
+            initializeApp()
         }
-        // Inizializziamo comunque l'app, anche se il permesso di notifica è stato negato
-        initializeApp()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,6 +145,9 @@ class MainActivity : FragmentActivity() {
         }.toTypedArray()
 
         if (permissionsNotGranted.isNotEmpty()) {
+            blockedReason = getString(R.string.permission_dialog_message)
+            permissionsGranted = false
+            initializeApp(blockedMessage = blockedReason)
             requestPermissionLauncher.launch(permissionsNotGranted)
         } else {
             checkForegroundServicePermissions()
@@ -138,19 +155,10 @@ class MainActivity : FragmentActivity() {
     }
 
     private fun checkForegroundServicePermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val permissionsNotGranted = foregroundServicePermissions.filter {
-                ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
-            }.toTypedArray()
-
-            if (permissionsNotGranted.isNotEmpty()) {
-                requestForegroundServicePermissions.launch(permissionsNotGranted)
-            } else {
-                checkNotificationPermission()
-            }
-        } else {
-            initializeApp()
-        }
+        // FOREGROUND_SERVICE e FOREGROUND_SERVICE_DATA_SYNC sono "normal" permissions
+        // (non runtime): sono automaticamente garantite se dichiarate nel manifest.
+        // Non richiedono mai una richiesta a runtime e il check sarebbe sempre GRANTED.
+        checkNotificationPermission()
     }
 
     private fun checkNotificationPermission() {
@@ -160,11 +168,18 @@ class MainActivity : FragmentActivity() {
             }.toTypedArray()
 
             if (permissionsNotGranted.isNotEmpty()) {
+                blockedReason = getString(R.string.notification_permission_info_message)
+                permissionsGranted = false
+                initializeApp(blockedMessage = blockedReason)
                 requestNotificationPermission.launch(permissionsNotGranted)
             } else {
+                blockedReason = null
+                permissionsGranted = true
                 initializeApp()
             }
         } else {
+            blockedReason = null
+            permissionsGranted = true
             initializeApp()
         }
     }
@@ -199,7 +214,7 @@ class MainActivity : FragmentActivity() {
         builder.create().show()
     }
 
-    private fun initializeApp() {
+    private fun initializeApp(blockedMessage: String? = null) {
         // Aggiungo log per tracciare l'esecuzione
         Log.d("MainActivity", "Inizializzazione dell'app in corso...")
 
@@ -222,19 +237,26 @@ class MainActivity : FragmentActivity() {
                     emailConfig = config
 
                     // Carica i log degli SMS in una coroutine separata legata al lifecycle
-                    lifecycleScope.launchWhenStarted {
-                        try {
-                            db.smsLogDao().getAllLogs().collectLatest { logs ->
-                                smsLogEntries = logs
-                            }
-                        } catch (e: Exception) {
-                            if (e is CancellationException) {
-                                Log.d("MainActivity", "Caricamento log SMS cancellato a causa del cambio di stato dell'attività")
-                            } else {
-                                Log.e("MainActivity", "Errore nel caricamento dei log SMS", e)
-                            }
-                            if (smsLogEntries.isEmpty()) {
-                                smsLogEntries = emptyList()
+                    lifecycleScope.launch {
+                        repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            try {
+                                db.smsLogDao().getAllLogs().collectLatest { logs ->
+                                    smsLogEntries = logs
+                                    // Aggiorna le info sull'ultimo SMS ricevuto (log ordinati per timestamp DESC)
+                                    logs.firstOrNull()?.let { latest ->
+                                        lastSmsMessage = "Da: ${latest.sender}\n${latest.message}"
+                                        lastEmailResult = latest.emailResult
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                if (e is CancellationException) {
+                                    Log.d("MainActivity", "Caricamento log SMS cancellato a causa del cambio di stato dell'attività")
+                                } else {
+                                    Log.e("MainActivity", "Errore nel caricamento dei log SMS", e)
+                                }
+                                if (smsLogEntries.isEmpty()) {
+                                    smsLogEntries = emptyList()
+                                }
                             }
                         }
                     }
@@ -248,6 +270,8 @@ class MainActivity : FragmentActivity() {
                                     lastSmsMessage = lastSmsMessage,
                                     lastEmailResult = lastEmailResult,
                                     smsLogEntries = smsLogEntries,
+                                    blockedMessage = blockedMessage,
+                                    onRequestPermissions = { checkAndRequestPermissions() },
                                     onEditConfig = {
                                         val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
                                         emailConfigLauncher.launch(intent)
@@ -265,14 +289,17 @@ class MainActivity : FragmentActivity() {
                             }
                         }
 
-                        // Avvia anche il servizio di ascolto SMS se necessario
-                        startSmsListenerService()
+                        if (blockedMessage == null && permissionsGranted) {
+                            startSmsListenerService()
+                        } else {
+                            Log.d("MainActivity", "Permessi mancanti: servizio non avviato")
+                        }
                     } else {
                         Log.e("MainActivity", "Activity distrutta o in chiusura, impossibile aggiornare l'UI")
                     }
                 }
             } catch (e: Exception) {
-                // Gestione degli errori
+                if (e is CancellationException) throw e
                 Log.e("MainActivity", "Errore durante l'inizializzazione dell'app", e)
             }
         }
@@ -280,39 +307,11 @@ class MainActivity : FragmentActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Aggiorna la configurazione quando l'attività riprende
+        // Aggiorna solo lo stato: emailConfig è uno snapshot state,
+        // la UI impostata in initializeApp() si ricompone automaticamente.
         val db = AppDatabase.getInstance(this)
         lifecycleScope.launch {
-            val config = db.emailConfigDao().getConfig()
-            if (config != null) {
-                emailConfig = config
-                // Ricrea il content solo se necessario
-                if (emailConfig != null) {
-                    setContent {
-                        SmsTOmailTheme {
-                            MainScreen(
-                                config = emailConfig,
-                                lastSmsMessage = lastSmsMessage,
-                                lastEmailResult = lastEmailResult,
-                                smsLogEntries = smsLogEntries,
-                                onEditConfig = {
-                                    val intent = Intent(this@MainActivity, EmailConfigActivity::class.java)
-                                    emailConfigLauncher.launch(intent)
-                                },
-                                onManageFilters = {
-                                    val intent = Intent(this@MainActivity, FilterActivity::class.java)
-                                    startActivity(intent)
-                                },
-                                onClearLogs = {
-                                    lifecycleScope.launch {
-                                        db.smsLogDao().deleteAll()
-                                    }
-                                }
-                            )
-                        }
-                    }
-                }
-            }
+            emailConfig = db.emailConfigDao().getConfig()
         }
     }
 
@@ -328,6 +327,7 @@ class MainActivity : FragmentActivity() {
             }
             Log.d("MainActivity", "Servizio di ascolto SMS avviato con successo")
         } catch (e: Exception) {
+            if (e is CancellationException) throw e
             Log.e("MainActivity", "Errore nell'avvio del servizio di ascolto SMS", e)
         }
     }
@@ -340,6 +340,8 @@ fun MainScreen(
     lastSmsMessage: String?,
     lastEmailResult: String?,
     smsLogEntries: List<SmsLogEntry>,
+    blockedMessage: String? = null,
+    onRequestPermissions: () -> Unit = {},
     onEditConfig: () -> Unit,
     onManageFilters: () -> Unit,
     onClearLogs: () -> Unit
@@ -347,6 +349,7 @@ fun MainScreen(
     // Verifichiamo se c'è un errore di autenticazione Gmail
     val hasAuthError = lastEmailResult?.contains("password specifica per app") == true ||
                       lastEmailResult?.contains("InvalidSecondFactor") == true
+    val isBlocked = blockedMessage != null
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -368,6 +371,32 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            if (isBlocked) {
+                ElevatedCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.elevatedCardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = stringResource(R.string.permission_dialog_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = blockedMessage ?: "",
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Button(onClick = onRequestPermissions) {
+                            Text(stringResource(R.string.permission_dialog_settings_button))
+                        }
+                    }
+                }
+            }
+
             // Mostra un banner di errore per problemi di autenticazione Gmail
             if (hasAuthError) {
                 ElevatedCard(
@@ -405,7 +434,7 @@ fun MainScreen(
 
             // Info sulla configurazione email
             ElevatedCard(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp)
@@ -422,6 +451,7 @@ fun MainScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     Button(
                         onClick = onEditConfig,
+                        enabled = !isBlocked,
                         modifier = Modifier.align(Alignment.End)
                     ) {
                         Icon(Icons.Default.Edit, contentDescription = "Modifica")
@@ -434,6 +464,7 @@ fun MainScreen(
             // Pulsante per gestire i filtri
             Button(
                 onClick = onManageFilters,
+                enabled = !isBlocked,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(Icons.Default.Settings, contentDescription = "Filtri")
@@ -459,7 +490,8 @@ fun MainScreen(
                         )
 
                         IconButton(
-                            onClick = onClearLogs
+                            onClick = onClearLogs,
+                            enabled = !isBlocked
                         ) {
                             Icon(
                                 Icons.Default.Delete,
@@ -505,6 +537,14 @@ fun MainScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     Text("L'app è in esecuzione e pronta a ricevere SMS.")
                     Text("Gli SMS che corrispondono ai filtri impostati verranno inoltrati via email.")
+                    if (isBlocked) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.notification_permission_info_message),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             }
         }
@@ -577,9 +617,9 @@ fun SmsLogItem(entry: SmsLogEntry) {
 @Composable
 fun MainScreenPreview() {
     val mockConfig = EmailConfig(
-        id = 1,
+        id = 0,
         email = "esempio@gmail.com",
-        password = "password",
+        password = EncryptedValue("password"),
         destination = "destinatario@email.com"
     )
 
@@ -619,9 +659,9 @@ fun MainScreenPreview() {
 @Composable
 fun MainScreenErrorPreview() {
     val mockConfig = EmailConfig(
-        id = 1,
+        id = 0,
         email = "esempio@gmail.com",
-        password = "password",
+        password = EncryptedValue("password"),
         destination = "destinatario@email.com"
     )
 
@@ -642,9 +682,9 @@ fun MainScreenErrorPreview() {
 @Composable
 fun MainScreenEmptyPreview() {
     val mockConfig = EmailConfig(
-        id = 1,
+        id = 0,
         email = "esempio@gmail.com",
-        password = "password",
+        password = EncryptedValue("password"),
         destination = "destinatario@email.com"
     )
 

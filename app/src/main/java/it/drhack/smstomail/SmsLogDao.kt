@@ -24,6 +24,7 @@ interface SmsLogDao {
     @Query("DELETE FROM sms_log WHERE id IN (SELECT id FROM sms_log ORDER BY timestamp ASC LIMIT :limitToDelete)")
     suspend fun deleteOldestMessages(limitToDelete: Int)
 
+    @Transaction
     suspend fun enforceMaxSmsLimit() {
         // Ottengo la configurazione email
         val config = getEmailConfig()
@@ -39,7 +40,7 @@ interface SmsLogDao {
         }
     }
 
-    @Query("SELECT * FROM email_config LIMIT 1")
+    @Query("SELECT * FROM email_config WHERE id = 0 LIMIT 1")
     suspend fun getEmailConfig(): EmailConfig?
 
     @Query("SELECT * FROM sms_log ORDER BY timestamp DESC")

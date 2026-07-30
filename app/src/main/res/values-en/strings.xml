@@ -27,6 +27,8 @@
     <string name="email_config_title">Email Configuration</string>
     <string name="email_sender_label">Sender email</string>
     <string name="password_label">Password</string>
+    <string name="password_show">Show password</string>
+    <string name="password_hide">Hide password</string>
     <string name="gmail_warning_title">IMPORTANT for Gmail accounts:</string>
     <string name="gmail_warning_message">Google requires an \'App-specific password\' and not your standard account password.</string>
     <string name="gmail_create_app_password">Click here to create an app-specific password</string>
@@ -63,5 +65,21 @@
     <!-- Signature -->
     <string name="signature_label">Signature</string>
     <string name="signature_hint">Text to append at the end of every email</string>
+
+    <!-- Auth mode selector -->
+    <string name="auth_mode_title">Send mode</string>
+    <string name="auth_mode_smtp">SMTP</string>
+    <string name="auth_mode_gmail_oauth">Gmail API</string>
+    <string name="oauth_sign_in_button">Sign in with Google</string>
+    <string name="oauth_sign_out_button">Disconnect account</string>
+    <string name="oauth_connected_account">Connected account: %s</string>
+    <string name="oauth_not_connected">No Google account connected</string>
+    <string name="oauth_sign_in_error">Google sign-in error: %s</string>
+    <string name="oauth_required_sign_in">You must sign in with a Google account to use this mode</string>
+    <string name="error_invalid_email">Invalid sender email address</string>
+    <string name="error_invalid_destination">Invalid recipient email address</string>
+    <string name="error_invalid_port">Invalid SMTP port: enter a value between 1 and 65535</string>
+    <string name="error_invalid_max_sms">The number of SMS to keep must be at least 1</string>
+    <string name="filter_duplicate_error">Filter already exists: same sender, keyword and type</string>
 </resources>
 

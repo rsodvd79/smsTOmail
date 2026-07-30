@@ -1,17 +1,12 @@
 package it.drhack.smstomail
 
-
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.provider.Telephony
-import android.telephony.SmsMessage
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Date
 
 class SmsReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -26,61 +21,17 @@ class SmsReceiver : BroadcastReceiver() {
                 }
                 val messageBody = bodyBuilder.toString()
 
+                // goAsync() impedisce ad Android di terminare il processo prima che
+                // la coroutine abbia completato l'invio email e il salvataggio nel DB.
+                val pendingResult = goAsync()
                 CoroutineScope(Dispatchers.IO).launch {
-                    val db = AppDatabase.getInstance(context)
-                    val filters = db.filterDao().getAllFilters()
-                    val processor = SmsFilterProcessor(filters)
-
-                    if (processor.shouldProcessSms(sender, messageBody)) {
-                        val config = db.emailConfigDao().getConfig()
-                        config?.let {
-                            try {
-                                val emailSender = EmailSender(
-                                    it.email,
-                                    it.password,
-                                    it.smtpHost,
-                                    it.smtpPort,
-                                    it.smtpUseTls,
-                                    "SMS Forward - SMS to Mail"
-                                )
-                                val result = emailSender.sendEmail(
-                                    it.destination,
-                                    "Nuovo SMS da $sender",
-                                    messageBody
-                                )
-
-                                val smsLogEntry = SmsLogEntry(
-                                    timestamp = Date(),
-                                    sender = sender,
-                                    message = messageBody,
-                                    emailSent = true,
-                                    emailResult = "Email inviata con successo"
-                                )
-                                db.smsLogDao().insert(smsLogEntry)
-                            } catch (e: Exception) {
-                                val smsLogEntry = SmsLogEntry(
-                                    timestamp = Date(),
-                                    sender = sender,
-                                    message = messageBody,
-                                    emailSent = false,
-                                    emailResult = "Errore invio email: ${e.message}"
-                                )
-                                db.smsLogDao().insert(smsLogEntry)
-                            }
-                        }
-                    } else {
-                        val smsLogEntry = SmsLogEntry(
-                            timestamp = Date(),
-                            sender = sender,
-                            message = messageBody,
-                            emailSent = false,
-                            emailResult = "SMS filtrato: non corrisponde ai filtri configurati"
-                        )
-                        db.smsLogDao().insert(smsLogEntry)
+                    try {
+                        SmsForwarder.handleIncomingSms(context, sender, messageBody)
+                    } finally {
+                        pendingResult.finish()
                     }
                 }
             }
         }
     }
 }
-

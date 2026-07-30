@@ -5,7 +5,12 @@ import androidx.room.TypeConverter
 class EncryptedStringConverter {
     @TypeConverter
     fun fromEncrypted(value: String): EncryptedValue {
-        return EncryptedValue(CryptoManager.decrypt(value))
+        return try {
+            EncryptedValue(CryptoManager.decrypt(value))
+        } catch (e: Exception) {
+            // Fallback: password salvata in chiaro prima che la cifratura fosse attiva
+            EncryptedValue(value)
+        }
     }
 
     @TypeConverter
