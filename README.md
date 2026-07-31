@@ -13,7 +13,7 @@
 
 | Schermata principale | Configurazione Email | Gestione Filtri |
 |:---:|:---:|:---:|
-| ![Main](screen_shot/Screenshot_20250531_163420.png) | ![Config](screen_shot/Screenshot_20250531_163250.png) | ![Filters](screen_shot/Screenshot_20250531_163207.png) |
+| ![Main](screen_shot/Screenshot_20250531_163420.png) | ![Config](screen_shot/Screenshot_20250531_163207.png) | ![Filters](screen_shot/Screenshot_20250531_163250.png) |
 
 ---
 
