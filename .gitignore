@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /temp
+/app/release/app-release.aab
 /local.properties
 /.idea/caches
 /.idea/libraries
