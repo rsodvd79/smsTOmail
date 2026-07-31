@@ -12,10 +12,22 @@
 #   public *;
 #}
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Mantieni file e numeri di riga per stack trace leggibili dopo il deoffuscamento
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# --- JavaMail (com.sun.mail:android-mail / android-activation) ---
+# JavaMail carica provider di trasporto e handler MIME via reflection
+-keep class com.sun.mail.** { *; }
+-keep class javax.mail.** { *; }
+-keep class javax.activation.** { *; }
+-keep class com.sun.activation.** { *; }
+-keep class myjava.** { *; }
+-keep class org.apache.harmony.** { *; }
+
+# Riferimenti a classi desktop/Java SE assenti su Android
+-dontwarn java.awt.**
+-dontwarn java.beans.**
+-dontwarn javax.security.sasl.**
+-dontwarn org.ietf.jgss.**
+-dontwarn sun.security.util.HostnameChecker

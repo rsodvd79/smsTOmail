@@ -11,6 +11,7 @@ plugins {
 android {
     namespace = "it.drhack.smstomail"
     compileSdk = 36
+    ndkVersion = "28.2.13676358"
 
     defaultConfig {
         applicationId = "it.drhack.smstomail"
@@ -24,11 +25,17 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // R8: genera mapping.txt per il deoffuscamento su Play Console e riduce l'APK
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // Include i simboli di debug del codice nativo nell'App Bundle
+            ndk {
+                debugSymbolLevel = "SYMBOL_TABLE"
+            }
         }
     }
     compileOptions {

@@ -191,6 +191,8 @@ UI: Jetpack Compose
 ## Changelog
 
 ### 2026.07.31
+- Release build con R8 abilitato (`minify` + `shrinkResources`): il `mapping.txt` per il deoffuscamento è incluso nell'App Bundle e l'app è più piccola. Aggiunte regole ProGuard per JavaMail.
+- Configurata l'estrazione dei simboli di debug nativi (`debugSymbolLevel = SYMBOL_TABLE`, richiede NDK). Nota: l'unica libreria nativa (`libandroidx.graphics.path.so` di Compose) è distribuita già strippata da Google, quindi il relativo avviso di Play Console non è eliminabile.
 - Fix: la notifica di errore di autenticazione email (`NotificationHelper`) ora viene effettivamente mostrata quando l'invio fallisce per credenziali/autorizzazione non valide (prima non veniva mai emessa).
 - Fix: il database Room è escluso da Auto Backup e trasferimento dispositivo — dopo un restore la chiave Android Keystore non esiste più e la password salvata sarebbe stata indecifrabile e usata silenziosamente come testo corrotto.
 - Fix: salvando la configurazione in modalità Gmail API, una porta SMTP invalida viene normalizzata al default `587` invece di essere persistita così com'è.
