@@ -71,8 +71,18 @@ object SmsForwarder {
 
         val emailSuccess = result.startsWith("Email inviata con successo")
         log(db, sender, message, emailSuccess, result)
+
+        // Notifica immediata all'utente in caso di errore di autenticazione/autorizzazione
+        if (!emailSuccess && isAuthFailure(result)) {
+            NotificationHelper.showAuthErrorNotification(context, result)
+        }
+
         return Outcome(forwarded = true, emailSent = emailSuccess, result = result)
     }
+
+    private fun isAuthFailure(result: String): Boolean =
+        result.startsWith("Errore di autenticazione") ||
+            result.startsWith("Errore di autorizzazione Gmail")
 
     private suspend fun log(
         db: AppDatabase,

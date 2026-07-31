@@ -12,11 +12,9 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SmsBackgroundService : Service() {
     companion object {
@@ -136,16 +134,6 @@ class SmsBackgroundService : Service() {
             notifySafely("SMS inoltrato", "SMS da $sender inoltrato con successo")
         } else {
             notifySafely("Errore inoltro SMS", outcome.result)
-        }
-
-        // Notifica il risultato all'app
-        withContext(Dispatchers.Main) {
-            val resultIntent = Intent("it.drhack.smstomail.SMS_RESULT").apply {
-                putExtra("sms_message", "Da: $sender\n$message")
-                putExtra("mail_result", outcome.result)
-            }
-            LocalBroadcastManager.getInstance(this@SmsBackgroundService)
-                .sendBroadcast(resultIntent)
         }
     }
 

@@ -5,7 +5,7 @@
 ![Android](https://img.shields.io/badge/Android-7.0%2B-brightgreen?logo=android)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple?logo=kotlin)
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Version](https://img.shields.io/badge/Version-2026.07.29-orange)
+![Version](https://img.shields.io/badge/Version-2026.07.31-orange)
 
 ---
 
@@ -172,6 +172,9 @@ SmsReceiver (BroadcastReceiver)
 SmsBackgroundService (ForegroundService)
     └─► SmsForwarder           — percorso alternativo per SMS passati esplicitamente al servizio
 
+NotificationHelper
+    └─► notifica ad alta priorità in caso di errore di autenticazione/autorizzazione email
+
 BootReceiver
     └─► su Android 14+ non avvia servizi dal boot; SmsReceiver riceve comunque gli SMS dal manifest
 
@@ -181,11 +184,17 @@ UI: Jetpack Compose
     └─ FilterActivity          — gestione filtri
 ```
 
-**Sicurezza:** la password SMTP è cifrata con AES-256-GCM tramite Android Keystore prima di essere salvata in SQLite. Le connessioni SMTP SSL si fidano esclusivamente dell'host configurato; gli indirizzi email e le credenziali non vengono loggati in produzione. I messaggi Gmail API sono costruiti con header sanificati e body codificato MIME.
+**Sicurezza:** la password SMTP è cifrata con AES-256-GCM tramite Android Keystore prima di essere salvata in SQLite. Il database è escluso da Auto Backup e trasferimento dispositivo: la chiave Keystore non è ripristinabile, quindi un backup del database conterrebbe dati indecifrabili. Le connessioni SMTP SSL si fidano esclusivamente dell'host configurato; gli indirizzi email e le credenziali non vengono loggati in produzione. I messaggi Gmail API sono costruiti con header sanificati e body codificato MIME.
 
 ---
 
 ## Changelog
+
+### 2026.07.31
+- Fix: la notifica di errore di autenticazione email (`NotificationHelper`) ora viene effettivamente mostrata quando l'invio fallisce per credenziali/autorizzazione non valide (prima non veniva mai emessa).
+- Fix: il database Room è escluso da Auto Backup e trasferimento dispositivo — dopo un restore la chiave Android Keystore non esiste più e la password salvata sarebbe stata indecifrabile e usata silenziosamente come testo corrotto.
+- Fix: salvando la configurazione in modalità Gmail API, una porta SMTP invalida viene normalizzata al default `587` invece di essere persistita così com'è.
+- Rimosso codice morto: broadcast locale `SMS_RESULT` senza ricevente, `SmsResultFragment` mai usato, dipendenza `localbroadcastmanager` e controllo irraggiungibile su `InvalidSecondFactor` in `MainActivity`.
 
 ### 2026.07.29
 - Aggiunta validazione di mittente/destinatario email, porta SMTP (`1`–`65535`) e limite della cronologia SMS (minimo `1`).

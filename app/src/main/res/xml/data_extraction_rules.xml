@@ -4,16 +4,17 @@
    for details.
 -->
 <data-extraction-rules>
+    <!-- Escludi il database Room dal backup cloud e dal trasferimento dispositivo:
+         la password SMTP è cifrata con una chiave Android Keystore non trasferibile,
+         quindi i dati ripristinati sarebbero indecifrabili. -->
     <cloud-backup>
-        <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include .../>
-        <exclude .../>
-        -->
+        <exclude domain="database" path="filters_db" />
+        <exclude domain="database" path="filters_db-wal" />
+        <exclude domain="database" path="filters_db-shm" />
     </cloud-backup>
-    <!--
     <device-transfer>
-        <include .../>
-        <exclude .../>
+        <exclude domain="database" path="filters_db" />
+        <exclude domain="database" path="filters_db-wal" />
+        <exclude domain="database" path="filters_db-shm" />
     </device-transfer>
-    -->
 </data-extraction-rules>

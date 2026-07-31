@@ -19,13 +19,8 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.Lifecycle
-import android.content.IntentFilter
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.commit
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -347,8 +342,7 @@ fun MainScreen(
     onClearLogs: () -> Unit
 ) {
     // Verifichiamo se c'è un errore di autenticazione Gmail
-    val hasAuthError = lastEmailResult?.contains("password specifica per app") == true ||
-                      lastEmailResult?.contains("InvalidSecondFactor") == true
+    val hasAuthError = lastEmailResult?.contains("password specifica per app") == true
     val isBlocked = blockedMessage != null
 
     Scaffold(

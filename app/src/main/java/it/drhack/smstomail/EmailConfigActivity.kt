@@ -168,6 +168,9 @@ class EmailConfigActivity : ComponentActivity() {
                         testResult = context.getString(R.string.error_invalid_port)
                         return@launch
                     }
+                    // In modalità OAuth la porta non è validata: normalizza eventuali
+                    // valori invalidi al default per non persistere un config corrotto
+                    val safeSmtpPort = if (port != null && port in 1..65535) smtpPort else "587"
                     // Validazione limite SMS da conservare (almeno 1)
                     val maxSms = maxSmsToKeep.toIntOrNull()
                     if (maxSms == null || maxSms < 1) {
@@ -182,7 +185,7 @@ class EmailConfigActivity : ComponentActivity() {
                         destination = destination,
                         maxSmsToKeep = maxSms,
                         smtpHost = smtpHost,
-                        smtpPort = smtpPort,
+                        smtpPort = safeSmtpPort,
                         smtpUseTls = smtpUseTls,
                         signature = signature,
                         authMode = authMode,

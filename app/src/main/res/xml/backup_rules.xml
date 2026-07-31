@@ -6,8 +6,10 @@
    See https://developer.android.com/about/versions/12/backup-restore
 -->
 <full-backup-content>
-    <!--
-   <include domain="sharedpref" path="."/>
-   <exclude domain="sharedpref" path="device.xml"/>
--->
+    <!-- Escludi il database Room: contiene la password SMTP cifrata con una chiave
+         Android Keystore che NON viene ripristinata dal backup. Dopo un restore la
+         password sarebbe indecifrabile e l'invio email fallirebbe silenziosamente. -->
+    <exclude domain="database" path="filters_db" />
+    <exclude domain="database" path="filters_db-wal" />
+    <exclude domain="database" path="filters_db-shm" />
 </full-backup-content>
