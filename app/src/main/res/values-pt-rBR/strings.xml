@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">smsTOmail</string>
+    <string name="permission_dialog_title">Permissões necessárias</string>
+    <string name="permission_dialog_message">Este app requer algumas permissões para funcionar corretamente. Por favor, conceda as permissões necessárias nas configurações.</string>
+    <string name="permission_dialog_settings_button">Configurações</string>
+    <string name="permission_dialog_exit_button">Sair</string>
+
+    <!-- Filter Activity -->
+    <string name="filter_screen_title">Gerenciamento de filtros de SMS</string>
+    <string name="back_button_description">Voltar</string>
+    <string name="no_filters_warning">Aviso: sem filtros ativos, todas as mensagens SMS serão encaminhadas por e-mail</string>
+    <string name="sender_label">Remetente (opcional):</string>
+    <string name="sender_placeholder">Digite o remetente a ser filtrado</string>
+    <string name="keyword_label">Palavra-chave:</string>
+    <string name="keyword_placeholder">Digite a palavra-chave a ser pesquisada</string>
+    <string name="include_filter">Incluir</string>
+    <string name="exclude_filter">Excluir</string>
+    <string name="add_filter_button">Adicionar filtro</string>
+    <string name="active_filters_title">Filtros ativos:</string>
+    <string name="include_filter_indicator">👁️ Incluir</string>
+    <string name="exclude_filter_indicator">❌ Excluir</string>
+    <string name="from_label">De: %s</string>
+    <string name="contains_label">Contém: %s</string>
+    <string name="delete_button_description">Excluir</string>
+
+    <!-- Email Config Activity -->
+    <string name="email_config_title">Configuração de e-mail</string>
+    <string name="email_sender_label">E-mail do remetente</string>
+    <string name="password_label">Senha</string>
+    <string name="password_show">Mostrar senha</string>
+    <string name="password_hide">Ocultar senha</string>
+    <string name="gmail_warning_title">IMPORTANTE para contas do Gmail:</string>
+    <string name="gmail_warning_message">O Google exige uma \'Senha de app\' e não a senha padrão da sua conta.</string>
+    <string name="gmail_create_app_password">Clique aqui para criar uma senha de app</string>
+    <string name="email_destination_label">E-mail do destinatário</string>
+    <string name="max_sms_to_keep_label">Número máximo de mensagens a manter</string>
+    <string name="save_button">Salvar</string>
+    <string name="config_saved_message">Configuração salva!</string>
+    <string name="test_email_button">Testar envio de e-mail</string>
+
+    <!-- Email test strings -->
+    <string name="test_email_empty_fields">Por favor, preencha todos os campos obrigatórios</string>
+    <string name="test_email_subject">E-mail de teste do Sms to Mail</string>
+    <string name="test_email_body">Esta é uma mensagem de teste do app Sms to Mail. Se você está lendo isso, sua configuração de e-mail está correta!</string>
+    <string name="test_email_error">Erro: %1$s</string>
+
+    <!-- MainActivity strings -->
+    <string name="gmail_auth_problem_title">Problema de autenticação do Gmail</string>
+    <string name="gmail_auth_problem_message">O Gmail exige uma senha de app. A senha normal da sua conta do Google não funcionará.</string>
+    <string name="update_email_config_button">Atualizar configuração de e-mail</string>
+
+    <!-- SMTP Configuration strings -->
+    <string name="account_settings_title">Configurações da conta</string>
+    <string name="smtp_settings_title">Configurações do servidor SMTP</string>
+    <string name="general_settings_title">Configurações gerais</string>
+    <string name="smtp_host_label">Servidor SMTP</string>
+    <string name="smtp_port_label">Porta SMTP</string>
+    <string name="smtp_use_tls_label">Usar SSL/TLS</string>
+
+    <!-- Notification permission strings -->
+    <string name="notification_permission_info_title">Permissão de notificações</string>
+    <string name="notification_permission_info_message">Sem a permissão de notificações, o app pode não exibir corretamente as notificações na central de notificações quando estiver em execução em segundo plano. Você pode ativar essa permissão nas configurações a qualquer momento.</string>
+    <string name="notification_permission_info_ok_button">Entendi</string>
+
+    <!-- Signature -->
+    <string name="signature_label">Assinatura</string>
+    <string name="signature_hint">Texto a ser adicionado ao final de cada e-mail</string>
+
+    <!-- Auth mode selector -->
+    <string name="auth_mode_title">Modo de envio</string>
+    <string name="auth_mode_smtp">SMTP</string>
+    <string name="auth_mode_gmail_oauth">API do Gmail</string>
+    <string name="oauth_sign_in_button">Entrar com o Google</string>
+    <string name="oauth_sign_out_button">Desconectar conta</string>
+    <string name="oauth_connected_account">Conta conectada: %s</string>
+    <string name="oauth_not_connected">Nenhuma conta do Google conectada</string>
+    <string name="oauth_sign_in_error">Erro ao entrar com o Google: %s</string>
+    <string name="oauth_required_sign_in">Você precisa entrar com uma conta do Google para usar este modo</string>
+    <string name="error_invalid_email">Endereço de e-mail do remetente inválido</string>
+    <string name="error_invalid_destination">Endereço de e-mail do destinatário inválido</string>
+    <string name="error_invalid_port">Porta SMTP inválida: insira um valor entre 1 e 65535</string>
+    <string name="error_invalid_max_sms">O número de SMS a manter deve ser pelo menos 1</string>
+    <string name="filter_duplicate_error">Filtro já existe: mesmo remetente, palavra-chave e tipo</string>
+</resources>

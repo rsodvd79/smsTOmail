@@ -26,7 +26,7 @@
 - ⚙️ **SMTP configurabile** — compatibile con Gmail (porta 587 STARTTLS) e provider con SSL diretto (porta 465, es. Aruba)
 - 🔄 **Retry SMTP** — fino a tre tentativi con backoff esponenziale per errori temporanei di rete
 - 🔔 **Notifiche di errore** — avvisi immediati in caso di problemi di autenticazione email
-- 🌍 **Multilingua** — interfaccia in italiano e inglese
+- 🌍 **Multilingua** — interfaccia in italiano, inglese, spagnolo, portoghese (Brasile), francese e tedesco
 
 ---
 
