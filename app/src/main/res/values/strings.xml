@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">smsTOmail</string>
     <string name="permission_dialog_title">Permessi necessari</string>
-    <string name="permission_dialog_message">Questa app richiede alcuni permessi per funzionare correttamente. Per favore concedi i permessi richiesti dalle impostazioni.</string>
+    <string name="permission_dialog_message">smsTOmail richiede il permesso di ricezione SMS per poter inoltrare via email i messaggi che ricevi. Senza questo permesso l\'app non può funzionare: concedilo dalle impostazioni.</string>
     <string name="permission_dialog_settings_button">Impostazioni</string>
     <string name="permission_dialog_exit_button">Esci</string>
+
+    <!-- Prominent disclosure: mostrata PRIMA della richiesta di sistema per RECEIVE_SMS -->
+    <string name="sms_permission_rationale_title">Perché richiediamo l\'accesso agli SMS</string>
+    <string name="sms_permission_rationale_message">smsTOmail usa il permesso di ricezione SMS esclusivamente per la sua funzione principale: inoltrare via email i messaggi SMS che ricevi, in base ai filtri che imposti. L\'app non legge la cronologia SMS esistente, non invia messaggi e non condivide né vende i dati con terze parti. Nella schermata successiva ti verrà chiesto di concedere il permesso "SMS" dal sistema Android.</string>
+    <string name="sms_permission_rationale_button">Continua</string>
 
     <!-- Filter Activity -->
     <string name="filter_screen_title">Gestione Filtri SMS</string>

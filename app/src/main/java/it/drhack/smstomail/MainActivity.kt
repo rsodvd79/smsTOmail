@@ -143,10 +143,30 @@ class MainActivity : FragmentActivity() {
             blockedReason = getString(R.string.permission_dialog_message)
             permissionsGranted = false
             initializeApp(blockedMessage = blockedReason)
-            requestPermissionLauncher.launch(permissionsNotGranted)
+            if (permissionsNotGranted.contains(android.Manifest.permission.RECEIVE_SMS)) {
+                // Prominent disclosure richiesta da Google Play per i permessi sensibili
+                // (RECEIVE_SMS): va mostrata prima della richiesta di sistema.
+                showSmsPermissionRationale {
+                    requestPermissionLauncher.launch(permissionsNotGranted)
+                }
+            } else {
+                requestPermissionLauncher.launch(permissionsNotGranted)
+            }
         } else {
             checkForegroundServicePermissions()
         }
+    }
+
+    private fun showSmsPermissionRationale(onContinue: () -> Unit) {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.sms_permission_rationale_title))
+            .setMessage(getString(R.string.sms_permission_rationale_message))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.sms_permission_rationale_button)) { _, _ ->
+                onContinue()
+            }
+            .create()
+            .show()
     }
 
     private fun checkForegroundServicePermissions() {
