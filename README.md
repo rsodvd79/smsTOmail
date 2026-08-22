@@ -17,6 +17,12 @@
 
 ---
 
+## Video
+
+[![Guarda il video su YouTube](https://img.youtube.com/vi/2fNeYn4GDTw/0.jpg)](https://youtu.be/2fNeYn4GDTw)
+
+---
+
 ## Funzionalità
 
 - 📨 **Inoltro automatico SMS** — ogni SMS tradizionale (GSM) ricevuto viene inviato via email in tempo reale
