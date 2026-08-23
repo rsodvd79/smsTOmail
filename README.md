@@ -19,7 +19,7 @@
 
 ## Video
 
-[![Guarda il video su YouTube](https://img.youtube.com/vi/2fNeYn4GDTw/0.jpg)](https://youtu.be/2fNeYn4GDTw)
+[![Guarda il video su YouTube](https://img.youtube.com/vi/BZoDvigArZ4/0.jpg)](https://youtu.be/BZoDvigArZ4)
 
 ---
 
