@@ -43,12 +43,15 @@
     <h1>Informativa sulla Privacy</h1>
     <p>La presente Informativa sulla Privacy descrive le modalità di raccolta, utilizzo e divulgazione dei dati quando utilizzi l'applicazione "SMS to MAIL".</p>
 
+    <h2>Finalità dell'app e uso del permesso SMS</h2>
+    <p>La funzione principale e unica di "SMS to MAIL" è il <strong>trasferimento/sincronizzazione degli SMS tra dispositivi</strong>: l'app riceve gli SMS tradizionali (GSM) in arrivo sul telefono e li inoltra via email, permettendoti di leggerli e archiviarli anche da un altro dispositivo (PC, tablet, altro telefono) tramite la tua casella di posta. Il permesso Android <code>RECEIVE_SMS</code> viene richiesto ed utilizzato esclusivamente per questo scopo e non viene mai impiegato per finalità diverse da quelle qui descritte.</p>
+
     <h2>Informazioni raccolte</h2>
     <p>La nostra applicazione raccoglie le seguenti informazioni:</p>
     <ul>
-        <li><strong>Messaggi SMS</strong>: L'app ha accesso ai messaggi SMS in arrivo sul tuo dispositivo per poterli inoltrare via email. I messaggi vengono elaborati localmente sul dispositivo.</li>
-        <li><strong>Configurazioni email</strong>: Raccogliamo le informazioni necessarie per configurare il tuo account email per l'inoltro (credenziali di accesso). Queste informazioni sono memorizzate esclusivamente sul tuo dispositivo.</li>
-        <li><strong>Filtri</strong>: Eventuali regole di filtraggio impostate per la gestione degli SMS sono memorizzate localmente sul dispositivo.</li>
+        <li><strong>Messaggi SMS</strong>: L'app ha accesso ai messaggi SMS in arrivo sul tuo dispositivo al solo scopo di inoltrarli via email. I messaggi vengono elaborati localmente sul dispositivo e non vengono caricati su server di terze parti, venduti o condivisi a scopo di lucro.</li>
+        <li><strong>Configurazioni email</strong>: Raccogliamo le informazioni necessarie per configurare l'inoltro verso il tuo account email. In modalità SMTP, le credenziali (password) sono cifrate (AES-256/GCM tramite Android Keystore) e memorizzate esclusivamente sul tuo dispositivo. In modalità Gmail API, non viene richiesta alcuna password: l'app utilizza un token OAuth 2.0 ottenuto tramite l'account Google scelto dall'utente, con il solo permesso di invio email (ambito <code>gmail.send</code>), gestito dai servizi di autenticazione di Google e mai visibile o accessibile allo sviluppatore.</li>
+        <li><strong>Filtri</strong>: Eventuali regole di filtraggio (mittente/parola chiave) impostate per decidere quali SMS inoltrare sono memorizzate localmente sul dispositivo.</li>
     </ul>
 
     <h2>Utilizzo dei dati</h2>
@@ -85,7 +88,7 @@
     <h2>Contatti</h2>
     <p>Se hai domande o suggerimenti sulla nostra Informativa sulla Privacy, non esitare a contattarci all'indirizzo: rsodvd79@gmail.com.</p>
 
-    <div class="date">Ultimo aggiornamento: 31 maggio 2025</div>
+    <div class="date">Ultimo aggiornamento: 24 agosto 2026</div>
 </body>
 </html>
 
