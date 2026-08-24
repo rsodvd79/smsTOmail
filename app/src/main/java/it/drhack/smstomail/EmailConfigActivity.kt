@@ -21,9 +21,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -582,7 +584,13 @@ fun EmailConfigScreenContent(
             }
 
             testResult?.let {
-                Text(it, color = MaterialTheme.colorScheme.error)
+                val isSuccess = it.startsWith("Email inviata con successo")
+                Text(
+                    text = it,
+                    color = if (isSuccess) Color(0xFF2E7D32) else MaterialTheme.colorScheme.error,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
             Spacer(Modifier.height(24.dp))
