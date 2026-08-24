@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad - SMS TO mail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 25px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .date {
+            font-style: italic;
+            margin-top: 30px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Política de Privacidad</h1>
+    <p>Esta Política de Privacidad describe cómo se recopilan, utilizan y divulgan los datos cuando utilizas la aplicación "SMS to MAIL".</p>
+
+    <h2>Finalidad de la app y uso del permiso de SMS</h2>
+    <p>La función principal y única de "SMS to MAIL" es la <strong>transferencia/sincronización de SMS entre dispositivos</strong>: la app recibe los SMS tradicionales (GSM) que llegan a tu teléfono y los reenvía por correo electrónico, permitiéndote leerlos y archivarlos también desde otro dispositivo (PC, tablet, otro teléfono) a través de tu correo. El permiso de Android <code>RECEIVE_SMS</code> se solicita y se utiliza exclusivamente para este fin y nunca se emplea para finalidades distintas a las aquí descritas.</p>
+
+    <h2>Información recopilada</h2>
+    <p>Nuestra aplicación recopila la siguiente información:</p>
+    <ul>
+        <li><strong>Mensajes SMS</strong>: La app accede a los mensajes SMS entrantes en tu dispositivo únicamente para reenviarlos por correo electrónico. Los mensajes se procesan localmente en el dispositivo y nunca se cargan en servidores de terceros, ni se venden ni se comparten con fines de lucro.</li>
+        <li><strong>Configuración de correo electrónico</strong>: Recopilamos la información necesaria para configurar el reenvío a tu cuenta de correo. En modo SMTP, las credenciales (contraseña) se cifran (AES-256/GCM mediante Android Keystore) y se almacenan exclusivamente en tu dispositivo. En modo Gmail API, no se requiere ninguna contraseña: la app utiliza un token OAuth 2.0 obtenido a través de la cuenta de Google elegida por el usuario, con el único permiso de envío de correo (ámbito <code>gmail.send</code>), gestionado por los servicios de autenticación de Google y nunca visible ni accesible para el desarrollador.</li>
+        <li><strong>Filtros</strong>: Las reglas de filtrado (remitente/palabra clave) configuradas para decidir qué SMS reenviar se almacenan localmente en el dispositivo.</li>
+    </ul>
+
+    <h2>Uso de los datos</h2>
+    <p>Utilizamos los datos recopilados exclusivamente para prestar los servicios de la aplicación, en particular para:</p>
+    <ul>
+        <li>Reenviar los mensajes SMS recibidos a la dirección de correo electrónico especificada</li>
+        <li>Aplicar filtros a los mensajes que se van a reenviar</li>
+        <li>Garantizar el correcto funcionamiento de la aplicación</li>
+    </ul>
+    <p>Los datos no se utilizan con fines de marketing ni se comparten con terceros.</p>
+
+    <h2>Almacenamiento y seguridad de los datos</h2>
+    <p>Todos los datos recopilados se almacenan localmente en el dispositivo del usuario. Las credenciales de acceso al correo electrónico están protegidas mediante cifrado.</p>
+    <p>No realizamos transferencias de datos a nuestros servidores, excepto el envío de mensajes mediante el protocolo SMTP a los servidores de correo especificados por el usuario.</p>
+
+    <h2>Acceso a la red</h2>
+    <p>La aplicación requiere acceso a Internet únicamente para el envío de correos electrónicos. No recopilamos datos de navegación ni otra información relacionada con el uso de la red.</p>
+
+    <h2>Derechos del usuario</h2>
+    <p>Como usuario, tienes derecho a:</p>
+    <ul>
+        <li>Eliminar los datos de la aplicación desde los ajustes del dispositivo</li>
+        <li>Desinstalar la aplicación en cualquier momento</li>
+        <li>Modificar o eliminar las configuraciones de correo guardadas</li>
+        <li>Modificar los filtros de los mensajes</li>
+    </ul>
+
+    <h2>Datos de menores</h2>
+    <p>Nuestra aplicación no está destinada a menores de 13 años y no recopilamos conscientemente datos personales de niños menores de 13 años.</p>
+
+    <h2>Cambios en la Política de Privacidad</h2>
+    <p>Podemos actualizar ocasionalmente nuestra Política de Privacidad. Te recomendamos revisar periódicamente esta página para conocer los posibles cambios. Los cambios en esta Política de Privacidad entran en vigor cuando se publican en esta página.</p>
+
+    <h2>Contacto</h2>
+    <p>Si tienes preguntas o sugerencias sobre nuestra Política de Privacidad, no dudes en contactarnos en: rsodvd79@gmail.com.</p>
+
+    <div class="date">Última actualización: 24 de agosto de 2026</div>
+</body>
+</html>
