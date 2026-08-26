@@ -5,7 +5,7 @@
 ![Android](https://img.shields.io/badge/Android-7.0%2B-brightgreen?logo=android)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple?logo=kotlin)
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Version](https://img.shields.io/badge/Version-2026.08.21-orange)
+![Version](https://img.shields.io/badge/Version-2026.08.26-orange)
 
 ---
 
@@ -195,6 +195,10 @@ UI: Jetpack Compose
 ---
 
 ## Changelog
+
+### 2026.08.26
+- Revisione della scheda Google Play per conformità alle policy sui permessi SMS: nuova descrizione in [`store_listing_it.txt`](store_listing_it.txt), senza riferimenti a backup e codici di autenticazione/OTP, incentrata sulla sincronizzazione degli SMS tra dispositivi (caso d'uso dichiarato in Play Console).
+- Nessuna modifica funzionale al codice: solo aggiornamento del numero di versione.
 
 ### 2026.08.21
 - Aggiunta una schermata di **Prominent Disclosure** mostrata prima della richiesta di sistema per il permesso `RECEIVE_SMS`, per conformità con le policy Google Play sui permessi sensibili: spiega esplicitamente che il permesso serve solo a sincronizzare via email gli SMS in arrivo con altri dispositivi dell'utente.
