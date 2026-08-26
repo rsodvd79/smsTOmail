@@ -1,0 +1,61 @@
+SHORT DESCRIPTION (max 80 characters)
+--------------------------------------
+Automatically forward your SMS to email. Customizable filter system.
+
+FULL DESCRIPTION
+--------------------------------------
+SMS TO mail - Forward your SMS straight to email
+
+Read your SMS messages on any device
+
+SMS to Mail is a reliable application that automatically transfers the SMS messages received on your phone to the email address you configure, so you can read them on your PC, tablet, or any other device. A simple solution to make sure you never miss an important message.
+
+KEY FEATURES
+
+🔄 Automatic forwarding
+Once the app is set up, every SMS received is instantly transferred by email to your preferred address. The service works in the background, even after the device restarts.
+
+⚙️ Custom email configuration
+Easily set up your preferred email account to receive messages. Supports most email providers via the SMTP protocol.
+
+🔍 Advanced filter system
+Fully customize which SMS you want to forward:
+• Filter by sender: receive emails only from specific contacts
+• Filter by content: forward only messages containing keywords
+• Exclusion filters: block unwanted messages from being forwarded
+• Combine multiple filters for total control
+
+🔒 Privacy and security
+• All data is processed locally on your device
+• No external server stores your messages
+• Email credentials are stored securely
+• We do not collect users' personal data
+
+🚀 High performance
+• Minimal use of system resources
+• Low battery impact thanks to process optimization
+• Reliable operation even with large volumes of messages
+
+PRACTICAL USE CASES
+
+📲 Multi-device synchronization
+Keep your incoming SMS synchronized across multiple devices via email: read the messages received on your phone from your PC, tablet, or another smartphone as well.
+
+📱 Remote access to your SMS
+Receive SMS messages on your computer or another device when you don't have access to your phone. Ideal for those who work at a PC and want to avoid constant phone distractions.
+
+📊 Work numbers
+Check the messages received on a second phone from your email inbox — ideal for those who use separate phones for work and personal use.
+
+EASY TO SET UP
+
+1. Install the app and grant the required permissions
+2. Enter your email credentials
+3. Set up any custom filters
+4. The app will immediately start forwarding incoming SMS!
+
+SUPPORT AND FEEDBACK
+
+We are constantly working to improve SMS TO mail. If you have suggestions, issues, or ideas for new features, don't hesitate to contact us. Your opinion matters to us!
+
+Download SMS TO mail now and read your SMS conveniently from your email inbox.

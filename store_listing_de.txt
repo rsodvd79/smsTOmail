@@ -1,0 +1,61 @@
+SHORT DESCRIPTION (max 80 characters)
+--------------------------------------
+Leitet deine SMS automatisch per E-Mail weiter. Anpassbares Filtersystem.
+
+FULL DESCRIPTION
+--------------------------------------
+SMS TO mail - Leite deine SMS direkt per E-Mail weiter
+
+Lies deine SMS-Nachrichten auf jedem Gerät
+
+SMS to Mail ist eine zuverlässige Anwendung, die die auf deinem Telefon empfangenen SMS-Nachrichten automatisch an die von dir konfigurierte E-Mail-Adresse weiterleitet, damit du sie auf deinem PC, Tablet oder einem anderen Gerät lesen kannst. Eine einfache Lösung, damit du wichtige Nachrichten nie verpasst.
+
+KEY FEATURES
+
+🔄 Automatische Weiterleitung
+Sobald die App konfiguriert ist, wird jede empfangene SMS sofort per E-Mail an deine bevorzugte Adresse weitergeleitet. Der Dienst läuft im Hintergrund, auch nach einem Neustart des Geräts.
+
+⚙️ Benutzerdefinierte E-Mail-Konfiguration
+Richte dein bevorzugtes E-Mail-Konto ganz einfach für den Empfang ein. Die App unterstützt die meisten E-Mail-Anbieter über das SMTP-Protokoll.
+
+🔍 Erweiterte Filterfunktion
+Passe ganz genau an, welche SMS du weiterleiten möchtest:
+• Nach Absender filtern: Nur E-Mails von bestimmten Kontakten empfangen
+• Nach Inhalt filtern: Nur Nachrichten mit Schlüsselwörtern weiterleiten
+• Ausschlussfilter: Unerwünschte Nachrichten blockieren, damit sie nicht weitergeleitet werden
+• Mehrere Filter kombinieren, um die volle Kontrolle zu haben
+
+🔒 Datenschutz und Sicherheit
+• Alle Daten werden lokal auf deinem Gerät verarbeitet
+• Kein externer Server speichert deine Nachrichten
+• E-Mail-Anmeldedaten werden sicher gespeichert
+• Wir sammeln keine persönlichen Daten der Nutzer
+
+🚀 Hohe Leistung
+• Minimaler Verbrauch von Systemressourcen
+• Geringe Auswirkungen auf den Akku dank Prozessoptimierung
+• Zuverlässige Funktion auch bei großen Nachrichtenmengen
+
+PRACTICAL USE CASES
+
+📲 Mehrgeräte-Synchronisierung
+Halte deine eingehenden SMS über E-Mail zwischen mehreren Geräten synchronisiert: Lies die auf deinem Telefon empfangenen Nachrichten auch auf deinem PC, Tablet oder einem anderen Smartphone.
+
+📱 Fernzugriff auf deine SMS
+Erhalte SMS-Nachrichten auf deinem Computer oder einem anderen Gerät, wenn du keinen Zugriff auf dein Handy hast. Ideal für Nutzer, die am PC arbeiten und keine ständigen Ablenkungen durch das Telefon möchten.
+
+📊 Arbeitsnummern
+Prüfe die auf einem zweiten Handy empfangenen Nachrichten über dein E-Mail-Postfach – ideal für Nutzer, die getrennte Geräte für Arbeit und Privatleben nutzen.
+
+EASY TO SET UP
+
+1. Installiere die App und gewähre die erforderlichen Berechtigungen
+2. Gib deine E-Mail-Anmeldedaten ein
+3. Richte beliebige benutzerdefinierte Filter ein
+4. Die App beginnt sofort mit der Weiterleitung eingehender SMS!
+
+SUPPORT AND FEEDBACK
+
+Wir arbeiten ständig daran, SMS TO mail zu verbessern. Wenn du Vorschläge, Probleme oder Ideen für neue Funktionen hast, zögere nicht, uns zu kontaktieren. Deine Meinung ist uns wichtig!
+
+Lade SMS TO mail jetzt herunter und lese deine SMS bequem aus deinem E-Mail-Postfach.

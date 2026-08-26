@@ -1,0 +1,61 @@
+SHORT DESCRIPTION (max 80 characters)
+--------------------------------------
+Transmet automatiquement vos SMS par e-mail. Système de filtres personnalisables.
+
+FULL DESCRIPTION
+--------------------------------------
+SMS TO mail - Transmettez vos SMS directement par e-mail
+
+Lisez vos messages SMS sur n'importe quel appareil
+
+SMS to Mail est une application fiable qui transfère automatiquement les messages SMS reçus sur votre téléphone vers l'adresse e-mail que vous configurez, afin que vous puissiez les lire sur votre PC, votre tablette ou tout autre appareil. Une solution simple pour ne jamais manquer un message important.
+
+KEY FEATURES
+
+🔄 Transfert automatique
+Une fois l'application configurée, chaque SMS reçu est immédiatement transféré par e-mail vers votre adresse préférée. Le service fonctionne en arrière-plan, même après le redémarrage de l'appareil.
+
+⚙️ Configuration e-mail personnalisée
+Configurez facilement votre compte e-mail préféré pour recevoir les messages. Elle prend en charge la plupart des fournisseurs d'e-mail via le protocole SMTP.
+
+🔍 Système de filtres avancés
+Personnalisez entièrement les SMS que vous souhaitez transférer :
+• Filtrer par expéditeur : ne recevoir des e-mails que de contacts spécifiques
+• Filtrer par contenu : transférer uniquement les messages contenant des mots-clés
+• Filtres d'exclusion : bloquer les messages indésirables pour qu'ils ne soient pas transférés
+• Combiner plusieurs filtres pour un contrôle total
+
+🔒 Confidentialité et sécurité
+• Toutes les données sont traitées localement sur votre appareil
+• Aucun serveur externe n'enregistre vos messages
+• Les identifiants e-mail sont stockés de manière sécurisée
+• Nous ne collectons pas les données personnelles des utilisateurs
+
+🚀 Haute performance
+• Utilisation minimale des ressources système
+• Faible impact sur la batterie grâce à l'optimisation des processus
+• Fonctionnement fiable même avec de gros volumes de messages
+
+PRACTICAL USE CASES
+
+📲 Synchronisation multi-appareils
+Gardez vos SMS entrants synchronisés entre plusieurs appareils via le courrier électronique : lisez les messages reçus sur votre téléphone depuis votre PC, votre tablette ou un autre smartphone.
+
+📱 Accès distant à vos SMS
+Recevez des SMS sur votre ordinateur ou sur un autre appareil lorsque vous n'avez pas accès à votre téléphone. Idéal pour les personnes qui travaillent sur un PC et souhaitent éviter les distractions constantes du téléphone.
+
+📊 Numéros professionnels
+Consultez les messages reçus sur un deuxième téléphone depuis votre boîte e-mail : idéal pour les personnes qui utilisent des téléphones distincts pour le travail et pour un usage personnel.
+
+EASY TO SET UP
+
+1. Installez l'application et accordez les autorisations nécessaires
+2. Saisissez vos identifiants e-mail
+3. Configurez les filtres personnalisés souhaités
+4. L'application commencera immédiatement à transférer les SMS entrants !
+
+SUPPORT AND FEEDBACK
+
+Nous travaillons constamment à l'amélioration de SMS TO mail. Si vous avez des suggestions, des problèmes ou des idées de nouvelles fonctionnalités, n'hésitez pas à nous contacter. Votre avis compte pour nous !
+
+Téléchargez SMS TO mail dès maintenant et lisez vos SMS directement depuis votre boîte e-mail.
