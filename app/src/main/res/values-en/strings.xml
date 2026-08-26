@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">smsTOmail</string>
     <string name="permission_dialog_title">Required Permissions</string>
-    <string name="permission_dialog_message">smsTOmail needs the SMS receive permission to forward the messages you receive by email. The app cannot work without it: please grant it from settings.</string>
+    <string name="permission_dialog_message">smsTOmail needs the SMS receive permission to synchronize the messages you receive with your other devices by email. The app cannot work without it: please grant it from settings.</string>
     <string name="permission_dialog_settings_button">Settings</string>
     <string name="permission_dialog_exit_button">Exit</string>
 
     <!-- Prominent disclosure: shown BEFORE the system RECEIVE_SMS permission request -->
     <string name="sms_permission_rationale_title">Why we request SMS access</string>
-    <string name="sms_permission_rationale_message">smsTOmail uses the SMS receive permission exclusively for its core feature: forwarding by email the SMS messages you receive, based on the filters you set. The app does not read your existing SMS history, does not send messages, and never shares or sells this data to third parties. On the next screen, Android will ask you to grant the "SMS" permission.</string>
+    <string name="sms_permission_rationale_message">smsTOmail uses the SMS receive permission exclusively for its core feature: synchronizing the SMS messages you receive with your other devices by email, based on the filters you set. The app does not read your existing SMS history, does not send messages, and never shares or sells this data to third parties. On the next screen, Android will ask you to grant the "SMS" permission.</string>
     <string name="sms_permission_rationale_button">Continue</string>
 
     <!-- Filter Activity -->
@@ -87,4 +87,3 @@
     <string name="error_invalid_max_sms">The number of SMS to keep must be at least 1</string>
     <string name="filter_duplicate_error">Filter already exists: same sender, keyword and type</string>
 </resources>
-

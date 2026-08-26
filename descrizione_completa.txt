@@ -1,13 +1,13 @@
-# SMS TO mail - Inoltra i tuoi SMS direttamente in email
+# SMS TO mail - Sincronizza i tuoi SMS tra dispositivi
 
 ## Connetti i tuoi messaggi SMS al mondo digitale
 
-SMS TO mail è un'applicazione potente e affidabile che converte automaticamente i messaggi SMS ricevuti sul tuo dispositivo in email, inviandoli direttamente alla casella di posta elettronica da te configurata. Una soluzione semplice ma efficace per non perdere mai un messaggio importante.
+SMS TO mail trasferisce automaticamente i messaggi SMS ricevuti sul tuo telefono alla casella email configurata, così puoi leggerli e archiviarli da un computer, tablet o altro telefono. È pensata per la sincronizzazione personale tra dispositivi.
 
 ## Caratteristiche principali:
 
-### 🔄 Inoltro automatico
-Una volta configurata l'app, ogni SMS ricevuto viene istantaneamente convertito in una email e inviato al tuo indirizzo preferito. Il servizio funziona in background, anche dopo il riavvio del dispositivo.
+### 🔄 Sincronizzazione automatica tra dispositivi
+Una volta configurata l'app, ogni SMS ricevuto viene trasferito via email al tuo altro dispositivo. Il servizio funziona in background, anche dopo il riavvio del telefono.
 
 ### ⚙️ Configurazione email personalizzata
 Configura facilmente il tuo account email preferito per ricevere i messaggi. Supporta la maggior parte dei provider email tramite protocollo SMTP.
@@ -35,24 +35,15 @@ Personalizza completamente quali SMS desideri inoltrare:
 ### 📱 Accesso remoto ai tuoi SMS
 Ricevi i messaggi SMS sul tuo computer o su un altro dispositivo quando non hai accesso al telefono. Ideale per chi lavora al PC e vuole evitare continue distrazioni dal telefono.
 
-### 📊 Monitoraggio aziendale
-Monitora messaggi di servizio, notifiche bancarie, o SMS di autenticazione direttamente nella tua casella email aziendale. Perfetto per gestire account di servizio o numeri aziendali.
-
-### 📁 Backup automatico
-Crea automaticamente un archivio di backup dei tuoi SMS importanti nella tua email, facilmente ricercabile e organizzato cronologicamente.
-
-### 📲 Sincronizzazione multi-dispositivo
-Mantieni sincronizzata la comunicazione SMS tra più dispositivi attraverso l'email, ideale per chi usa telefoni diversi per lavoro e uso personale.
-
-### 🔔 Notifiche importanti
-Non perdere mai SMS importanti come codici di autenticazione, avvisi bancari o messaggi di emergenza, ricevendoli direttamente nella tua casella email.
+### 📲 Accesso da altri dispositivi
+Leggi e archivia i tuoi SMS sul computer, tablet o altro telefono senza dover accedere fisicamente al dispositivo che li riceve.
 
 ## Facile da configurare:
 
 1. Installa l'app e concedi i permessi necessari
 2. Inserisci le tue credenziali email
 3. Configura eventuali filtri personalizzati
-4. L'app inizierà subito a inoltrare gli SMS ricevuti!
+4. L'app inizierà subito a trasferire gli SMS ricevuti agli altri dispositivi tramite email!
 
 ## Supporto e feedback:
 

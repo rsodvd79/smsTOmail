@@ -1,6 +1,6 @@
 # smsTOmail
 
-> Inoltra automaticamente gli SMS ricevuti via email — configura una volta, dimentica per sempre.
+> Sincronizza gli SMS ricevuti tra il telefono e i tuoi altri dispositivi tramite email.
 
 ![Android](https://img.shields.io/badge/Android-7.0%2B-brightgreen?logo=android)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple?logo=kotlin)
@@ -197,7 +197,7 @@ UI: Jetpack Compose
 ## Changelog
 
 ### 2026.08.21
-- Aggiunta una schermata di **Prominent Disclosure** mostrata prima della richiesta di sistema per il permesso `RECEIVE_SMS`, per conformità con le policy Google Play sui permessi sensibili: spiega esplicitamente che il permesso serve solo a inoltrare via email gli SMS in arrivo.
+- Aggiunta una schermata di **Prominent Disclosure** mostrata prima della richiesta di sistema per il permesso `RECEIVE_SMS`, per conformità con le policy Google Play sui permessi sensibili: spiega esplicitamente che il permesso serve solo a sincronizzare via email gli SMS in arrivo con altri dispositivi dell'utente.
 - Resi più espliciti (IT/EN) i messaggi mostrati quando il permesso SMS non viene concesso.
 
 ### 2026.07.31

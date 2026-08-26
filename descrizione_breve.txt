@@ -1,1 +1,1 @@
-Inoltra automaticamente i tuoi SMS a email. Sistema di filtri personalizzabile.
+Sincronizza i tuoi SMS tra telefono e altri dispositivi tramite email. Filtri personalizzabili.
