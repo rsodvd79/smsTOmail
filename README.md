@@ -13,7 +13,7 @@
 
 | Schermata principale | Configurazione Email | Gestione Filtri |
 |:---:|:---:|:---:|
-| ![Main](screen_shot/Screenshot_20250531_163420.png) | ![Config](screen_shot/Screenshot_20260823_191309.png) | ![Filters](screen_shot/Screenshot_20260823_191402.png) |
+| ![Main](www/screen_shot/Screenshot_20250531_163420.png) | ![Config](www/screen_shot/Screenshot_20260823_191309.png) | ![Filters](www/screen_shot/Screenshot_20260823_191402.png) |
 
 ---
 
@@ -242,7 +242,7 @@ UI: Jetpack Compose
 
 ## Privacy
 
-La app non invia dati a server di terze parti. Gli SMS vengono inoltrati direttamente dal dispositivo al server SMTP configurato dall'utente. Consulta [`privacy_policy_it.html`](privacy_policy_it.html) per i dettagli.
+La app non invia dati a server di terze parti. Gli SMS vengono inoltrati direttamente dal dispositivo al server SMTP configurato dall'utente. Consulta [`privacy_policy_it.html`](www/privacy_policy_it.html) per i dettagli.
 
 ---
 
