@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="oPdLxo8-ewwm5uUuMTsQnga2DYegfNf5o3tUYDFbMmY" />
+    <title>Termos de Serviço - SMS TO mail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 25px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .date {
+            font-style: italic;
+            margin-top: 30px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Termos de Serviço</h1>
+    <p>Estes Termos de Serviço ("Termos") regem o uso do aplicativo móvel "SMS to MAIL" ("o App"). Ao instalar ou usar o App, você aceita integralmente estes Termos. Se não os aceitar, não deve instalar nem usar o App.</p>
+
+    <h2>1. Descrição do serviço</h2>
+    <p>"SMS to MAIL" é um aplicativo Android que intercepta os SMS tradicionais (GSM) recebidos no dispositivo do usuário e os encaminha automaticamente por e-mail para um endereço configurado pelo próprio usuário, com o objetivo de sincronizar suas mensagens entre vários dispositivos pessoais (celular, computador, tablet). O App não oferece nenhum serviço de mensagens, backup em servidores externos ou recuperação de códigos de autenticação/OTP em nome de terceiros.</p>
+
+    <h2>2. Requisitos e permissões</h2>
+    <p>Para funcionar corretamente, o App requer as seguintes permissões do sistema, concedidas explicitamente pelo usuário na inicialização:</p>
+    <ul>
+        <li><code>RECEIVE_SMS</code> — para interceptar os SMS recebidos e encaminhá-los por e-mail;</li>
+        <li><code>INTERNET</code> — para enviar e-mails via SMTP ou a API do Gmail;</li>
+        <li><code>POST_NOTIFICATIONS</code> (Android 13+) — para exibir notificações em caso de falha no envio.</li>
+    </ul>
+    <p>O usuário pode revogar essas permissões a qualquer momento nas configurações do dispositivo; isso fará com que o App deixe de funcionar ou funcione apenas parcialmente.</p>
+
+    <h2>3. Responsabilidades do usuário</h2>
+    <p>O usuário é o único responsável por:</p>
+    <ul>
+        <li>configurar corretamente a conta de e-mail e/ou as credenciais SMTP ou a autorização do Gmail usadas para o encaminhamento;</li>
+        <li>garantir que possui o direito de usar o endereço de e-mail de destino e o respectivo serviço de e-mail;</li>
+        <li>definir eventuais filtros (remetente/palavra-chave) de forma coerente com suas próprias necessidades de privacidade e segurança;</li>
+        <li>proteger seu dispositivo contra acessos não autorizados, já que o App processa e encaminha conteúdo potencialmente sensível (o texto dos SMS recebidos).</li>
+    </ul>
+    <p>É proibido usar o App para fins ilícitos, para interceptar comunicações que não sejam suas ou em violação da legislação de proteção de dados aplicável.</p>
+
+    <h2>4. Serviços de terceiros</h2>
+    <p>O encaminhamento dos e-mails é feito por meio de um servidor SMTP escolhido e configurado pelo usuário, ou — caso o usuário selecione esse modo — por meio da API do Gmail do Google, mediante autenticação OAuth 2.0 com a conta Google do usuário. O uso desses serviços de terceiros está sujeito aos respectivos termos de serviço e políticas de privacidade (por exemplo, os do Google), que o usuário deve consultar separadamente. O desenvolvedor do App não tem qualquer controle sobre esses serviços e não é responsável por sua disponibilidade, segurança ou eventuais interrupções.</p>
+
+    <h2>5. Ausência de garantia</h2>
+    <p>O App é fornecido "no estado em que se encontra" ("as is") e "conforme disponibilidade" ("as available"), sem garantias de qualquer tipo, expressas ou implícitas, incluindo — sem limitação — garantias de adequação a uma finalidade específica, funcionamento livre de erros, continuidade do serviço ou entrega garantida de cada SMS ou e-mail. Em particular:</p>
+    <ul>
+        <li>o App intercepta exclusivamente SMS tradicionais (GSM/SS7) por meio do broadcast do sistema <code>SMS_RECEIVED</code>: mensagens RCS, MMS e mensagens de aplicativos de terceiros (WhatsApp, Telegram etc.) não são e não podem ser interceptadas;</li>
+        <li>a entrega dos e-mails depende de fatores externos não controláveis pelo desenvolvedor, como conectividade de rede, disponibilidade do servidor SMTP/Gmail e filtros antispam do destinatário;</li>
+        <li>alguns fabricantes de dispositivos Android aplicam restrições agressivas de economia de bateria que podem impedir o funcionamento em segundo plano do App; recomenda-se excluir o App dessas otimizações para um funcionamento confiável.</li>
+    </ul>
+
+    <h2>6. Limitação de responsabilidade</h2>
+    <p>Na máxima medida permitida pela legislação aplicável, o desenvolvedor não poderá ser responsabilizado por danos diretos, indiretos, incidentais, consequenciais ou punitivos decorrentes do uso ou da impossibilidade de uso do App, incluindo — sem limitação — o não recebimento de um SMS ou e-mail de encaminhamento, a perda de dados ou o acesso não autorizado às credenciais configuradas pelo usuário em seu próprio dispositivo.</p>
+
+    <h2>7. Privacidade e tratamento de dados</h2>
+    <p>O tratamento dos dados pessoais realizado por meio do App está descrito na <a href="privacy_policy_pt-br.html">Política de Privacidade</a>, que é considerada parte integrante destes Termos. Em resumo: o App não envia dados aos servidores do desenvolvedor ou a terceiros diferentes daqueles escolhidos pelo usuário para o encaminhamento dos e-mails (servidor SMTP ou API do Gmail); todas as configurações são salvas localmente no dispositivo e as credenciais sensíveis são criptografadas.</p>
+
+    <h2>8. Propriedade intelectual e licença</h2>
+    <p>O código-fonte do App é distribuído sob a licença de código aberto <strong>MIT</strong>, disponível no repositório oficial no <a href="https://github.com/rsodvd79/smsTOmail" target="_blank" rel="noopener">GitHub</a>. O nome "SMS TO mail", os logotipos e os recursos gráficos permanecem de propriedade do desenvolvedor. O uso do App não transfere nenhum direito de propriedade intelectual além do que é expressamente concedido pela licença do código-fonte.</p>
+
+    <h2>9. Alterações no App e nestes Termos</h2>
+    <p>O desenvolvedor reserva-se o direito de modificar, atualizar ou descontinuar o App, no todo ou em parte, a qualquer momento. Estes Termos podem ser atualizados periodicamente; a versão mais recente estará sempre disponível nesta página e no repositório GitHub do projeto. O uso continuado do App após a publicação de alterações constitui aceitação dos novos Termos.</p>
+
+    <h2>10. Rescisão</h2>
+    <p>O usuário pode deixar de usar o App a qualquer momento, desinstalando-o do seu dispositivo. A desinstalação implica a remoção de todos os dados locais salvos pelo App (configuração, filtros, histórico de SMS), exceto eventuais backups feitos de forma independente pelo usuário.</p>
+
+    <h2>11. Lei aplicável</h2>
+    <p>Estes Termos são regidos pela legislação italiana. Eventuais controvérsias serão de competência do foro competente nos termos da lei, sem prejuízo das disposições imperativas de proteção ao consumidor previstas na legislação aplicável no país de residência do usuário.</p>
+
+    <h2>Contato</h2>
+    <p>Para dúvidas sobre estes Termos de Serviço, você pode entrar em contato conosco pelo e-mail: rsodvd79@gmail.com.</p>
+
+    <div class="date">Última atualização: 31 de agosto de 2026</div>
+</body>
+</html>

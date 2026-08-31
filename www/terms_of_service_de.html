@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="oPdLxo8-ewwm5uUuMTsQnga2DYegfNf5o3tUYDFbMmY" />
+    <title>Nutzungsbedingungen - SMS TO mail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 25px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .date {
+            font-style: italic;
+            margin-top: 30px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nutzungsbedingungen</h1>
+    <p>Diese Nutzungsbedingungen ("Bedingungen") regeln die Nutzung der mobilen Anwendung "SMS to MAIL" ("die App"). Durch die Installation oder Nutzung der App akzeptieren Sie diese Bedingungen vollständig. Wenn Sie ihnen nicht zustimmen, dürfen Sie die App weder installieren noch nutzen.</p>
+
+    <h2>1. Beschreibung des Dienstes</h2>
+    <p>"SMS to MAIL" ist eine Android-Anwendung, die auf dem Gerät des Nutzers empfangene klassische (GSM-)SMS abfängt und automatisch per E-Mail an eine vom Nutzer konfigurierte Adresse weiterleitet, um die eigenen Nachrichten zwischen mehreren persönlichen Geräten (Telefon, Computer, Tablet) zu synchronisieren. Die App bietet keinen Messaging-Dienst, kein Backup auf externen Servern und keine Abrufung von Authentifizierungs-/OTP-Codes im Auftrag Dritter.</p>
+
+    <h2>2. Voraussetzungen und Berechtigungen</h2>
+    <p>Damit die App ordnungsgemäß funktioniert, benötigt sie folgende Systemberechtigungen, die der Nutzer beim Start ausdrücklich erteilt:</p>
+    <ul>
+        <li><code>RECEIVE_SMS</code> — um eingehende SMS abzufangen und per E-Mail weiterzuleiten;</li>
+        <li><code>INTERNET</code> — um E-Mails über SMTP oder die Gmail API zu versenden;</li>
+        <li><code>POST_NOTIFICATIONS</code> (Android 13+) — um Benachrichtigungen bei fehlgeschlagenem Versand anzuzeigen.</li>
+    </ul>
+    <p>Der Nutzer kann diese Berechtigungen jederzeit in den Geräteeinstellungen widerrufen; dies führt dazu, dass die App nicht mehr oder nur eingeschränkt funktioniert.</p>
+
+    <h2>3. Verantwortlichkeiten des Nutzers</h2>
+    <p>Der Nutzer ist allein verantwortlich für:</p>
+    <ul>
+        <li>die korrekte Konfiguration des E-Mail-Kontos und/oder der SMTP-Zugangsdaten bzw. der Gmail-Autorisierung für die Weiterleitung;</li>
+        <li>die Sicherstellung, dass er berechtigt ist, die Ziel-E-Mail-Adresse und den zugehörigen Mail-Dienst zu nutzen;</li>
+        <li>die Einrichtung eventueller Filter (Absender/Stichwort) im Einklang mit seinen eigenen Datenschutz- und Sicherheitsanforderungen;</li>
+        <li>den Schutz seines Geräts vor unbefugtem Zugriff, da die App potenziell sensible Inhalte (den Text der empfangenen SMS) verarbeitet und weiterleitet.</li>
+    </ul>
+    <p>Es ist untersagt, die App für rechtswidrige Zwecke, zum Abfangen fremder Kommunikation oder unter Verstoß gegen die geltenden Datenschutzbestimmungen zu verwenden.</p>
+
+    <h2>4. Dienste Dritter</h2>
+    <p>Die Weiterleitung der E-Mails erfolgt über einen vom Nutzer gewählten und konfigurierten SMTP-Server oder — sofern der Nutzer diesen Modus wählt — über die Gmail API von Google nach OAuth-2.0-Authentifizierung mit dem Google-Konto des Nutzers. Die Nutzung solcher Dienste Dritter unterliegt deren jeweiligen Nutzungsbedingungen und Datenschutzrichtlinien (z. B. denen von Google), die der Nutzer separat einsehen muss. Der Entwickler der App hat keinerlei Kontrolle über diese Dienste und ist nicht verantwortlich für deren Verfügbarkeit, Sicherheit oder etwaige Unterbrechungen.</p>
+
+    <h2>5. Kein Gewährleistung</h2>
+    <p>Die App wird "wie besehen" ("as is") und "wie verfügbar" ("as available") bereitgestellt, ohne jegliche Gewährleistung, weder ausdrücklich noch stillschweigend, einschließlich — ohne Einschränkung — der Eignung für einen bestimmten Zweck, des fehlerfreien Betriebs, der Kontinuität des Dienstes oder der garantierten Zustellung jeder SMS oder E-Mail. Insbesondere:</p>
+    <ul>
+        <li>die App fängt ausschließlich klassische (GSM/SS7-)SMS über den System-Broadcast <code>SMS_RECEIVED</code> ab: RCS-Nachrichten, MMS und Nachrichten von Drittanbieter-Apps (WhatsApp, Telegram usw.) werden nicht und können nicht abgefangen werden;</li>
+        <li>die Zustellung der E-Mails hängt von externen, vom Entwickler nicht kontrollierbaren Faktoren ab, wie Netzwerkverbindung, Verfügbarkeit des SMTP-/Gmail-Servers oder Spamfilter des Empfängers;</li>
+        <li>manche Android-Gerätehersteller wenden aggressive Akku-Sparmaßnahmen an, die den Hintergrundbetrieb der App verhindern können; es wird empfohlen, die App von solchen Optimierungen auszunehmen, um einen zuverlässigen Betrieb zu gewährleisten.</li>
+    </ul>
+
+    <h2>6. Haftungsbeschränkung</h2>
+    <p>Im gesetzlich maximal zulässigen Umfang haftet der Entwickler nicht für direkte, indirekte, beiläufige, Folge- oder Strafschäden, die aus der Nutzung oder der Unmöglichkeit der Nutzung der App entstehen, einschließlich — ohne Einschränkung — dem Nichterhalt einer weitergeleiteten SMS oder E-Mail, dem Verlust von Daten oder dem unbefugten Zugriff auf vom Nutzer auf seinem eigenen Gerät konfigurierte Zugangsdaten.</p>
+
+    <h2>7. Datenschutz und Datenverarbeitung</h2>
+    <p>Die über die App erfolgende Verarbeitung personenbezogener Daten wird in der <a href="privacy_policy_de.html">Datenschutzerklärung</a> beschrieben, die als integraler Bestandteil dieser Bedingungen gilt. Zusammenfassend: Die App sendet keine Daten an Server des Entwicklers oder an Dritte außer denen, die der Nutzer für die Weiterleitung der E-Mails ausgewählt hat (SMTP-Server oder Gmail API); alle Konfigurationen werden lokal auf dem Gerät gespeichert, und sensible Zugangsdaten sind verschlüsselt.</p>
+
+    <h2>8. Geistiges Eigentum und Lizenz</h2>
+    <p>Der Quellcode der App wird unter der Open-Source-Lizenz <strong>MIT</strong> vertrieben, einsehbar im offiziellen Repository auf <a href="https://github.com/rsodvd79/smsTOmail" target="_blank" rel="noopener">GitHub</a>. Der Name "SMS TO mail", Logos und grafische Elemente bleiben Eigentum des Entwicklers. Die Nutzung der App überträgt keine Rechte an geistigem Eigentum über das hinaus, was durch die Lizenz des Quellcodes ausdrücklich gewährt wird.</p>
+
+    <h2>9. Änderungen der App und dieser Bedingungen</h2>
+    <p>Der Entwickler behält sich das Recht vor, die App jederzeit ganz oder teilweise zu ändern, zu aktualisieren oder einzustellen. Diese Bedingungen können regelmäßig aktualisiert werden; die jeweils aktuellste Version ist stets auf dieser Seite und im GitHub-Repository des Projekts verfügbar. Die fortgesetzte Nutzung der App nach Veröffentlichung von Änderungen gilt als Annahme der neuen Bedingungen.</p>
+
+    <h2>10. Beendigung</h2>
+    <p>Der Nutzer kann die Nutzung der App jederzeit beenden, indem er sie von seinem Gerät deinstalliert. Die Deinstallation führt zur Entfernung aller von der App lokal gespeicherten Daten (Konfiguration, Filter, SMS-Verlauf), mit Ausnahme etwaiger vom Nutzer eigenständig erstellter Backups.</p>
+
+    <h2>11. Anwendbares Recht</h2>
+    <p>Diese Bedingungen unterliegen italienischem Recht. Etwaige Streitigkeiten unterliegen der gesetzlich zuständigen Gerichtsbarkeit, unbeschadet zwingender Verbraucherschutzbestimmungen des im Wohnsitzland des Nutzers geltenden Rechts.</p>
+
+    <h2>Kontakt</h2>
+    <p>Bei Fragen zu diesen Nutzungsbedingungen können Sie uns unter folgender Adresse kontaktieren: rsodvd79@gmail.com.</p>
+
+    <div class="date">Letzte Aktualisierung: 31. August 2026</div>
+</body>
+</html>

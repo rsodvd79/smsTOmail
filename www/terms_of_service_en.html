@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="oPdLxo8-ewwm5uUuMTsQnga2DYegfNf5o3tUYDFbMmY" />
+    <title>Terms of Service - SMS TO mail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 25px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .date {
+            font-style: italic;
+            margin-top: 30px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Terms of Service</h1>
+    <p>These Terms of Service ("Terms") govern the use of the mobile application "SMS to MAIL" (the "App"). By installing or using the App you fully accept these Terms. If you do not accept them, you must not install or use the App.</p>
+
+    <h2>1. Description of the service</h2>
+    <p>"SMS to MAIL" is an Android application that intercepts traditional (GSM) SMS messages received on the user's device and automatically forwards them by email to an address configured by the user, for the purpose of synchronizing one's own messages across multiple personal devices (phone, computer, tablet). The App does not provide any messaging relay, third-party server backup, or retrieval of authentication/OTP codes on behalf of third parties.</p>
+
+    <h2>2. Requirements and permissions</h2>
+    <p>To function correctly, the App requires the following system permissions, explicitly granted by the user at startup:</p>
+    <ul>
+        <li><code>RECEIVE_SMS</code> — to intercept incoming SMS and forward them by email;</li>
+        <li><code>INTERNET</code> — to send emails via SMTP or the Gmail API;</li>
+        <li><code>POST_NOTIFICATIONS</code> (Android 13+) — to show notifications when sending fails.</li>
+    </ul>
+    <p>The user may revoke these permissions at any time from the device settings; doing so will cause the App to stop working or work only partially.</p>
+
+    <h2>3. User responsibilities</h2>
+    <p>The user is solely responsible for:</p>
+    <ul>
+        <li>correctly configuring the email account and/or SMTP credentials or Gmail authorization used for forwarding;</li>
+        <li>ensuring they have the right to use the destination email address and the related mail service;</li>
+        <li>setting any filters (sender/keyword) consistently with their own privacy and security needs;</li>
+        <li>protecting their device from unauthorized access, since the App processes and forwards potentially sensitive content (the text of received SMS).</li>
+    </ul>
+    <p>Using the App for unlawful purposes, to intercept communications that are not one's own, or in violation of applicable data protection law, is prohibited.</p>
+
+    <h2>4. Third-party services</h2>
+    <p>Email forwarding is performed through an SMTP server chosen and configured by the user, or — if the user selects that mode — through Google's Gmail API following OAuth 2.0 authentication with the user's Google account. Use of such third-party services is subject to their respective terms of service and privacy policies (e.g. Google's), which the user must review separately. The App's developer has no control over such services and is not responsible for their availability, security, or any interruptions.</p>
+
+    <h2>5. No warranty</h2>
+    <p>The App is provided "as is" and "as available", without warranties of any kind, express or implied, including — without limitation — warranties of fitness for a particular purpose, error-free operation, continuity of service, or guaranteed delivery of every SMS or email. In particular:</p>
+    <ul>
+        <li>the App only intercepts traditional (GSM/SS7) SMS via the system's <code>SMS_RECEIVED</code> broadcast: RCS messages, MMS, and messages from third-party apps (WhatsApp, Telegram, etc.) are not and cannot be intercepted;</li>
+        <li>email delivery depends on external factors beyond the developer's control, such as network connectivity, SMTP/Gmail server availability, and the recipient's spam filters;</li>
+        <li>some Android device manufacturers apply aggressive battery-saving restrictions that can prevent the App from running in the background; users are advised to exclude the App from such optimizations for reliable operation.</li>
+    </ul>
+
+    <h2>6. Limitation of liability</h2>
+    <p>To the maximum extent permitted by applicable law, the developer shall not be liable for direct, indirect, incidental, consequential, or punitive damages arising from the use or inability to use the App, including — without limitation — failure to receive a forwarding SMS or email, loss of data, or unauthorized access to credentials configured by the user on their own device.</p>
+
+    <h2>7. Privacy and data processing</h2>
+    <p>The processing of personal data carried out through the App is described in the <a href="privacy_policy_en.html">Privacy Policy</a>, which is considered an integral part of these Terms. In summary: the App does not send data to the developer's servers or to third parties other than those chosen by the user for email forwarding (SMTP server or Gmail API); all configurations are stored locally on the device and sensitive credentials are encrypted.</p>
+
+    <h2>8. Intellectual property and license</h2>
+    <p>The App's source code is distributed under the open-source <strong>MIT</strong> license, available in the official repository on <a href="https://github.com/rsodvd79/smsTOmail" target="_blank" rel="noopener">GitHub</a>. The "SMS TO mail" name, logos, and graphic assets remain the property of the developer. Use of the App does not transfer any intellectual property rights beyond what is expressly granted by the source code license.</p>
+
+    <h2>9. Changes to the App and to these Terms</h2>
+    <p>The developer reserves the right to modify, update, or discontinue the App, in whole or in part, at any time. These Terms may be updated periodically; the most recent version will always be available on this page and in the project's GitHub repository. Continued use of the App after changes are published constitutes acceptance of the new Terms.</p>
+
+    <h2>10. Termination</h2>
+    <p>The user may stop using the App at any time by uninstalling it from their device. Uninstalling removes all local data saved by the App (configuration, filters, SMS history), except for any backups made independently by the user.</p>
+
+    <h2>11. Governing law</h2>
+    <p>These Terms are governed by Italian law. Any disputes shall be subject to the competent court as provided by law, without prejudice to any mandatory consumer-protection provisions of the law applicable in the user's country of residence.</p>
+
+    <h2>Contact</h2>
+    <p>For questions about these Terms of Service, you can contact us at: rsodvd79@gmail.com.</p>
+
+    <div class="date">Last updated: August 31, 2026</div>
+</body>
+</html>

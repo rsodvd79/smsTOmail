@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="oPdLxo8-ewwm5uUuMTsQnga2DYegfNf5o3tUYDFbMmY" />
+    <title>Conditions d'utilisation - SMS TO mail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 25px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .date {
+            font-style: italic;
+            margin-top: 30px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Conditions d'utilisation</h1>
+    <p>Les présentes Conditions d'utilisation ("Conditions") régissent l'utilisation de l'application mobile « SMS to MAIL » (« l'Application »). En installant ou en utilisant l'Application, vous acceptez pleinement ces Conditions. Si vous ne les acceptez pas, vous ne devez pas installer ni utiliser l'Application.</p>
+
+    <h2>1. Description du service</h2>
+    <p>« SMS to MAIL » est une application Android qui intercepte les SMS traditionnels (GSM) reçus sur l'appareil de l'utilisateur et les transfère automatiquement par e-mail à une adresse configurée par l'utilisateur, dans le but de synchroniser ses propres messages entre plusieurs appareils personnels (téléphone, ordinateur, tablette). L'Application ne fournit aucun service de messagerie, de sauvegarde sur des serveurs externes ni de récupération de codes d'authentification/OTP pour le compte de tiers.</p>
+
+    <h2>2. Exigences et autorisations</h2>
+    <p>Pour fonctionner correctement, l'Application nécessite les autorisations système suivantes, accordées explicitement par l'utilisateur au démarrage :</p>
+    <ul>
+        <li><code>RECEIVE_SMS</code> — pour intercepter les SMS entrants et les transférer par e-mail ;</li>
+        <li><code>INTERNET</code> — pour envoyer les e-mails via SMTP ou l'API Gmail ;</li>
+        <li><code>POST_NOTIFICATIONS</code> (Android 13+) — pour afficher des notifications en cas d'échec d'envoi.</li>
+    </ul>
+    <p>L'utilisateur peut révoquer ces autorisations à tout moment depuis les paramètres de l'appareil ; cela entraînera l'arrêt total ou partiel du fonctionnement de l'Application.</p>
+
+    <h2>3. Responsabilités de l'utilisateur</h2>
+    <p>L'utilisateur est seul responsable de :</p>
+    <ul>
+        <li>configurer correctement le compte e-mail et/ou les identifiants SMTP ou l'autorisation Gmail utilisés pour le transfert ;</li>
+        <li>s'assurer qu'il dispose du droit d'utiliser l'adresse e-mail de destination et le service de messagerie associé ;</li>
+        <li>définir les éventuels filtres (expéditeur/mot-clé) conformément à ses propres besoins en matière de confidentialité et de sécurité ;</li>
+        <li>protéger son appareil contre tout accès non autorisé, car l'Application traite et transfère un contenu potentiellement sensible (le texte des SMS reçus).</li>
+    </ul>
+    <p>Il est interdit d'utiliser l'Application à des fins illicites, pour intercepter des communications qui ne vous appartiennent pas, ou en violation de la réglementation applicable en matière de protection des données.</p>
+
+    <h2>4. Services tiers</h2>
+    <p>Le transfert des e-mails s'effectue via un serveur SMTP choisi et configuré par l'utilisateur, ou — si l'utilisateur sélectionne ce mode — via l'API Gmail de Google, après authentification OAuth 2.0 avec le compte Google de l'utilisateur. L'utilisation de ces services tiers est soumise à leurs propres conditions d'utilisation et politiques de confidentialité (par exemple celles de Google), que l'utilisateur doit consulter séparément. Le développeur de l'Application n'a aucun contrôle sur ces services et n'est pas responsable de leur disponibilité, de leur sécurité ou d'éventuelles interruptions.</p>
+
+    <h2>5. Absence de garantie</h2>
+    <p>L'Application est fournie « en l'état » et « selon disponibilité », sans garantie d'aucune sorte, expresse ou implicite, y compris — sans limitation — les garanties d'adéquation à un usage particulier, de fonctionnement sans erreur, de continuité du service ou de livraison garantie de chaque SMS ou e-mail. En particulier :</p>
+    <ul>
+        <li>l'Application n'intercepte que les SMS traditionnels (GSM/SS7) via le broadcast système <code>SMS_RECEIVED</code> : les messages RCS, MMS et les messages provenant d'applications tierces (WhatsApp, Telegram, etc.) ne sont pas et ne peuvent pas être interceptés ;</li>
+        <li>la livraison des e-mails dépend de facteurs externes non maîtrisables par le développeur, tels que la connectivité réseau, la disponibilité du serveur SMTP/Gmail ou les filtres anti-spam du destinataire ;</li>
+        <li>certains fabricants d'appareils Android appliquent des restrictions agressives d'économie de batterie pouvant empêcher le fonctionnement en arrière-plan de l'Application ; il est recommandé d'exclure l'Application de ces optimisations pour un fonctionnement fiable.</li>
+    </ul>
+
+    <h2>6. Limitation de responsabilité</h2>
+    <p>Dans la mesure maximale permise par la loi applicable, le développeur ne pourra être tenu responsable des dommages directs, indirects, accessoires, consécutifs ou punitifs résultant de l'utilisation ou de l'impossibilité d'utiliser l'Application, y compris — sans limitation — la non-réception d'un SMS ou d'un e-mail de transfert, la perte de données, ou l'accès non autorisé aux identifiants configurés par l'utilisateur sur son propre appareil.</p>
+
+    <h2>7. Confidentialité et traitement des données</h2>
+    <p>Le traitement des données personnelles effectué via l'Application est décrit dans la <a href="privacy_policy_fr.html">Politique de confidentialité</a>, qui fait partie intégrante des présentes Conditions. En résumé : l'Application n'envoie aucune donnée aux serveurs du développeur ou à des tiers autres que ceux choisis par l'utilisateur pour le transfert des e-mails (serveur SMTP ou API Gmail) ; toutes les configurations sont enregistrées localement sur l'appareil et les identifiants sensibles sont chiffrés.</p>
+
+    <h2>8. Propriété intellectuelle et licence</h2>
+    <p>Le code source de l'Application est distribué sous licence open source <strong>MIT</strong>, consultable dans le dépôt officiel sur <a href="https://github.com/rsodvd79/smsTOmail" target="_blank" rel="noopener">GitHub</a>. Le nom « SMS TO mail », les logos et les éléments graphiques restent la propriété du développeur. L'utilisation de l'Application ne transfère aucun droit de propriété intellectuelle au-delà de ce qui est expressément accordé par la licence du code source.</p>
+
+    <h2>9. Modifications de l'Application et des présentes Conditions</h2>
+    <p>Le développeur se réserve le droit de modifier, mettre à jour ou interrompre l'Application, en tout ou en partie, à tout moment. Les présentes Conditions peuvent être mises à jour périodiquement ; la version la plus récente sera toujours disponible sur cette page et dans le dépôt GitHub du projet. L'utilisation continue de l'Application après la publication de modifications vaut acceptation des nouvelles Conditions.</p>
+
+    <h2>10. Résiliation</h2>
+    <p>L'utilisateur peut cesser d'utiliser l'Application à tout moment en la désinstallant de son appareil. La désinstallation entraîne la suppression de toutes les données locales enregistrées par l'Application (configuration, filtres, historique des SMS), à l'exception des éventuelles sauvegardes réalisées de manière autonome par l'utilisateur.</p>
+
+    <h2>11. Droit applicable</h2>
+    <p>Les présentes Conditions sont régies par le droit italien. Tout litige relèvera du tribunal compétent conformément à la loi, sous réserve des dispositions impératives de protection des consommateurs prévues par la réglementation applicable dans le pays de résidence de l'utilisateur.</p>
+
+    <h2>Contact</h2>
+    <p>Pour toute question concernant les présentes Conditions d'utilisation, vous pouvez nous contacter à l'adresse : rsodvd79@gmail.com.</p>
+
+    <div class="date">Dernière mise à jour : 31 août 2026</div>
+</body>
+</html>

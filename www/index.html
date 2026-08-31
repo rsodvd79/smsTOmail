@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="oPdLxo8-ewwm5uUuMTsQnga2DYegfNf5o3tUYDFbMmY" />
+    <title>SMS TO mail</title>
+    <style>
+        :root {
+            color-scheme: light;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        select#lang-switcher {
+            font-size: 1rem;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        .tagline {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        ul {
+            padding-left: 1.2em;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .screenshots {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .screenshots img {
+            max-width: 200px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .links a {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #2c3e50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .links a.secondary {
+            background: #3498db;
+        }
+        .links a:hover {
+            opacity: 0.85;
+        }
+        footer {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        footer a {
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SMS TO mail</h1>
+        <select id="lang-switcher" aria-label="Language / Lingua">
+            <option value="it">Italiano</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="pt-br">Português (Brasil)</option>
+        </select>
+    </header>
+
+    <p class="tagline" data-i18n="tagline"></p>
+
+    <div class="links">
+        <a data-i18n="linkGithub" href="https://github.com/rsodvd79/smsTOmail" target="_blank" rel="noopener"></a>
+        <a data-i18n="linkPlayStore" class="secondary" href="https://play.google.com/store/apps/details?id=it.drhack.smstomail&pcampaignid=web_share" target="_blank" rel="noopener"></a>
+        <a data-i18n="linkPrivacy" id="privacy-link" class="secondary" href="privacy_policy_it.html"></a>
+        <a data-i18n="linkTerms" id="terms-link" class="secondary" href="terms_of_service_it.html"></a>
+    </div>
+
+    <h2 data-i18n="descTitle"></h2>
+    <p data-i18n="descBody"></p>
+
+    <h2 data-i18n="featuresTitle"></h2>
+    <ul id="features-list"></ul>
+
+    <h2 data-i18n="screenshotsTitle"></h2>
+    <div class="screenshots">
+        <img src="screen_shot/Screenshot_20250531_163420.png" alt="Screenshot">
+        <img src="screen_shot/Screenshot_20260823_191309.png" alt="Screenshot">
+        <img src="screen_shot/Screenshot_20260823_191402.png" alt="Screenshot">
+    </div>
+
+    <h2 data-i18n="startTitle"></h2>
+    <ol id="start-list"></ol>
+
+    <h2 data-i18n="privacyTitle"></h2>
+    <p data-i18n="privacyBody"></p>
+
+    <footer>
+        <p data-i18n="footer"></p>
+    </footer>
+
+    <script>
+        const translations = {
+            it: {
+                title: "SMS TO mail",
+                tagline: "Sincronizza gli SMS ricevuti tra il telefono e i tuoi altri dispositivi tramite email.",
+                linkGithub: "Codice sorgente (GitHub)",
+                linkPlayStore: "Scarica su Google Play",
+                linkPrivacy: "Informativa sulla Privacy",
+                privacyFile: "privacy_policy_it.html",
+                linkTerms: "Termini di Servizio",
+                termsFile: "terms_of_service_it.html",
+                descTitle: "Cosa fa l'app",
+                descBody: "SMS TO mail trasferisce automaticamente i messaggi SMS ricevuti sul telefono alla casella email configurata, così puoi leggerli e archiviarli da un computer, tablet o altro telefono. È pensata per la sincronizzazione personale tra dispositivi.",
+                featuresTitle: "Funzionalità",
+                features: [
+                    "📨 Inoltro automatico SMS — ogni SMS tradizionale (GSM) ricevuto viene inviato via email in tempo reale",
+                    "🔍 Filtri avanzati — includi o escludi SMS per mittente e/o parola chiave",
+                    "🔒 Password cifrata — la password SMTP è protetta con AES-256/GCM tramite Android Keystore",
+                    "📋 Cronologia SMS — log degli SMS ricevuti con stato dell'invio email",
+                    "⚙️ SMTP configurabile — compatibile con Gmail (porta 587 STARTTLS) e provider con SSL diretto (porta 465, es. Aruba)",
+                    "🔄 Retry SMTP — fino a tre tentativi con backoff esponenziale per errori temporanei di rete",
+                    "🔔 Notifiche di errore — avvisi immediati in caso di problemi di autenticazione email",
+                    "🌍 Multilingua — interfaccia in italiano, inglese, spagnolo, portoghese (Brasile), francese e tedesco"
+                ],
+                screenshotsTitle: "Screenshot",
+                startTitle: "Come iniziare",
+                start: [
+                    "Installa l'app e concedi i permessi necessari.",
+                    "Inserisci le tue credenziali email.",
+                    "Configura eventuali filtri personalizzati.",
+                    "L'app inizierà subito a trasferire gli SMS ricevuti agli altri dispositivi tramite email."
+                ],
+                privacyTitle: "Privacy",
+                privacyBody: "La app non invia dati a server di terze parti. Gli SMS vengono inoltrati direttamente dal dispositivo al server SMTP configurato dall'utente.",
+                footer: "© smsTOmail — Distribuito sotto licenza MIT."
+            },
+            en: {
+                title: "SMS TO mail",
+                tagline: "Sync SMS received on your phone to your other devices via email.",
+                linkGithub: "Source code (GitHub)",
+                linkPlayStore: "Get it on Google Play",
+                linkPrivacy: "Privacy Policy",
+                privacyFile: "privacy_policy_en.html",
+                linkTerms: "Terms of Service",
+                termsFile: "terms_of_service_en.html",
+                descTitle: "What the app does",
+                descBody: "SMS TO mail automatically forwards SMS messages received on your phone to the configured email address, so you can read and archive them from a computer, tablet, or another phone. It is designed for personal synchronization between devices.",
+                featuresTitle: "Features",
+                features: [
+                    "📨 Automatic SMS forwarding — every traditional (GSM) SMS received is sent via email in real time",
+                    "🔍 Advanced filters — include or exclude SMS by sender and/or keyword",
+                    "🔒 Encrypted password — the SMTP password is protected with AES-256/GCM via Android Keystore",
+                    "📋 SMS history — log of received SMS with email delivery status",
+                    "⚙️ Configurable SMTP — compatible with Gmail (port 587 STARTTLS) and providers with direct SSL (port 465, e.g. Aruba)",
+                    "🔄 SMTP retry — up to three attempts with exponential backoff for transient network errors",
+                    "🔔 Error notifications — immediate alerts for email authentication problems",
+                    "🌍 Multilingual — interface in Italian, English, Spanish, Brazilian Portuguese, French and German"
+                ],
+                screenshotsTitle: "Screenshots",
+                startTitle: "Getting started",
+                start: [
+                    "Install the app and grant the required permissions.",
+                    "Enter your email credentials.",
+                    "Configure any custom filters.",
+                    "The app will immediately start forwarding received SMS to your other devices via email."
+                ],
+                privacyTitle: "Privacy",
+                privacyBody: "The app does not send data to third-party servers. SMS are forwarded directly from the device to the SMTP server configured by the user.",
+                footer: "© smsTOmail — Distributed under the MIT license."
+            },
+            es: {
+                title: "SMS TO mail",
+                tagline: "Sincroniza los SMS recibidos en tu teléfono con tus otros dispositivos por correo electrónico.",
+                linkGithub: "Código fuente (GitHub)",
+                linkPlayStore: "Consíguelo en Google Play",
+                linkPrivacy: "Política de privacidad",
+                privacyFile: "privacy_policy_es.html",
+                linkTerms: "Términos de Servicio",
+                termsFile: "terms_of_service_es.html",
+                descTitle: "Qué hace la app",
+                descBody: "SMS TO mail reenvía automáticamente los mensajes SMS recibidos en tu teléfono a la casilla de correo configurada, para que puedas leerlos y archivarlos desde un ordenador, tableta u otro teléfono. Está pensada para la sincronización personal entre dispositivos.",
+                featuresTitle: "Funciones",
+                features: [
+                    "📨 Reenvío automático de SMS — cada SMS tradicional (GSM) recibido se envía por correo en tiempo real",
+                    "🔍 Filtros avanzados — incluye o excluye SMS por remitente y/o palabra clave",
+                    "🔒 Contraseña cifrada — la contraseña SMTP está protegida con AES-256/GCM mediante Android Keystore",
+                    "📋 Historial de SMS — registro de los SMS recibidos con el estado del envío del correo",
+                    "⚙️ SMTP configurable — compatible con Gmail (puerto 587 STARTTLS) y proveedores con SSL directo (puerto 465, p. ej. Aruba)",
+                    "🔄 Reintento SMTP — hasta tres intentos con espera exponencial ante errores de red temporales",
+                    "🔔 Notificaciones de error — avisos inmediatos ante problemas de autenticación del correo",
+                    "🌍 Multilingüe — interfaz en italiano, inglés, español, portugués (Brasil), francés y alemán"
+                ],
+                screenshotsTitle: "Capturas de pantalla",
+                startTitle: "Cómo empezar",
+                start: [
+                    "Instala la app y concede los permisos necesarios.",
+                    "Introduce tus credenciales de correo.",
+                    "Configura los filtros personalizados que desees.",
+                    "La app comenzará de inmediato a reenviar los SMS recibidos a tus otros dispositivos por correo."
+                ],
+                privacyTitle: "Privacidad",
+                privacyBody: "La app no envía datos a servidores de terceros. Los SMS se reenvían directamente desde el dispositivo al servidor SMTP configurado por el usuario.",
+                footer: "© smsTOmail — Distribuido bajo licencia MIT."
+            },
+            fr: {
+                title: "SMS TO mail",
+                tagline: "Synchronisez les SMS reçus sur votre téléphone avec vos autres appareils par e-mail.",
+                linkGithub: "Code source (GitHub)",
+                linkPlayStore: "Disponible sur Google Play",
+                linkPrivacy: "Politique de confidentialité",
+                privacyFile: "privacy_policy_fr.html",
+                linkTerms: "Conditions d'utilisation",
+                termsFile: "terms_of_service_fr.html",
+                descTitle: "Ce que fait l'application",
+                descBody: "SMS TO mail transfère automatiquement les SMS reçus sur votre téléphone vers l'adresse e-mail configurée, afin de pouvoir les lire et les archiver depuis un ordinateur, une tablette ou un autre téléphone. Elle est conçue pour la synchronisation personnelle entre appareils.",
+                featuresTitle: "Fonctionnalités",
+                features: [
+                    "📨 Transfert automatique des SMS — chaque SMS traditionnel (GSM) reçu est envoyé par e-mail en temps réel",
+                    "🔍 Filtres avancés — inclure ou exclure les SMS par expéditeur et/ou mot-clé",
+                    "🔒 Mot de passe chiffré — le mot de passe SMTP est protégé avec AES-256/GCM via Android Keystore",
+                    "📋 Historique des SMS — journal des SMS reçus avec le statut d'envoi de l'e-mail",
+                    "⚙️ SMTP configurable — compatible avec Gmail (port 587 STARTTLS) et les fournisseurs SSL direct (port 465, ex. Aruba)",
+                    "🔄 Nouvelle tentative SMTP — jusqu'à trois tentatives avec backoff exponentiel pour les erreurs réseau temporaires",
+                    "🔔 Notifications d'erreur — alertes immédiates en cas de problème d'authentification e-mail",
+                    "🌍 Multilingue — interface en italien, anglais, espagnol, portugais (Brésil), français et allemand"
+                ],
+                screenshotsTitle: "Captures d'écran",
+                startTitle: "Pour commencer",
+                start: [
+                    "Installez l'application et accordez les autorisations nécessaires.",
+                    "Saisissez vos identifiants e-mail.",
+                    "Configurez d'éventuels filtres personnalisés.",
+                    "L'application commencera aussitôt à transférer les SMS reçus vers vos autres appareils par e-mail."
+                ],
+                privacyTitle: "Confidentialité",
+                privacyBody: "L'application n'envoie aucune donnée à des serveurs tiers. Les SMS sont transférés directement de l'appareil vers le serveur SMTP configuré par l'utilisateur.",
+                footer: "© smsTOmail — Distribué sous licence MIT."
+            },
+            de: {
+                title: "SMS TO mail",
+                tagline: "Synchronisieren Sie auf Ihrem Telefon empfangene SMS per E-Mail mit Ihren anderen Geräten.",
+                linkGithub: "Quellcode (GitHub)",
+                linkPlayStore: "Bei Google Play erhältlich",
+                linkPrivacy: "Datenschutzerklärung",
+                privacyFile: "privacy_policy_de.html",
+                linkTerms: "Nutzungsbedingungen",
+                termsFile: "terms_of_service_de.html",
+                descTitle: "Was die App macht",
+                descBody: "SMS TO mail leitet automatisch auf dem Telefon empfangene SMS-Nachrichten an die konfigurierte E-Mail-Adresse weiter, sodass Sie sie von einem Computer, Tablet oder einem anderen Telefon aus lesen und archivieren können. Sie ist für die persönliche Synchronisierung zwischen Geräten gedacht.",
+                featuresTitle: "Funktionen",
+                features: [
+                    "📨 Automatische SMS-Weiterleitung — jede empfangene klassische (GSM) SMS wird in Echtzeit per E-Mail gesendet",
+                    "🔍 Erweiterte Filter — SMS nach Absender und/oder Stichwort ein- oder ausschließen",
+                    "🔒 Verschlüsseltes Passwort — das SMTP-Passwort ist mit AES-256/GCM über den Android Keystore geschützt",
+                    "📋 SMS-Verlauf — Protokoll der empfangenen SMS mit Status des E-Mail-Versands",
+                    "⚙️ Konfigurierbares SMTP — kompatibel mit Gmail (Port 587 STARTTLS) und Anbietern mit direktem SSL (Port 465, z. B. Aruba)",
+                    "🔄 SMTP-Wiederholung — bis zu drei Versuche mit exponentiellem Backoff bei vorübergehenden Netzwerkfehlern",
+                    "🔔 Fehlerbenachrichtigungen — sofortige Warnungen bei Problemen mit der E-Mail-Authentifizierung",
+                    "🌍 Mehrsprachig — Oberfläche in Italienisch, Englisch, Spanisch, brasilianischem Portugiesisch, Französisch und Deutsch"
+                ],
+                screenshotsTitle: "Screenshots",
+                startTitle: "Erste Schritte",
+                start: [
+                    "Installieren Sie die App und erteilen Sie die erforderlichen Berechtigungen.",
+                    "Geben Sie Ihre E-Mail-Zugangsdaten ein.",
+                    "Konfigurieren Sie bei Bedarf eigene Filter.",
+                    "Die App beginnt sofort, empfangene SMS per E-Mail an Ihre anderen Geräte weiterzuleiten."
+                ],
+                privacyTitle: "Datenschutz",
+                privacyBody: "Die App sendet keine Daten an Server Dritter. SMS werden direkt vom Gerät an den vom Nutzer konfigurierten SMTP-Server weitergeleitet.",
+                footer: "© smsTOmail — Veröffentlicht unter der MIT-Lizenz."
+            },
+            "pt-br": {
+                title: "SMS TO mail",
+                tagline: "Sincronize os SMS recebidos no celular com seus outros dispositivos por e-mail.",
+                linkGithub: "Código-fonte (GitHub)",
+                linkPlayStore: "Disponível no Google Play",
+                linkPrivacy: "Política de Privacidade",
+                privacyFile: "privacy_policy_pt-br.html",
+                linkTerms: "Termos de Serviço",
+                termsFile: "terms_of_service_pt-br.html",
+                descTitle: "O que o app faz",
+                descBody: "O SMS TO mail encaminha automaticamente as mensagens SMS recebidas no celular para a caixa de e-mail configurada, permitindo que você as leia e arquive a partir de um computador, tablet ou outro celular. Foi criado para a sincronização pessoal entre dispositivos.",
+                featuresTitle: "Funcionalidades",
+                features: [
+                    "📨 Encaminhamento automático de SMS — cada SMS tradicional (GSM) recebido é enviado por e-mail em tempo real",
+                    "🔍 Filtros avançados — inclua ou exclua SMS por remetente e/ou palavra-chave",
+                    "🔒 Senha criptografada — a senha SMTP é protegida com AES-256/GCM via Android Keystore",
+                    "📋 Histórico de SMS — registro dos SMS recebidos com status do envio do e-mail",
+                    "⚙️ SMTP configurável — compatível com Gmail (porta 587 STARTTLS) e provedores com SSL direto (porta 465, ex. Aruba)",
+                    "🔄 Nova tentativa SMTP — até três tentativas com backoff exponencial para erros temporários de rede",
+                    "🔔 Notificações de erro — avisos imediatos em caso de problemas de autenticação de e-mail",
+                    "🌍 Multilíngue — interface em italiano, inglês, espanhol, português (Brasil), francês e alemão"
+                ],
+                screenshotsTitle: "Capturas de tela",
+                startTitle: "Como começar",
+                start: [
+                    "Instale o app e conceda as permissões necessárias.",
+                    "Informe suas credenciais de e-mail.",
+                    "Configure filtros personalizados, se desejar.",
+                    "O app começará imediatamente a encaminhar os SMS recebidos para seus outros dispositivos por e-mail."
+                ],
+                privacyTitle: "Privacidade",
+                privacyBody: "O app não envia dados a servidores de terceiros. Os SMS são encaminhados diretamente do dispositivo para o servidor SMTP configurado pelo usuário.",
+                footer: "© smsTOmail — Distribuído sob a licença MIT."
+            }
+        };
+
+        function applyLanguage(lang) {
+            const t = translations[lang] || translations.it;
+            document.documentElement.lang = lang;
+            document.title = t.title;
+
+            document.querySelectorAll('[data-i18n]').forEach((el) => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key] !== undefined) {
+                    el.textContent = t[key];
+                }
+            });
+
+            const privacyLink = document.getElementById('privacy-link');
+            privacyLink.setAttribute('href', t.privacyFile);
+
+            const termsLink = document.getElementById('terms-link');
+            termsLink.setAttribute('href', t.termsFile);
+
+            const featuresList = document.getElementById('features-list');
+            featuresList.innerHTML = '';
+            t.features.forEach((feature) => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+
+            const startList = document.getElementById('start-list');
+            startList.innerHTML = '';
+            t.start.forEach((step) => {
+                const li = document.createElement('li');
+                li.textContent = step;
+                startList.appendChild(li);
+            });
+
+            localStorage.setItem('smstomail-lang', lang);
+        }
+
+        function detectLanguage() {
+            const saved = localStorage.getItem('smstomail-lang');
+            if (saved && translations[saved]) {
+                return saved;
+            }
+            const browserLang = (navigator.language || 'it').toLowerCase();
+            if (browserLang.startsWith('pt')) return 'pt-br';
+            const short = browserLang.slice(0, 2);
+            return translations[short] ? short : 'it';
+        }
+
+        const switcher = document.getElementById('lang-switcher');
+        const initialLang = detectLanguage();
+        switcher.value = initialLang;
+        applyLanguage(initialLang);
+
+        switcher.addEventListener('change', (e) => applyLanguage(e.target.value));
+    </script>
+</body>
+</html>
