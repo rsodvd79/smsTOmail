@@ -47,11 +47,10 @@ class MainActivity : FragmentActivity() {
     private var permissionsGranted by mutableStateOf(false)
     private var blockedReason by mutableStateOf<String?>(null)
 
-    // Lista dei permessi necessari per l'app
+    // Lista dei permessi runtime necessari per l'app (INTERNET è un permesso
+    // "normal", concesso automaticamente: non va richiesto a runtime)
     private val requiredPermissions = arrayOf(
-        android.Manifest.permission.RECEIVE_SMS,
-        android.Manifest.permission.INTERNET,
-        android.Manifest.permission.ACCESS_NETWORK_STATE
+        android.Manifest.permission.RECEIVE_SMS
     )
 
     // Permesso per le notifiche (necessario per Android 13+)
@@ -59,16 +58,6 @@ class MainActivity : FragmentActivity() {
         arrayOf(android.Manifest.permission.POST_NOTIFICATIONS)
     } else {
         emptyArray()
-    }
-
-    // Permessi per servizi in foreground (necessari solo per Android 14+)
-    private val foregroundServicePermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-        arrayOf(
-            android.Manifest.permission.FOREGROUND_SERVICE,
-            android.Manifest.permission.FOREGROUND_SERVICE_DATA_SYNC
-        )
-    } else {
-        arrayOf(android.Manifest.permission.FOREGROUND_SERVICE)
     }
 
     // ActivityResultLauncher per gestire il ritorno da EmailConfigActivity
@@ -82,20 +71,6 @@ class MainActivity : FragmentActivity() {
 
     // Registrazione per la richiesta dei permessi
     private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        val allGranted = permissions.entries.all { it.value }
-        if (!allGranted) {
-            blockedReason = getString(R.string.permission_dialog_message)
-            permissionsGranted = false
-            initializeApp(blockedMessage = blockedReason)
-            showPermissionDialog()
-        } else {
-            checkForegroundServicePermissions()
-        }
-    }
-
-    private val requestForegroundServicePermissions = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         val allGranted = permissions.entries.all { it.value }
@@ -153,7 +128,7 @@ class MainActivity : FragmentActivity() {
                 requestPermissionLauncher.launch(permissionsNotGranted)
             }
         } else {
-            checkForegroundServicePermissions()
+            checkNotificationPermission()
         }
     }
 
@@ -167,13 +142,6 @@ class MainActivity : FragmentActivity() {
             }
             .create()
             .show()
-    }
-
-    private fun checkForegroundServicePermissions() {
-        // FOREGROUND_SERVICE e FOREGROUND_SERVICE_DATA_SYNC sono "normal" permissions
-        // (non runtime): sono automaticamente garantite se dichiarate nel manifest.
-        // Non richiedono mai una richiesta a runtime e il check sarebbe sempre GRANTED.
-        checkNotificationPermission()
     }
 
     private fun checkNotificationPermission() {
@@ -305,9 +273,9 @@ class MainActivity : FragmentActivity() {
                         }
 
                         if (blockedMessage == null && permissionsGranted) {
-                            startSmsListenerService()
+                            Log.d("MainActivity", "Permessi concessi: SmsReceiver attivo")
                         } else {
-                            Log.d("MainActivity", "Permessi mancanti: servizio non avviato")
+                            Log.d("MainActivity", "Permessi mancanti: inoltro SMS non attivo")
                         }
                     } else {
                         Log.e("MainActivity", "Activity distrutta o in chiusura, impossibile aggiornare l'UI")
@@ -327,23 +295,6 @@ class MainActivity : FragmentActivity() {
         val db = AppDatabase.getInstance(this)
         lifecycleScope.launch {
             emailConfig = db.emailConfigDao().getConfig()
-        }
-    }
-
-    // Avvia il servizio di ascolto degli SMS
-    private fun startSmsListenerService() {
-        try {
-            Log.d("MainActivity", "Avvio del servizio di ascolto SMS")
-            val serviceIntent = Intent(this, SmsBackgroundService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(serviceIntent)
-            } else {
-                startService(serviceIntent)
-            }
-            Log.d("MainActivity", "Servizio di ascolto SMS avviato con successo")
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
-            Log.e("MainActivity", "Errore nell'avvio del servizio di ascolto SMS", e)
         }
     }
 }

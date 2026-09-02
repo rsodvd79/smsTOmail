@@ -46,13 +46,12 @@ object NotificationHelper {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val pendingFlags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
-        }
-
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, pendingFlags)
+        )
 
         // Costruisci la notifica
         val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)

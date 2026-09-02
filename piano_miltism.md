@@ -88,7 +88,6 @@ Semantica:
   - slot noto: `"Nuovo SMS da $sender [SIM ${simSlot + 1}]"` (slot 0 → "SIM 1")
   - slot sconosciuto: oggetto invariato `"Nuovo SMS da $sender"`
 - `log(...)` salva `simSlot` in `SmsLogEntry` (`null` se `-1`).
-- `SmsBackgroundService.processSms` aggiornato per propagare l'eventuale extra `simSlot` dell'intent (default `-1`).
 
 ## 5. UI
 
@@ -126,11 +125,10 @@ Nuove risorse in `res/values/strings.xml` (IT) e `res/values-en/strings.xml` (EN
 2. **`SmsFilterProcessor`**: nuovo parametro `simSlot` + regola `slotMatch`.
 3. **`SmsReceiver`**: estrazione slot dagli extra dell'intent.
 4. **`SmsForwarder`**: propagazione slot, oggetto email, log.
-5. **`SmsBackgroundService`**: extra `simSlot` opzionale.
-6. **UI filtri** (`FilterActivity`): selettore slot, duplicati, lista.
-7. **UI cronologia** (`MainActivity`): badge SIM.
-8. **Stringhe** IT + EN.
-9. **README**: sezione filtri e changelog.
+5. **UI filtri** (`FilterActivity`): selettore slot, duplicati, lista.
+6. **UI cronologia** (`MainActivity`): badge SIM.
+7. **Stringhe** IT + EN.
+8. **README**: sezione filtri e changelog.
 
 ## 7. Test e verifica
 

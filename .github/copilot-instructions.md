@@ -25,8 +25,8 @@ This is a single-module Android app (`:app`) that forwards incoming SMS messages
 - `AppDatabase` is the persistence hub. It stores filters, a single-row email configuration, and SMS forwarding history. Passwords are encrypted through `EncryptedStringConverter`/`CryptoManager`, which uses Android Keystore-backed AES/GCM.
 - `MainActivity` is mostly an orchestration/activity shell: it gates startup on runtime permissions, forces first-run email configuration, loads SMS history from Room, and exposes navigation to email config and filter management.
 - `EmailConfigActivity` and `FilterActivity` are Compose screens that read/write Room directly. There is no repository or ViewModel abstraction in between.
-- `BootReceiver` and `SmsBackgroundService` exist for boot/background handling, but SMS forwarding logic still lives in `SmsReceiver`. `SmsBackgroundService` only processes an SMS when `sender` and `message` extras are present; otherwise it stops quickly.
-- `NotificationHelper` is a separate singleton that fires a high-priority auth-error notification when Gmail credentials are rejected. It is independent of the foreground service notification managed inside `SmsBackgroundService`.
+- `BootReceiver` and `SmsBackgroundService` have been removed: SMS forwarding lives entirely in `SmsReceiver` (manifest-registered), with shared logic in `SmsForwarder`. Do not reintroduce foreground services or boot receivers — Google Play rejected the app for undeclared/imperceptible foreground service usage.
+- `NotificationHelper` is a separate singleton that fires a high-priority auth-error notification when Gmail credentials are rejected.
 
 ## Key conventions
 

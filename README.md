@@ -5,7 +5,7 @@
 ![Android](https://img.shields.io/badge/Android-7.0%2B-brightgreen?logo=android)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.x-purple?logo=kotlin)
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Version](https://img.shields.io/badge/Version-2026.08.28-orange)
+![Version](https://img.shields.io/badge/Version-2026.09.02-orange)
 
 ---
 
@@ -80,7 +80,6 @@ gradlew.bat app:assembleDebug        # Windows
 | API | Note |
 |---|---|
 | API 24–28 | Supporto completo |
-| API 29+ (Android 10+) | Foreground service avviato con tipo `DATA_SYNC` esplicito |
 | API 33+ (Android 13+) | Richiesta runtime del permesso `POST_NOTIFICATIONS` |
 | API 35+ (Android 15+) | Edge-to-edge obbligatorio — tutte le Activity chiamano `enableEdgeToEdge()` |
 | API 37 (Android 16+) | Testato su emulatore; stabile su dispositivo fisico |
@@ -175,14 +174,8 @@ SmsReceiver (BroadcastReceiver)
             ├─ EmailConfigDao  — configurazione email (riga unica, id=0)
             └─ SmsLogDao       — cronologia SMS + stato invio
 
-SmsBackgroundService (ForegroundService)
-    └─► SmsForwarder           — percorso alternativo per SMS passati esplicitamente al servizio
-
 NotificationHelper
     └─► notifica ad alta priorità in caso di errore di autenticazione/autorizzazione email
-
-BootReceiver
-    └─► su Android 14+ non avvia servizi dal boot; SmsReceiver riceve comunque gli SMS dal manifest
 
 UI: Jetpack Compose
     ├─ MainActivity            — cronologia SMS + navigazione
@@ -195,6 +188,11 @@ UI: Jetpack Compose
 ---
 
 ## Changelog
+
+### 2026.09.02
+- Rimosso il foreground service `SmsBackgroundService` e il `BootReceiver`: l'inoltro degli SMS avviene interamente in `SmsReceiver` (registrato nel manifest), quindi il servizio non svolgeva alcuna funzione percepibile dall'utente. Risolve il rifiuto Google Play sulle policy dei servizi in primo piano.
+- Rimossi i permessi `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_DATA_SYNC` e `RECEIVE_BOOT_COMPLETED` dal manifest: la ricezione SMS via broadcast non richiede né servizi attivi né avvio al boot.
+- Pulizia: rimosso il permesso `ACCESS_NETWORK_STATE` (mai usato), la richiesta runtime dei permessi "normal" `INTERNET`/`ACCESS_NETWORK_STATE` in `MainActivity`, il file `colors.xml` con i colori inutilizzati del template, il `label` ridondante di `MainActivity` nel manifest e un check SDK obsoleto in `NotificationHelper`.
 
 ### 2026.08.26
 - Revisione della scheda Google Play per conformità alle policy sui permessi SMS: nuova descrizione in [`store_listing_it.txt`](store_listing_it.txt), senza riferimenti a backup e codici di autenticazione/OTP, incentrata sulla sincronizzazione degli SMS tra dispositivi (caso d'uso dichiarato in Play Console).

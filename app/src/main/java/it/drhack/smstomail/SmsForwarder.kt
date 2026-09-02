@@ -5,7 +5,7 @@ import java.util.Date
 
 /**
  * Logica condivisa di elaborazione e inoltro SMS via email.
- * Usata sia da SmsReceiver che da SmsBackgroundService per evitare duplicazioni.
+ * Usata da SmsReceiver, l'unico punto di ingresso degli SMS.
  */
 object SmsForwarder {
 

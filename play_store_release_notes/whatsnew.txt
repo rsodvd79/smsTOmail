@@ -1,83 +1,65 @@
 <it-IT>
-🎉 Prima versione di smsTOmail!
+Aggiornamento 2026.09.02
 
-- Inoltro automatico degli SMS via email in tempo reale
-- Filtri avanzati per mittente e parola chiave (includi/escludi)
-- Password SMTP protetta con crittografia AES-256
-- Cronologia SMS con stato di invio
-- Configurazione SMTP flessibile (Gmail, SSL diretto, STARTTLS)
-- Notifiche immediate in caso di errori di autenticazione
-- Interfaccia disponibile in italiano, inglese, spagnolo, portoghese, francese e tedesco
+- Rimosso il servizio in background non necessario: l'inoltro degli SMS via email funziona come prima, ma l'app è più leggera ed efficiente
+- Richiesti meno permessi di sistema: eliminati i permessi per servizi in primo piano, avvio automatico e stato della rete
+- Niente più notifica fissa "servizio attivo"
+- Pulizia interna del codice e delle risorse
 
-Grazie per aver scelto smsTOmail!
+Grazie per usare smsTOmail!
 </it-IT>
 
 <en-US>
-🎉 First release of smsTOmail!
+Update 2026.09.02
 
-- Automatic real-time SMS forwarding via email
-- Advanced filters by sender and keyword (include/exclude)
-- SMTP password protected with AES-256 encryption
-- SMS history with delivery status
-- Flexible SMTP setup (Gmail, direct SSL, STARTTLS)
-- Instant notifications for authentication errors
-- Available in Italian, English, Spanish, Portuguese, French and German
+- Removed the unnecessary background service: SMS-to-email forwarding works exactly as before, but the app is now lighter and more efficient
+- Fewer system permissions required: removed foreground service, auto-start and network state permissions
+- No more persistent "service running" notification
+- Internal code and resource cleanup
 
-Thank you for choosing smsTOmail!
+Thank you for using smsTOmail!
 </en-US>
 
 <es-ES>
-🎉 ¡Primera versión de smsTOmail!
+Actualización 2026.09.02
 
-- Reenvío automático de SMS por correo en tiempo real
-- Filtros avanzados por remitente y palabra clave (incluir/excluir)
-- Contraseña SMTP protegida con cifrado AES-256
-- Historial de SMS con estado de envío
-- Configuración SMTP flexible (Gmail, SSL directo, STARTTLS)
-- Notificaciones inmediatas ante errores de autenticación
-- Disponible en italiano, inglés, español, portugués, francés y alemán
+- Eliminado el servicio en segundo plano innecesario: el reenvío de SMS por correo funciona igual que antes, pero la app es más ligera y eficiente
+- Menos permisos de sistema: eliminados los permisos de servicio en primer plano, inicio automático y estado de red
+- Ya no hay notificación fija de "servicio activo"
+- Limpieza interna de código y recursos
 
-¡Gracias por elegir smsTOmail!
+¡Gracias por usar smsTOmail!
 </es-ES>
 
 <pt-BR>
-🎉 Primeira versão do smsTOmail!
+Atualização 2026.09.02
 
-- Encaminhamento automático de SMS por e-mail em tempo real
-- Filtros avançados por remetente e palavra-chave (incluir/excluir)
-- Senha SMTP protegida com criptografia AES-256
-- Histórico de SMS com status de envio
-- Configuração SMTP flexível (Gmail, SSL direto, STARTTLS)
-- Notificações imediatas em caso de erros de autenticação
-- Disponível em italiano, inglês, espanhol, português, francês e alemão
+- Removido o serviço em segundo plano desnecessário: o encaminhamento de SMS por e-mail funciona como antes, mas o app está mais leve e eficiente
+- Menos permissões de sistema: removidas as permissões de serviço em primeiro plano, inicialização automática e estado da rede
+- Fim da notificação fixa de "serviço ativo"
+- Limpeza interna de código e recursos
 
-Obrigado por escolher o smsTOmail!
+Obrigado por usar o smsTOmail!
 </pt-BR>
 
 <fr-FR>
-🎉 Première version de smsTOmail !
+Mise à jour 2026.09.02
 
-- Transfert automatique des SMS par e-mail en temps réel
-- Filtres avancés par expéditeur et mot-clé (inclure/exclure)
-- Mot de passe SMTP protégé par chiffrement AES-256
-- Historique des SMS avec statut d'envoi
-- Configuration SMTP flexible (Gmail, SSL direct, STARTTLS)
-- Notifications immédiates en cas d'erreur d'authentification
-- Disponible en italien, anglais, espagnol, portugais, français et allemand
+- Suppression du service en arrière-plan inutile : le transfert des SMS par e-mail fonctionne comme avant, mais l'appli est plus légère et efficace
+- Moins d'autorisations système : suppression des autorisations de service au premier plan, démarrage automatique et état du réseau
+- Plus de notification permanente « service actif »
+- Nettoyage interne du code et des ressources
 
-Merci d'avoir choisi smsTOmail !
+Merci d'utiliser smsTOmail !
 </fr-FR>
 
 <de-DE>
-🎉 Erste Version von smsTOmail!
+Update 2026.09.02
 
-- Automatische SMS-Weiterleitung per E-Mail in Echtzeit
-- Erweiterte Filter nach Absender/Schlüsselwort (einschließen/ausschließen)
-- SMTP-Passwort mit AES-256-Verschlüsselung geschützt
-- SMS-Verlauf mit Versandstatus
-- Flexible SMTP-Konfiguration (Gmail, direktes SSL, STARTTLS)
-- Sofortige Benachrichtigungen bei Auth-Fehlern
-- Verfügbar auf Italienisch, Englisch, Spanisch, Portugiesisch, Französisch und Deutsch
+- Unnötiger Hintergrunddienst entfernt: die SMS-Weiterleitung per E-Mail funktioniert wie gewohnt, die App ist jetzt aber schlanker und effizienter
+- Weniger Systemberechtigungen: Berechtigungen für Vordergrunddienst, Autostart und Netzwerkstatus entfernt
+- Keine dauerhafte Benachrichtigung „Dienst aktiv" mehr
+- Interne Bereinigung von Code und Ressourcen
 
-Danke, dass du smsTOmail gewählt hast!
+Danke, dass du smsTOmail nutzt!
 </de-DE>
