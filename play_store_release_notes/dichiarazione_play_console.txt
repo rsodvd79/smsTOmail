@@ -1,0 +1,35 @@
+DICHIARAZIONE CASO D'USO PERMESSI SMS - GOOGLE PLAY CONSOLE
+App: smsTOmail
+Permesso dichiarato: RECEIVE_SMS
+Caso d'uso selezionato: Sincronizzazione o trasferimento tra dispositivi di SMS e chiamate
+(Cross-device synchronization or transfer of SMS or calls)
+
+TESTO DA INSERIRE NEL CAMPO "Spiega come la tua app utilizza le API/i permessi
+per le autorizzazioni per l'accesso a informazioni sensibili"
+(limite Play Console: 500 caratteri - il testo seguente ne conta 484):
+
+---
+
+smsTOmail intercetta gli SMS ricevuti sul dispositivo Android e li inoltra in
+tempo reale via email all'indirizzo configurato dall'utente, permettendo di
+leggerli su altri dispositivi (PC, tablet, altro smartphone) collegati alla
+stessa casella email. RECEIVE_SMS serve a intercettare l'SMS in arrivo: senza
+questo permesso l'inoltro/sincronizzazione cross-device, unico scopo
+dell'app, non sarebbe possibile. L'app non legge lo storico SMS e non invia
+messaggi per conto dell'utente.
+
+---
+
+NOTE PER LA COMPILAZIONE:
+- Selezionare come unico caso d'uso: "Sincronizzazione o trasferimento tra
+  dispositivi di SMS e chiamate".
+- Non selezionare altri casi d'uso (es. verifica account, backup/restore),
+  per evitare incoerenze tra dichiarazione e comportamento reale dell'app.
+- Assicurarsi che la descrizione dell'app sullo Store (titolo, descrizione
+  breve/lunga, screenshot) usi una terminologia coerente: "sincronizza i tuoi
+  SMS via email su tutti i tuoi dispositivi" / "trasferisci i tuoi SMS via
+  email", evitando termini come "backup" o "verifica" che potrebbero far
+  presupporre un caso d'uso diverso.
+- Allegare il video richiesto (vedi file script_video_dichiarazione.txt) che
+  mostri chiaramente l'SMS ricevuto sul telefono e la sua comparsa, tramite
+  email, su un secondo dispositivo.

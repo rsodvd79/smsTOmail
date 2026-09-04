@@ -1,0 +1,70 @@
+SCRIPT VIDEO DIMOSTRATIVO - CASO D'USO "SINCRONIZZAZIONE/TRASFERIMENTO SMS
+TRA DISPOSITIVI" - App smsTOmail
+
+Obiettivo: dimostrare in modo inequivocabile, in un'unica ripresa continua
+senza tagli, che l'app riceve un SMS sul dispositivo Android e lo trasferisce
+via email, rendendolo consultabile su un secondo dispositivo (sincronizzazione
+cross-device).
+
+Materiale necessario:
+- 1 smartphone Android con smsTOmail installato e configurato (SIM attiva,
+  configurazione email già impostata).
+- 1 secondo dispositivo (PC o altro smartphone/tablet) con accesso alla
+  stessa casella email di destinazione, con client di posta o webmail già
+  aperto e visibile.
+- Un secondo numero di telefono (o servizio SMS) da cui inviare l'SMS di test.
+- Screen recording di entrambi i dispositivi in contemporanea (es. schermo
+  diviso, oppure ripresa con telecamera esterna che inquadra entrambi gli
+  schermi contemporaneamente).
+
+--- SCRIPT (durata indicativa 45-60 secondi) ---
+
+00:00-00:05
+Inquadratura iniziale: entrambi i dispositivi visibili contemporaneamente.
+Dispositivo A (Android con smsTOmail) a sinistra, Dispositivo B (email) a
+destra, con la casella di posta già aperta e vuota/senza il messaggio di
+test.
+
+00:05-00:10
+Mostrare brevemente la app smsTOmail aperta sul Dispositivo A, schermata
+principale, per confermare che l'app è installata e attiva (facoltativo:
+mostrare la schermata di configurazione email già impostata, per contesto).
+
+00:10-00:15
+Tornare alla schermata home/blocco del Dispositivo A, in modo che sia visibile
+la ricezione dell'SMS in arrivo (notifica sullo schermo).
+
+00:15-00:25
+Inviare (da un altro telefono, fuori inquadratura) un SMS di test al numero
+del Dispositivo A, con testo chiaramente leggibile, es.:
+"TEST SINCRONIZZAZIONE SMSTOMAIL 12345"
+
+00:25-00:35
+Mostrare la notifica SMS che compare sul Dispositivo A con il testo del
+messaggio ben visibile e leggibile a schermo.
+
+00:35-00:50
+Senza interrompere la ripresa, mostrare il Dispositivo B: aggiornare
+(refresh) la casella di posta e mostrare l'arrivo della nuova email inoltrata
+da smsTOmail, aprendola per mostrare che il corpo dell'email contiene lo
+stesso mittente e lo stesso testo dell'SMS ricevuto pochi secondi prima sul
+Dispositivo A ("TEST SINCRONIZZAZIONE SMSTOMAIL 12345").
+
+00:50-00:60
+Inquadratura finale con entrambi i dispositivi visibili contemporaneamente:
+SMS sul Dispositivo A ed email corrispondente sul Dispositivo B, per
+evidenziare visivamente la sincronizzazione/trasferimento avvenuto tra i due
+dispositivi.
+
+--- CONSIGLI TECNICI ---
+- Registrare in un'unica sessione continua, senza tagli di montaggio: Google
+  vuole vedere causa-effetto in tempo reale (SMS ricevuto -> email ricevuta).
+- Evitare musiche o testo sovraimpresso che distraggano dal contenuto; se si
+  vogliono aggiungere didascalie, usarle solo per evidenziare i due momenti
+  chiave ("SMS ricevuto su dispositivo A" / "Stesso messaggio ricevuto via
+  email su dispositivo B"), senza coprire i contenuti a schermo.
+- Il testo dell'SMS di test deve essere identico e riconoscibile in entrambe
+  le inquadrature (stesso mittente/numero, stesso corpo del messaggio).
+- Durata consigliata: 30-90 secondi, sufficiente a mostrare l'intero ciclo.
+- Formato: video MP4/MOV, risoluzione minima 720p, upload secondo le
+  indicazioni del modulo Play Console (link o file diretto).
