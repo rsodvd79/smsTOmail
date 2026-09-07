@@ -1,0 +1,209 @@
+SCHEDA PLAY STORE - smsTOmail
+Testi per la scheda dello store, coerenti con il caso d'uso dichiarato
+"Sincronizzazione o trasferimento tra dispositivi di SMS e chiamate".
+
+Limiti Play Console:
+- Titolo: max 30 caratteri
+- Descrizione breve: max 80 caratteri
+- Descrizione completa: max 4000 caratteri
+
+Evitare nei testi i termini "backup", "verifica", "OTP": suggerirebbero un
+caso d'uso diverso da quello dichiarato.
+
+==================================================
+<it-IT>
+TITOLO:
+smsTOmail - SMS via email
+
+DESCRIZIONE BREVE:
+Sincronizza gli SMS ricevuti via email su tutti i tuoi altri dispositivi.
+
+DESCRIZIONE COMPLETA:
+smsTOmail sincronizza gli SMS che ricevi sul tuo telefono Android con tutti i tuoi altri dispositivi, trasferendoli in tempo reale via email. Ogni SMS in arrivo viene inoltrato automaticamente alla casella email che scegli: potrai leggerlo subito su PC, tablet o su un altro smartphone, ovunque tu sia.
+
+COME FUNZIONA
+1. Configura l'email di destinazione (SMTP o account Gmail).
+2. Concedi il permesso di ricezione SMS.
+3. Fatto: ogni SMS ricevuto arriva anche nella tua casella email, con mittente, testo e data.
+
+FUNZIONALITÀ
+• Trasferimento in tempo reale degli SMS ricevuti via email
+• Filtri personalizzabili: includi o escludi messaggi per mittente o parola chiave
+• Cronologia degli SMS inoltrati, con esito dell'invio
+• Firma personalizzabile in coda a ogni email
+• Supporto SMTP generico (SSL/TLS) e invio tramite Gmail
+• Nessun servizio in background permanente: leggera ed efficiente
+
+PRIVACY E PERMESSI
+smsTOmail usa il permesso di ricezione SMS (RECEIVE_SMS) esclusivamente per la sua funzione principale: intercettare gli SMS in arrivo e trasferirli via email ai tuoi dispositivi. L'app non legge la cronologia SMS esistente, non invia SMS per tuo conto e non condivide né vende alcun dato a terze parti. Le credenziali email sono salvate solo sul dispositivo, cifrate con Android Keystore.
+
+CASI D'USO TIPICI
+• Leggere gli SMS del telefono di lavoro mentre sei al PC
+• Ricevere sul tuo dispositivo principale gli SMS di un secondo telefono
+• Tenere sincronizzati i messaggi importanti su tutti i tuoi dispositivi
+</it-IT>
+
+==================================================
+<en-US>
+TITLE:
+smsTOmail - SMS to email
+
+SHORT DESCRIPTION:
+Sync the SMS you receive via email across all your other devices.
+
+FULL DESCRIPTION:
+smsTOmail syncs the SMS messages you receive on your Android phone with all your other devices by transferring them via email in real time. Every incoming SMS is automatically forwarded to the mailbox you choose: read it instantly on your PC, tablet or another smartphone, wherever you are.
+
+HOW IT WORKS
+1. Configure the destination email (SMTP or Gmail account).
+2. Grant the SMS receive permission.
+3. Done: every SMS you receive also lands in your mailbox, with sender, text and date.
+
+FEATURES
+• Real-time transfer of incoming SMS via email
+• Customizable filters: include or exclude messages by sender or keyword
+• History of forwarded SMS, with delivery status
+• Customizable signature appended to every email
+• Generic SMTP support (SSL/TLS) and sending via Gmail
+• No permanent background service: light and efficient
+
+PRIVACY AND PERMISSIONS
+smsTOmail uses the SMS receive permission (RECEIVE_SMS) exclusively for its core feature: intercepting incoming SMS and transferring them via email to your devices. The app does not read your existing SMS history, does not send SMS on your behalf, and never shares or sells any data to third parties. Email credentials are stored only on the device, encrypted with the Android Keystore.
+
+TYPICAL USE CASES
+• Read your work phone's SMS while at your PC
+• Get the SMS from a second phone on your main device
+• Keep important messages in sync across all your devices
+</en-US>
+
+==================================================
+<es-ES>
+TÍTULO:
+smsTOmail - SMS por email
+
+DESCRIPCIÓN BREVE:
+Sincroniza los SMS que recibes por email en todos tus otros dispositivos.
+
+DESCRIPCIÓN COMPLETA:
+smsTOmail sincroniza los SMS que recibes en tu teléfono Android con todos tus otros dispositivos, transfiriéndolos en tiempo real por correo electrónico. Cada SMS entrante se reenvía automáticamente al buzón que elijas: léelo al instante en tu PC, tablet u otro smartphone, estés donde estés.
+
+CÓMO FUNCIONA
+1. Configura el email de destino (SMTP o cuenta de Gmail).
+2. Concede el permiso de recepción de SMS.
+3. Listo: cada SMS recibido llega también a tu buzón, con remitente, texto y fecha.
+
+FUNCIONES
+• Transferencia en tiempo real de los SMS recibidos por email
+• Filtros personalizables: incluye o excluye mensajes por remitente o palabra clave
+• Historial de SMS reenviados, con estado del envío
+• Firma personalizable al final de cada email
+• Soporte SMTP genérico (SSL/TLS) y envío mediante Gmail
+• Sin servicio permanente en segundo plano: ligera y eficiente
+
+PRIVACIDAD Y PERMISOS
+smsTOmail usa el permiso de recepción de SMS (RECEIVE_SMS) exclusivamente para su función principal: interceptar los SMS entrantes y transferirlos por email a tus dispositivos. La app no lee el historial de SMS existente, no envía SMS en tu nombre y nunca comparte ni vende datos a terceros. Las credenciales de correo se guardan solo en el dispositivo, cifradas con Android Keystore.
+
+CASOS DE USO TÍPICOS
+• Leer los SMS del teléfono de trabajo mientras estás en el PC
+• Recibir en tu dispositivo principal los SMS de un segundo teléfono
+• Mantener sincronizados los mensajes importantes en todos tus dispositivos
+</es-ES>
+
+==================================================
+<pt-BR>
+TÍTULO:
+smsTOmail - SMS por e-mail
+
+DESCRIÇÃO CURTA:
+Sincronize os SMS recebidos por e-mail em todos os seus outros dispositivos.
+
+DESCRIÇÃO COMPLETA:
+O smsTOmail sincroniza os SMS que você recebe no seu telefone Android com todos os seus outros dispositivos, transferindo-os em tempo real por e-mail. Cada SMS recebido é encaminhado automaticamente para a caixa de e-mail que você escolher: leia na hora no PC, tablet ou em outro smartphone, onde você estiver.
+
+COMO FUNCIONA
+1. Configure o e-mail de destino (SMTP ou conta do Gmail).
+2. Conceda a permissão de recebimento de SMS.
+3. Pronto: cada SMS recebido chega também à sua caixa de e-mail, com remetente, texto e data.
+
+RECURSOS
+• Transferência em tempo real dos SMS recebidos por e-mail
+• Filtros personalizáveis: inclua ou exclua mensagens por remetente ou palavra-chave
+• Histórico dos SMS encaminhados, com status do envio
+• Assinatura personalizável no final de cada e-mail
+• Suporte a SMTP genérico (SSL/TLS) e envio via Gmail
+• Sem serviço permanente em segundo plano: leve e eficiente
+
+PRIVACIDADE E PERMISSÕES
+O smsTOmail usa a permissão de recebimento de SMS (RECEIVE_SMS) exclusivamente para sua função principal: interceptar os SMS recebidos e transferi-los por e-mail para os seus dispositivos. O app não lê o histórico de SMS existente, não envia SMS em seu nome e nunca compartilha nem vende dados a terceiros. As credenciais de e-mail ficam salvas apenas no dispositivo, criptografadas com o Android Keystore.
+
+CASOS DE USO TÍPICOS
+• Ler os SMS do telefone de trabalho enquanto está no PC
+• Receber no seu dispositivo principal os SMS de um segundo telefone
+• Manter as mensagens importantes sincronizadas em todos os seus dispositivos
+</pt-BR>
+
+==================================================
+<fr-FR>
+TITRE:
+smsTOmail - SMS par e-mail
+
+DESCRIPTION COURTE:
+Synchronisez les SMS reçus par e-mail sur tous vos autres appareils.
+
+DESCRIPTION COMPLÈTE:
+smsTOmail synchronise les SMS que vous recevez sur votre téléphone Android avec tous vos autres appareils, en les transférant en temps réel par e-mail. Chaque SMS entrant est automatiquement transféré vers la boîte mail de votre choix : lisez-le aussitôt sur PC, tablette ou un autre smartphone, où que vous soyez.
+
+COMMENT ÇA MARCHE
+1. Configurez l'e-mail de destination (SMTP ou compte Gmail).
+2. Accordez l'autorisation de réception des SMS.
+3. C'est tout : chaque SMS reçu arrive aussi dans votre boîte mail, avec expéditeur, texte et date.
+
+FONCTIONNALITÉS
+• Transfert en temps réel des SMS reçus par e-mail
+• Filtres personnalisables : inclure ou exclure des messages par expéditeur ou mot-clé
+• Historique des SMS transférés, avec statut d'envoi
+• Signature personnalisable à la fin de chaque e-mail
+• Prise en charge SMTP générique (SSL/TLS) et envoi via Gmail
+• Pas de service permanent en arrière-plan : légère et efficace
+
+CONFIDENTIALITÉ ET AUTORISATIONS
+smsTOmail utilise l'autorisation de réception des SMS (RECEIVE_SMS) exclusivement pour sa fonction principale : intercepter les SMS entrants et les transférer par e-mail vers vos appareils. L'appli ne lit pas l'historique des SMS, n'envoie pas de SMS en votre nom et ne partage ni ne vend aucune donnée à des tiers. Les identifiants e-mail sont stockés uniquement sur l'appareil, chiffrés avec l'Android Keystore.
+
+CAS D'USAGE TYPIQUES
+• Lire les SMS du téléphone professionnel depuis votre PC
+• Recevoir sur votre appareil principal les SMS d'un second téléphone
+• Garder vos messages importants synchronisés sur tous vos appareils
+</fr-FR>
+
+==================================================
+<de-DE>
+TITEL:
+smsTOmail - SMS per E-Mail
+
+KURZBESCHREIBUNG:
+Synchronisiere empfangene SMS per E-Mail auf all deinen anderen Geräten.
+
+VOLLSTÄNDIGE BESCHREIBUNG:
+smsTOmail synchronisiert die SMS, die du auf deinem Android-Telefon empfängst, mit all deinen anderen Geräten, indem sie in Echtzeit per E-Mail übertragen werden. Jede eingehende SMS wird automatisch an das von dir gewählte Postfach weitergeleitet: Lies sie sofort am PC, Tablet oder auf einem anderen Smartphone - wo immer du bist.
+
+SO FUNKTIONIERT ES
+1. Ziel-E-Mail konfigurieren (SMTP oder Gmail-Konto).
+2. SMS-Empfangsberechtigung erteilen.
+3. Fertig: Jede empfangene SMS landet auch in deinem Postfach, mit Absender, Text und Datum.
+
+FUNKTIONEN
+• Übertragung eingehender SMS per E-Mail in Echtzeit
+• Anpassbare Filter: Nachrichten nach Absender oder Stichwort ein- oder ausschließen
+• Verlauf der weitergeleiteten SMS mit Sendestatus
+• Anpassbare Signatur am Ende jeder E-Mail
+• Generische SMTP-Unterstützung (SSL/TLS) und Versand über Gmail
+• Kein dauerhafter Hintergrunddienst: schlank und effizient
+
+DATENSCHUTZ UND BERECHTIGUNGEN
+smsTOmail nutzt die SMS-Empfangsberechtigung (RECEIVE_SMS) ausschließlich für seine Kernfunktion: eingehende SMS abzufangen und per E-Mail auf deine Geräte zu übertragen. Die App liest nicht den vorhandenen SMS-Verlauf, sendet keine SMS in deinem Namen und teilt oder verkauft niemals Daten an Dritte. E-Mail-Zugangsdaten werden nur auf dem Gerät gespeichert, verschlüsselt mit dem Android Keystore.
+
+TYPISCHE ANWENDUNGSFÄLLE
+• SMS des Diensttelefons am PC lesen
+• SMS eines Zweittelefons auf dem Hauptgerät empfangen
+• Wichtige Nachrichten auf allen Geräten synchron halten
+</de-DE>
